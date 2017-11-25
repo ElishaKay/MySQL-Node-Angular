@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html ng-app="GXLeads">
+	<head>    
+
+        <% include partials/head %>
+    </head>
+<body ng-controller="mainController" >
+      
+       <% include partials/header %>
+
+   <div class="padding">
+            <!-- <div class="col-sm-12"> -->
+							 <!-- <div class="panel panel-default"> -->
+
+
+
+       <!--  <li>
+	      <span class="glyphicons glyphicons-leaf"></span> Share </a>
+		</li> -->
+
+<center>
+<button type="submit" class="btn btn-primary btn-lg" href="community#postModal" role="button" data-toggle="modal">Say Something</button>
+</center>
+<br>
+
+
+                          <!-- main col right -->
+            <div class="col-sm-6">
+              
+               <div class="panel panel-default">
+                               <hr>
+                               <center>
+                       
+                               
+                               </center> 
+                
+
+                              <center>
+
+                               hello
+                              </center>
+                              <hr></div>
+                              
+
+                                <% rows3.forEach(function(rows3) { %> 
+
+                                <div class="checkbox" >
+                                  <div class="panel panel-default">
+                                    <div class="panel-heading"><a href="#" class="pull-right" > </a> <h4><a href="#" > <%=rows3.client_email%> </a></h4></div>
+                                      <div class="panel-body">
+                                        <%=rows3.text%>
+                                        <div class="clearfix"></div><hr>
+                                        <form>
+                                            <div class="input-group">
+                                              <div class="input-group-btn">
+                                              
+                                              <button class="btn btn-default" >
+                                                <a href="/" ng-click="likepost(<%=rows3.post_id%>)">
+                                                <%=rows3.likes%> 
+                                                </a>
+                                              </button>
+                                              </div>
+                                              
+                                              <input type="text" class="form-control" placeholder="add comment" ng-model="formData.commenttext">
+                            
+                                            </div>
+                                            
+                                            <a href="#" ng-click="viewcomment(<%=rows3.post_id%>)"><center><span class="label label-primary"> show Comments</span></center></a>
+                                            <div ng-repeat="todo2 in comments">
+                                            <h4>
+                                              <div ng-if="todo2.idsi1 == <%=rows3.post_id%>">
+                                                -{{todo2.u}}
+                                              
+                                              <span class="label label-success">{{todo2.t}}</span>
+                                                  
+                                              </div>
+
+                                              </h4>
+                                            
+                                            </div>
+                                            <button type="submit" class="btn btn-default"><a href="/" ng-click="addcomment(<%=rows3.post_id%>)">Add</a></button>
+                                        </form>
+                                      </div>
+                                  </div>
+                                </div>
+                                <% }); %>
+
+                   
+                          
+                
+
+              </div>
+
+
+<!--post modal-->
+<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			Share 
+      </div>
+      <div class="modal-body">
+          <form class="form center-block">
+            <div class="form-group">
+              <textarea class="form-control input-lg" autofocus=""  placeholder="Text" ng-model="formData.gonderi_icerik"></textarea>
+            </div>
+          </form>
+		 
+      </div>
+      <div class="modal-footer">
+          <div>
+          <button type="submit" class="btn btn-primary btn-lg" data-dismiss="modal" aria-hidden="true" ng-click="createTodo()">Add</button>
+
+		  </div>	
+      </div>
+  </div>
+  </div>
+</div>
+
+<!-- Footer -->
+
+ <% include partials/footer %>

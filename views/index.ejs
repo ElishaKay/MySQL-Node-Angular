@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html ng-app="GXLeads">
+  <head>
+
+      <% include partials/head %>
+    
+  </head>
+<body ng-controller="mainController" >
+      
+       <% include partials/header %>
+
+         <div class="padding">
+
+            <div class="col-sm-12">
+							
+							 <div class="panel panel-default">
+                               
+                               <center>
+                       
+                               <!-- <hr> -->
+
+                               </center> 
+
+
+
+<div class="col-sm-3">
+<div class="form-group">
+<button ng-click="resetCampaign()">Reset</button>
+<select class="form-control input-lg" ng-change="campaignSelected()" ng-model="selectedCampaign">
+<option value="" disabled selected>Choose Campaign</option>
+<option ng-repeat="campaign in campaigns" value="{{campaign.campaign_name}}">{{campaign.campaign_name}}</option>
+</select>
+<!-- <p>selected campaign is: {{selectedCampaign}}</p> -->
+</div>
+</div>
+       
+
+          
+<div class="col-sm-3">
+<div class="form-group">
+<button ng-click="resetUser()">Reset</button>
+<select class="form-control input-lg" ng-change="userSelected()" ng-model="selectedUser">
+<option value="" disabled selected>Choose User</option>
+<option ng-repeat="user in users" value="{{user.fullname}}">{{user.fullname}}</option>
+</select>
+<!-- <p>selected user is: {{selectedUser}}</p> -->
+</div>
+</div>
+
+<!-- Choose past X days -->
+<div class="col-sm-3">
+<div class="form-group">
+<button ng-click="resetDay()">Reset</button>
+<select id="1-100" class="1-100 form-control input-lg" ng-change="daySelected()" ng-model="selectedDay">
+  <option value="" disabled selected>Choose Time</option>
+</select>
+</div>
+</div>
+</div>
+<center><button type="button" class="btn btn-primary btn-lg" ng-click="updateIframe()">Fetch My Data</button>
+</center>                     
+<!--  {{users}}      -->          
+             
+
+<!-- 
+To test the directive again, uncomment these lines, then add link to javasript page directives.js(found in header of this page) and step 3 is go to core.js and uncomment the top 2 lines - "var app = angular.module('GXLeads', ['app.directives']);"
+
+<my-dir></my-dir>
+Testing riccardo's stats view
+<div class="col-sm-12">
+<h2>Riccardo's iframe from core js</h2> 
+<div class="col-sm-12" ng-bind-html="html"></div>
+</div> -->
+
+<div  ui-view></div>
+
+
+
+
+
+     
+
+                           <div class="col-sm-12">
+ 							<div class="panel panel-default">
+                              <div class="panel-heading"><a href="#" class="pull-right"></a> <h4>Popular Posts from Help Center</h4></div>
+                                <div class="panel-body">
+                               	<div class="clearfix"></div>
+                                    
+                                    <ul class="list-unstyled">
+                                    <a href="http://help.growth-x.com/content-guidelines/what-is-the-best-approach-to-invite-others-to-connect-on-linkedin" class="list-group-item ">What is the best approach to invite others to connect on Linkedin?</a>
+                                    <a href="http://help.growth-x.com/mastering-search-url-s/the-basics-of-linkedin-search-and-the-growth-x-product" class="list-group-item ">How To Create the Right Search URL</a>
+                                    <a href="http://help.growth-x.com/the-abc-s-of-campaign-building/how-do-i-create-campaigns-which-will-generate-the-freshest-leads" class="list-group-item ">How do I create campaigns which will generate the freshest leads?</a>
+                                    <a href="http://help.growth-x.com/the-abc-s-of-campaign-building/how-to-organize-your-incoming-leads" class="list-group-item ">How To Organize Your Incoming Leads</a>
+                                    </ul>
+                              	
+                             
+                              	</div>
+                              </div>
+                              
+                           </div>
+
+
+                       </div>
+                      
+                        <!-- <div class="row">
+                          <div class="col-sm-6">
+                            <a href="https://twitter.com/kodizim">Twitter +</a> <small class="text-muted">|</small> <a href="https://www.facebook.com/kodizim/">Facebook +</a> <small class="text-muted">|</small> <a href="https://github.com/mustafa05deniz">Github  </a>
+                          </div>
+                        </div> -->
+                      
+                        <div class="row" id="footer">    
+                          <div class="col-sm-6">
+                            
+                          </div>
+                          <div class="col-sm-6">
+                            <p>
+                            <a href="#" class="pull-right">© 2017 </a>
+                            </p>
+                          </div>
+                        </div>
+                      
+                      <hr>
+                      
+                      <h4 class="text-center">
+                      <a href="http://growth-x.com/" target="ext">Growth-X.com</a>
+                      </h4>
+                        
+                      <hr>
+                        
+                      
+                    </div><!-- /col-9 -->
+                </div><!-- /padding -->
+            </div>
+            <!-- /main -->
+          
+        </div>
+    </div>
+</div> 
+
+
+ <% include partials/footer %>
