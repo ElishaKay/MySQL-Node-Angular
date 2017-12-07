@@ -32,8 +32,8 @@ app.post('/send', (req, res) => {
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 465,
-    secure: true, // true for 465, false for other ports
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
         user: process.env.EMAIL_ADDRESS, // generated ethereal user
         pass: process.env.EMAIL_PASSWORD  // generated ethereal password
@@ -76,8 +76,8 @@ app.post('/send', (req, res) => {
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // true for 465, false for other ports
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
             user: process.env.EMAIL_ADDRESS, // generated ethereal user
             pass: process.env.EMAIL_PASSWORD  // generated ethereal password
@@ -93,7 +93,7 @@ app.post('/send', (req, res) => {
        
         const output = `
         <p>You have a new contact request</p>
-        <h3>Contact Details</h3>
+        <h3>New Email</h3>
         <ul>  
           <li>Name: 'Muchacho'</li>
           <li>Even the HTML Formatiing works!!! Also sent via Node</li>
@@ -109,8 +109,8 @@ app.post('/send', (req, res) => {
       // setup email data with unicode symbols
       let mailOptions = {
           from: '"Nodemailer Contact" <your@email.com>', // sender address
-          to: 'kramer1346@gmail.com', // list of receivers
-          subject: 'Node Contact Request', // Subject line
+          to: 'alephmarketingpros@gmail.com', // list of receivers
+          subject: 'New Email', // Subject line
           text: rows[0].client_name, // plain text body
           html: output // html body
               };
