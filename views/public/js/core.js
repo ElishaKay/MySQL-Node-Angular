@@ -31,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/list2',
     templateUrl: 'home-list2.html',
   })
+    .state('home.community', {
+    url: '/community',
+    templateUrl: 'community',
+  })
   // .state('beer', {
   //     url: '/beers/:id', 
   //     controller: 'BeersCtrl',
