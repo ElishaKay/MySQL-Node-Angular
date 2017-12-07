@@ -54,7 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 function mainController($scope, $http, $sce, $document, socket){
         
-        $scope.formData2 = {};
+      var client_email = '';
 
           console.log('controller loaded - mainController');
 
@@ -99,7 +99,9 @@ function mainController($scope, $http, $sce, $document, socket){
     $scope.submitMessage = function(message){
         console.log('message submitted');
         console.log(message);
-         socket.emit('send message', message);
+        var data = {msg: message, user: $scope.client_email};
+        console.log('submit message function printing here: ',client_email);
+         socket.emit('send message', data);
           // message.val('');
          };
 
@@ -115,11 +117,11 @@ function mainController($scope, $http, $sce, $document, socket){
 
             socket.on('new message', function(data){
                 chat.append("<div class='well'><strong>hello</strong>" 
-                  +data);
+                  // +data);
 
 
-                //   + data.user +"</strong>: "
-                // + data.msg + "</div>");
+                  + data.user +"</strong>: "
+                + data.msg + "</div>");
             });
 
             // userForm.submit(function(e){
@@ -132,15 +134,6 @@ function mainController($scope, $http, $sce, $document, socket){
             //     });
             //     username.val('');
             // });
-
-
-            socket.on('get users', function(data){
-                var html = '';
-                for (i=0; i< data.length; i++){
-                    html += '<li class="list-group-item">'+ data[i] +'</li>' 
-                }
-                users.html(html) 
-            });
 
 
 
@@ -218,6 +211,7 @@ function mainController($scope, $http, $sce, $document, socket){
 		.success(function(data){
 			$scope.kullanici = data;
 			$scope.access_code = data[0].client_analytics_code;
+      $scope.client_email = data[0].client_email;
 			var access_code = $scope.access_code;
 			console.log("These are the user's details",data);
 			
