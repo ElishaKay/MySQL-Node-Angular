@@ -96,9 +96,10 @@ function mainController($scope, $http, $sce, $document, socket){
          };
 
 
-    $scope.submitMessage = function(){
+    $scope.submitMessage = function(message){
         console.log('message submitted');
-         socket.emit('send message', $scope.message);
+        console.log(message);
+         socket.emit('send message', message);
           // message.val('');
          };
 
@@ -113,7 +114,8 @@ function mainController($scope, $http, $sce, $document, socket){
 
 
             socket.on('new message', function(data){
-                chat.append("<div class='well'><strong>hello</strong>");
+                chat.append("<div class='well'><strong>hello</strong>" 
+                  +data);
 
 
                 //   + data.user +"</strong>: "
