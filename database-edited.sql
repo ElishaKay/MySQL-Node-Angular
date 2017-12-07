@@ -1,10 +1,10 @@
-
 CREATE TABLE `client` (
-  `client_id` int(11) UNSIGNED NOT NULL,
+  `client_id` int(11) UNSIGNED NOT NULL auto_increment,
   `client_name` varchar(50) DEFAULT NULL,
   `client_email` varchar(100) DEFAULT NULL,
   `client_password` varchar(100) DEFAULT NULL,
-  `client_analytics_code` varchar(50) DEFAULT NULL
+  `client_analytics_code` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (client_id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -32,3 +32,6 @@ create table comment (
     foreign key(client_id) references client(client_id),
     foreign key(post_id) references post(post_id)
 );
+
+
+INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')

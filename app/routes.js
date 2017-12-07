@@ -89,7 +89,7 @@ app.post('/send', (req, res) => {
 
 
 // Pass in the client id here - in this case 404 (Hannah)
-        connection.query('select * from client where client_id = ?',404, function (err, rows) {
+        connection.query('select * from client where client_id = ?',1, function (err, rows) {
        
         const output = `
         <p>You have a new contact request</p>
