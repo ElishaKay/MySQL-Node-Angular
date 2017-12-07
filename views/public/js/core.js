@@ -1,99 +1,15 @@
-/* @ngInject */
-  function $socketProvider() {
-    var ioUrl = '';
-    var ioConfig = {};
 
-    // Private Function to assign properties to ioConfig
-    function setOption(name, value, type) {
-      if (typeof value !== type)
-        throw new TypeError('\'' + name + '\' must be of type \'' + type + '\'');
-      else
-        ioConfig[name] = value;
-    }
 
-    this.$get = function $socketFactory($rootScope) {
-      var socket = io(ioUrl, ioConfig);
-
-      return {
-        on: function on(event, callback) {
-          socket.on(event, function() {
-            var resData = arguments;
-
-            $rootScope.$apply(function() {
-              callback.apply(socket, resData);
-            });
-          });
-        },
-        off: function off(event, callback) {
-          if (typeof callback === 'function')
-            socket.removeListener(event, callback);
-          else
-            socket.removeAllListeners(event);
-        },
-        emit: function emit(event, data, callback) {
-          if (typeof callback === 'function') {
-            socket.emit(event, data, function() {
-              callback.apply(socket, arguments);
-            });
-          }
-          else
-            socket.emit(event, data);
-        }
-      };
-    };
-
-    this.setConnectionUrl = function setConnectionUrl(url) {
-      if (typeof url === 'string')
-        ioUrl = url;
-      else
-        throw new TypeError('url must be of type string');
-    };
-
-    this.setPath = function setPath(value) {
-      setOption('path', value, 'string');
-    };
-
-    this.setConnectTimeout = function setConnectTimeout(value) {
-      setOption('connect timeout', value, 'number');
-    };
-
-    this.setTryMultipleTransports = function setTryMultipleTransports(value) {
-      setOption('try multiple transports', value, 'boolean');
-    };
-
-    this.setReconnect = function setReconnect(value) {
-      setOption('reconnect', value, 'boolean');
-    };
-
-    this.setReconnectionDelay = function setReconnectionDelay(value) {
-      setOptions('reconnection delay', value, 'number');
-    };
-
-    this.setReconnectionLimit = function setReconnectionLimit(value) {
-      setOptions('max reconnection attempts', value, 'number');
-    };
-
-    this.setSyncDisconnectOnUnload = function setSyncDisconnectOnUnload(value) {
-      setOptions('sync disconnect on unload', value, 'boolean');
-    };
-
-    this.setAutoConnect = function setAutoConnect(value) {
-      setOptions('auto connect', value, 'boolean');
-    };
-
-    this.setFlashPolicyPort = function setFlashPolicyPort(value) {
-      setOptions('flash policy port', value, 'number');
-    };
-
-    this.setForceNewConnection = function setForceNewConnection(value) {
-      setOptions('force new connection', value, 'boolean');
-    };
-  };
+          
 
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
-var app = angular.module('GXLeads', ['ui.router'])
-	.provider('$socket', $socketProvider);
+var app = angular.module('GXLeads', ['ui.router',
+    'GXLeads.services',
+    'GXLeads.filters',
+    'GXLeads.directives',
+    'btford.socket-io'
+  ]);
 
 // Beginning of router
 
@@ -136,10 +52,89 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-function mainController($scope, $http, $sce, $document){
-	
+function mainController($scope, $http, $sce, $document, socket, $log){
+        
+        $scope.username = {};
+          console.log('controller loaded - mainController');
+
+              console.log('this is the controller in socket.io');
+            // var socket = io.connect();
+            $scope.messageForm = document.getElementById('messageForm');
+            $scope.message = document.getElementById('message');
+            $scope.chat = document.getElementById('chat');
+            $scope.messageArea = document.getElementById('messageArea');
+            $scope.userFormArea = document.getElementById('userFormArea');
+            $scope.userForm = document.getElementById('userForm');
+            $scope.users = document.getElementById('users');
+            $scope.username = document.getElementById('username');
+
+            var addOnlineUser = function(username){
+                
+              console.log(username);
+                // $scope.onlineUsers = data + 'Leesh is here'; 
+                }
 
 
+            // logic for socket messages
+     $scope.submitUsername = function(){
+        console.log('username submitted');
+        // socket.emit('new user', username.val(), function(data){
+        socket.emit('new user', $scope.username, function(data){
+                if(data){
+                    $scope.userFormArea.hide();
+                    $scope.messageArea.show();
+                    }
+                });
+
+        addOnlineUser($scope.username);
+         // username.val('');
+         };
+
+
+    $scope.submitMessage = function(){
+        console.log('message submitted');
+         socket.emit('send message', message.val());
+          message.val('');
+         };
+
+
+       
+            // messageForm.submit(function(e){
+            //     e.preventDefault();
+            //     socket.emit('send message', message.val());
+            //     message.val('');
+            // });
+
+
+
+            socket.on('new message', function(data){
+                chat.append('<div class="well"><strong>'+ data.user +'</strong>: '
+                + data.msg + '</div>');
+            });
+
+            // userForm.submit(function(e){
+            //     e.preventDefault();
+            //     socket.emit('new user', username.val(), function(data){
+            //         if(data){
+            //             userFormArea.hide();
+            //             messageArea.show();
+            //         }
+            //     });
+            //     username.val('');
+            // });
+
+
+            socket.on('get users', function(data){
+                var html = '';
+                for (i=0; i< data.length; i++){
+                    html += '<li class="list-group-item">'+ data[i] +'</li>' 
+                }
+                users.html(html) 
+            });
+
+
+
+	          
 
 // Original controller below here:
 	$scope.formData = {};
