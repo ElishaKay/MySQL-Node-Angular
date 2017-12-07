@@ -52,10 +52,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-function mainController($scope, $http, $sce, $document, socket, $log){
+function mainController($scope, $http, $sce, $document, socket){
         
-        $scope.username = {};
+        $scope.formData2 = {};
+
           console.log('controller loaded - mainController');
+
+        
 
               console.log('this is the controller in socket.io');
             // var socket = io.connect();
@@ -79,22 +82,24 @@ function mainController($scope, $http, $sce, $document, socket, $log){
      $scope.submitUsername = function(){
         console.log('username submitted');
         // socket.emit('new user', username.val(), function(data){
-        socket.emit('new user', $scope.username, function(data){
-                if(data){
-                    $scope.userFormArea.hide();
-                    $scope.messageArea.show();
+        socket.emit('new user', $scope.username, function(username){
+                if(username){
+                    console.log('this is the data from the browser: ',$scope.username)
+                    userFormArea.hide();
+                    messageArea.show();
+                    return $scope.username;
                     }
                 });
 
-        addOnlineUser($scope.username);
+        
          // username.val('');
          };
 
 
     $scope.submitMessage = function(){
         console.log('message submitted');
-         socket.emit('send message', message.val());
-          message.val('');
+         socket.emit('send message', $scope.message);
+          // message.val('');
          };
 
 
@@ -108,8 +113,11 @@ function mainController($scope, $http, $sce, $document, socket, $log){
 
 
             socket.on('new message', function(data){
-                chat.append('<div class="well"><strong>'+ data.user +'</strong>: '
-                + data.msg + '</div>');
+                chat.append("<div class='well'><strong>hello</strong>");
+
+
+                //   + data.user +"</strong>: "
+                // + data.msg + "</div>");
             });
 
             // userForm.submit(function(e){

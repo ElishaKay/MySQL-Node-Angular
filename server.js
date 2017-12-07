@@ -78,9 +78,11 @@ io.sockets.on('connection', function(socket){
     // new user
     socket.on('new user', function(data, callback){
         callback(true);
+        console.log('the server knows that a username has been submmitted',data);
         socket.username = data;
         users.push(socket.username);
         updateUsernames();
+        console.log('this is the users array',users);
     });
 
     function updateUsernames(){

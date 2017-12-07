@@ -14,12 +14,12 @@
     <div class= "container">
         <div id="userFormArea" class="row">
             <div class="col-md-12">
-             <form ng-submit="submitUsername()" ng-model='onlineUsers' id="userForm">
+             <form ng-submit="submitUsername()" ng-model='formData2.username' id="userForm">
                 <div class="form-group">
                     <label>Enter Username</label>
-                    <input ng-model="username" class="form-control" id="username"></input>
+                    <input ng-model="formData2.username" class="form-control" id="username"></input>
                     <br />
-                    <input type="submit" class="btn btn-primary" value="Login" />
+                    <input ng-click="addOnlineUser('{{formData2.username}}')" type="submit" class="btn btn-primary" value="Login" />
                     </div>
               </form>
             </div>
@@ -30,7 +30,7 @@
                 <div class="well">
                     <h3>Online Users</h3>
                     <ul class="list-group" id="users">
-                      <li>{{username}}</li>
+                      <li>{{formData2.username}}</li>
                     </ul>
                 </div>        
             </div>
@@ -40,7 +40,7 @@
                <form ng-submit="submitMessage()" id="messageForm">
                 <div class="form-group">
                     <label>Enter Message</label>
-                    <textarea class="form-control" id="message"></textarea>
+                    <textarea ng-model="message" class="form-control" id="message"></textarea>
                     <br />
                     <input type="submit" class="btn btn-primary" value="Send Message" />
                     </div>
