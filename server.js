@@ -16,10 +16,10 @@ var j = schedule.scheduleJob('42 * * * *', function(){
 });
 
 // For deployment
-// var port     = process.env.PORT || 80;
+var port     = process.env.PORT || 80;
 
 // for development
-var port     = 8000;
+// var port     = 8000;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
