@@ -1,6 +1,5 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 
-
+<!-- 
    <style>
             body {
                 margin-top: 30px;
@@ -9,6 +8,12 @@
                 display: none;
             }*/
         </style>
+ -->
+
+<main-area>
+  </main-area>
+
+
 
 
     <div class= "container">
@@ -19,7 +24,10 @@
                 <div class="well">
                     <h3>Online Users</h3>
                     <ul class="list-group" id="users">
-                      <li>{{username}}</li>
+                  
+                    <!--    <option ng-repeat="campaign in campaigns" value="{{campaign.campaign_name}}">{{campaign.campaign_name}}</option>
+                    -->
+                      <li ng-repeat="onlineUser in onlineUsers">{{onlineUser.person}}</li>
                     </ul>
                 </div>        
             </div>
@@ -31,7 +39,7 @@
                     <label>Enter Message</label>
                     <textarea ng-model="message" class="form-control" id="message"></textarea>
                     <br />
-                    <input mg-model="message" type="submit" class="btn btn-primary" value="Send Message" />
+                    <input ng-model="message" type="submit" class="btn btn-primary" value="Send Message" />
                     </div>
               </form>
             </div>

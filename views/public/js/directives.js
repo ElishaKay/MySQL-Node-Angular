@@ -2,9 +2,23 @@
 
 /* Directives */
 
+
 angular.module('GXLeads.directives', []).
-  directive('appVersion', function (version) {
-    return function(scope, elm, attrs) {
-      elm.text(version);
-    };
-  });
+	directive('mainArea', function() {
+    return {
+        restrict: "E",
+        template: "<div>"+
+            "<div id='mainDiv'> </div>" +
+            "<button data-ng-click='append()'>Add</button>" +
+        "</div>",
+        controller: function($scope, $element, $attrs) {
+            $scope.append = function() {
+                var p = angular.element("<p />");
+                p.text("Appended");
+                $element.find("div").append(p);
+            }
+        }
+    }
+});
+            
+

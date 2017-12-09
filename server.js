@@ -56,7 +56,10 @@ if (app.get('env') === 'production') {
 users = [];
 connections = [];
 
+
 io.sockets.on('connection', function(socket){
+
+
     connections.push(socket);
     console.log("connected: % of sockets connected", connections.length);
     
@@ -65,22 +68,22 @@ io.sockets.on('connection', function(socket){
     //Disconnect
     socket.on('disconnect', function(data){
         users.splice(users.indexOf(socket.username), 1);
-        updateUsernames();
+    //     updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
         console.log('Disconnected % of sockets connected', connections.length);        
     });
 
     //Message
     socket.on('send message', function(data){
-       // io.sockets.emit('new message', data);
         io.sockets.emit('new message', data);
         // io.sockets.emit('new message', {msg: data, user: socket.username});
     });
     
     // new user
-    socket.on('new user', function(data, callback){
-        callback(true);
+    socket.on('new user', function(data){
         console.log('the server knows that a username has been submmitted',data);
+        // io.sockets.emit('get users', users)
+
         socket.username = data;
         users.push(socket.username);
         updateUsernames();
