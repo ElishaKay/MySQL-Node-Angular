@@ -114,7 +114,7 @@ var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life, the universe, and everything!');
 });
 
-// For deployment
+// For deployment time
 var port     = process.env.PORT || 80;
 
 // for development
