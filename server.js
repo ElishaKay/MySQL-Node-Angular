@@ -26,7 +26,13 @@ var io = require('socket.io').listen(server);
  */
 
 // all environments
-app.set('port', process.env.PORT || 8000);
+//for development
+// app.set('port', process.env.PORT || 8000);
+
+// for heroku
+app.set('port', process.env.PORT || 80);
+
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 // app.use(express.logger('dev'));

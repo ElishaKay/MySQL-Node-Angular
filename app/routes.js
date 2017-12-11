@@ -106,7 +106,7 @@ app.post('/send', (req, res) => {
       let mailOptions = {
           from: '"Nodemailer Contact" <your@email.com>', // sender address
           to: 'alephmarketingpros@gmail.com', // list of receivers
-          subject: 'New Email', // Subject line
+          subject: 'Heroku Test', // Subject line
           text: rows[0].client_name, // plain text body
           html: output // html body
               };
