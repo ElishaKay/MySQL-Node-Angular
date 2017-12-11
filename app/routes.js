@@ -64,7 +64,7 @@ app.post('/send', (req, res) => {
 
 // Sending at specific time:
      
-    var j = schedule.scheduleJob('* * * * * *', function(){
+    // var j = schedule.scheduleJob('* * * * * *', function(){
       console.log('The answer to life, the universe, and everything!');
 
 
