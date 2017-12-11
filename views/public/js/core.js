@@ -1,6 +1,16 @@
+
+
+          
+
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
-var app = angular.module('GXLeads', ['ui.router']);
+var app = angular.module('GXLeads', ['ui.router',
+    'GXLeads.services',
+    'GXLeads.filters',
+    'btford.socket-io',
+    'GXLeads.directives',
+    
+  ]);
 
 // Beginning of router
 
@@ -21,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home.list2', {
     url: '/list2',
     templateUrl: 'home-list2.html',
+  })
+    .state('home.community', {
+    url: '/community',
+    templateUrl: 'community',
   })
   // .state('beer', {
   //     url: '/beers/:id', 
@@ -43,10 +57,77 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 
-function mainController($scope, $http, $sce, $document){
-	
+function mainController($scope, $http, $sce, $document, socket){
+    
+    	
+
+	      var client_email = '';
+
+          console.log('controller loaded - mainController');   
+
+            console.log('this is the controller in socket.io');
+            $scope.messageForm = document.getElementById('messageForm');
+            $scope.message = document.getElementById('message');
+            $scope.chat = document.getElementById('chat');
+            $scope.messageArea = document.getElementById('messageArea');
+            $scope.userFormArea = document.getElementById('userFormArea');
+            $scope.userForm = document.getElementById('userForm');
+            $scope.users = document.getElementById('users');
+            $scope.username = document.getElementById('username');
+
+          
+
+       // userForm.submit(function(e){
+            //     e.preventDefault();
+            //     socket.emit('new user', username.val(), function(data){
+            //         if(data){
+            //             userFormArea.hide();
+            //             messageArea.show();
+            //         }
+            //     });
+            //     username.val('');
+            // });
 
 
+
+
+
+
+
+
+var init = function (client_email) {
+   
+		};
+
+init();
+
+
+
+    $scope.submitMessage = function(message){
+        console.log('message submitted');
+        console.log(message);
+        var data = {msg: message, user: $scope.client_email};
+        console.log('this is the submitmessage object',data);
+         socket.emit('send message', data);
+         };
+
+
+       
+        socket.on('new message', function(data){
+            chat.append("<div class='well'><strong>hello</strong>" 
+                + data.user +"</strong>: "
+                + data.msg + "</div>");
+        });
+
+
+        socket.on('get users', function(data){
+        	$scope.onlineUsers = data;
+        });
+     
+
+
+
+	          
 
 // Original controller below here:
 	$scope.formData = {};
@@ -120,6 +201,12 @@ function mainController($scope, $http, $sce, $document){
 		.success(function(data){
 			$scope.kullanici = data;
 			$scope.access_code = data[0].client_analytics_code;
+     		$scope.client_email = data[0].client_email;
+			console.log('username submitted');
+    		var usersocket = {person: $scope.client_email};
+		    console.log('tis is the submit user data object', usersocket)
+		    socket.emit('new user', usersocket);
+
 			var access_code = $scope.access_code;
 			console.log("These are the user's details",data);
 			

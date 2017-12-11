@@ -40,7 +40,8 @@ module.exports = function(passport) {
 
                     var newUserMysql = {
                         username: username,
-                        password: bcrypt.hashSync(password, null, null)
+                        // password: bcrypt.hashSync(password, null, null)
+                        password: password
                     };
 
                     var insertQuery = "INSERT INTO client ( client_email, client_password ) values (?,?)";

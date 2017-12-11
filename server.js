@@ -10,7 +10,100 @@ var morgan = require('morgan');
 var app      = express();
 var nodemailer = require('nodemailer');
 var schedule = require('node-schedule');
- 
+
+var express = require('express'),
+  http = require('http'),
+  path = require('path');
+
+var app = module.exports = express();
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
+
+
+
+/**
+ * Configuration
+ */
+
+// all environments
+app.set('port', process.env.PORT || 8000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+// app.use(express.logger('dev'));
+// app.use(express.bodyParser());
+// app.use(express.methodOverride());
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(app.router);
+
+// development only
+// if (app.get('env') === 'development') {
+//   app.use(express.errorHandler());
+// }
+
+// production only
+if (app.get('env') === 'production') {
+  // TODO
+};
+
+
+/**
+ * Routes
+ */
+
+// Socket.io Communication
+// io.sockets.on('connection', require('./routes/socket'));
+
+users = [];
+connections = [];
+
+
+io.sockets.on('connection', function(socket){
+
+
+    connections.push(socket);
+    console.log("connected: % of sockets connected", connections.length);
+    
+    console.log('this is the server talking');
+
+    //Disconnect
+    socket.on('disconnect', function(data){
+        users.splice(users.indexOf(socket.username), 1);
+    //     updateUsernames();
+        connections.splice(connections.indexOf(socket), 1);
+        console.log('Disconnected % of sockets connected', connections.length);        
+    });
+
+    //Message
+    socket.on('send message', function(data){
+        io.sockets.emit('new message', data);
+        // io.sockets.emit('new message', {msg: data, user: socket.username});
+    });
+    
+    // new user
+    socket.on('new user', function(data){
+        console.log('the server knows that a username has been submmitted',data);
+        // io.sockets.emit('get users', users)
+
+        socket.username = data;
+        users.push(socket.username);
+        updateUsernames();
+        console.log('this is the users array',users);
+    });
+
+    function updateUsernames(){
+        io.sockets.emit('get users', users)
+    } 
+});
+
+/**
+ * Start Server
+ */
+
+server.listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + app.get('port'));
+});
+
+
 var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life, the universe, and everything!');
 });
@@ -55,5 +148,5 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(port);
+// app.listen(port);
 console.log('App is running on localhost:' + port);

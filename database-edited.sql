@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 12a74944f24f48883a172fbad76a11f07a0c6f13
 CREATE TABLE `client` (
   `client_id` int(11) UNSIGNED NOT NULL auto_increment,
   `client_name` varchar(50) DEFAULT NULL,
@@ -34,4 +40,8 @@ create table comment (
 );
 
 
+<<<<<<< HEAD
 INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')
+=======
+INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')
+>>>>>>> 12a74944f24f48883a172fbad76a11f07a0c6f13

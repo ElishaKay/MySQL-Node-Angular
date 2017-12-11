@@ -31,12 +31,10 @@ app.post('/send', (req, res) => {
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // true for 465, false for other ports
+    service: 'Mailgun',
     auth: {
-        user: process.env.EMAIL_ADDRESS, // generated ethereal user
-        pass: process.env.EMAIL_PASSWORD  // generated ethereal password
+        user: process.env.MAILGUN_USER, // generated ethereal user
+        pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
     },
     tls:{
       rejectUnauthorized:false
@@ -45,9 +43,9 @@ app.post('/send', (req, res) => {
 
   // setup email data with unicode symbols
   let mailOptions = {
-      from: '"Nodemailer Contact" <your@email.com>', // sender address
+      from: '"Growth-X Team" <help@growth-x.com>', // sender address
       to: req.body.email, // list of receivers
-      subject: 'Node Contact Request', // Subject line
+      subject: 'Hey from GX', // Subject line
       text: 'Hello world?', // plain text body
       html: output // html body
   };
@@ -75,13 +73,11 @@ app.post('/send', (req, res) => {
 
       // create reusable transporter object using the default SMTP transport
       let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: process.env.EMAIL_ADDRESS, // generated ethereal user
-            pass: process.env.EMAIL_PASSWORD  // generated ethereal password
-        },
+       service: 'Mailgun',
+       auth: {
+             user: process.env.MAILGUN_USER, // generated ethereal user
+             pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
+             },
         tls:{
           rejectUnauthorized:false
         }
