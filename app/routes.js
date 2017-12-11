@@ -48,7 +48,7 @@ module.exports = function(app,passport) {
     // Send email
 
 
-// Sending email immediately based on User Input - like contact form
+// Sending email immediately based on User Input - like contact form - from client
 
   // const output = `
   //   <p>You have a new contact request</p>
