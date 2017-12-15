@@ -114,9 +114,11 @@ init();
 
        
         socket.on('new message', function(data){
-            chat.append("<div class='well'><strong>hello</strong>" 
-                + data.user +"</strong>: "
-                + data.msg + "</div>");
+            $scope.chatMessages = data;
+
+            // chat.append($("<div class='well'><strong>hello</strong>" 
+            //     + data.user +"</strong>: "
+            //     + data.msg + "</div>"));
         });
 
 
@@ -206,7 +208,7 @@ init();
     		var usersocket = {person: $scope.client_email};
 		    console.log('tis is the submit user data object', usersocket)
 		    socket.emit('new user', usersocket);
-
+		    
 			var access_code = $scope.access_code;
 			console.log("These are the user's details",data);
 			

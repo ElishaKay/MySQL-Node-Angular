@@ -59,6 +59,7 @@ if (app.get('env') === 'production') {
 // Socket.io Communication
 // io.sockets.on('connection', require('./routes/socket'));
 
+messages = [];
 users = [];
 connections = [];
 
@@ -81,7 +82,8 @@ io.sockets.on('connection', function(socket){
 
     //Message
     socket.on('send message', function(data){
-        io.sockets.emit('new message', data);
+        messages.push(data);
+        io.sockets.emit('new message', messages);
         // io.sockets.emit('new message', {msg: data, user: socket.username});
     });
     
@@ -93,11 +95,17 @@ io.sockets.on('connection', function(socket){
         socket.username = data;
         users.push(socket.username);
         updateUsernames();
+        updateMessages(messages);
         console.log('this is the users array',users);
     });
 
     function updateUsernames(){
         io.sockets.emit('get users', users)
+    } 
+
+    function updateMessages(messages){
+        io.sockets.emit('new message', messages);
+        console.log('running updateMessages function');
     } 
 });
 
