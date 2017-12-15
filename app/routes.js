@@ -1,3 +1,7 @@
+// email template ======================================================================
+// require('./views/partials/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
+
 var dbconfig = require('../config/database');
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbconfig.connection); 

@@ -153,9 +153,14 @@ init();
 
 
 
-	$scope.createTodo = function() { 
+	$scope.createtodo = function() { 
 		$http.post('/api/todos', $scope.formData)
 			.success(function(data) {
+				// var myElement = angular.element( document.querySelector( '#theposts' ) );
+				// myElement.prepend();
+				var $postChain = $("#postChain");
+				$postChain.append($("<p>" + $scope.formData + "</p>"));
+
 				$scope.formData = {}; // clear the form so our user is ready to enter another
 				$scope.gonderi = data;
 				console.log(data);
