@@ -364,6 +364,10 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
+    app.get('/search', function(req, res) {
+        res.render('search.ejs');   
+    });    
+
 
     app.get('/community', function(req, res) {
         var row = [];
