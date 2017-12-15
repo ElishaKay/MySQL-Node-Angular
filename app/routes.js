@@ -452,7 +452,7 @@ module.exports = function(app,passport) {
                         row[i] = rows[i];
                     }  
                 }
-                console.log(row);
+             
                 
             }
             res.json(rows);

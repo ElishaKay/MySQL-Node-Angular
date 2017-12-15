@@ -35,16 +35,7 @@ app.set('port', process.env.PORT || 8000);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-// app.use(express.logger('dev'));
-// app.use(express.bodyParser());
-// app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(app.router);
-
-// development only
-// if (app.get('env') === 'development') {
-//   app.use(express.errorHandler());
-// }
 
 // production only
 if (app.get('env') === 'production') {
@@ -57,7 +48,6 @@ if (app.get('env') === 'production') {
  */
 
 // Socket.io Communication
-// io.sockets.on('connection', require('./routes/socket'));
 
 messages = [];
 users = [];
@@ -74,8 +64,10 @@ io.sockets.on('connection', function(socket){
 
     //Disconnect
     socket.on('disconnect', function(data){
+        console.log('this is the socket.username.person',socket.username);
+
         users.splice(users.indexOf(socket.username), 1);
-    //     updateUsernames();
+        updateUsernames();
         connections.splice(connections.indexOf(socket), 1);
         console.log('Disconnected % of sockets connected', connections.length);        
     });
@@ -84,14 +76,10 @@ io.sockets.on('connection', function(socket){
     socket.on('send message', function(data){
         messages.push(data);
         io.sockets.emit('new message', messages);
-        // io.sockets.emit('new message', {msg: data, user: socket.username});
     });
     
     // new user
     socket.on('new user', function(data){
-        console.log('the server knows that a username has been submmitted',data);
-        // io.sockets.emit('get users', users)
-
         socket.username = data;
         users.push(socket.username);
         updateUsernames();
@@ -105,7 +93,6 @@ io.sockets.on('connection', function(socket){
 
     function updateMessages(messages){
         io.sockets.emit('new message', messages);
-        console.log('running updateMessages function');
     } 
 });
 
@@ -136,7 +123,7 @@ console.log(process.env.HOST);
 require('./config/passport.js')(passport); 
 
 
-app.use(morgan('dev')); // log every request to the console
+// app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     extended: true
