@@ -36,6 +36,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/community',
     templateUrl: 'community',
   })
+    .state('home.search', {
+    url: '/search',
+    templateUrl: 'search',
+  })
   // .state('beer', {
   //     url: '/beers/:id', 
   //     controller: 'BeersCtrl',
@@ -58,8 +62,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 
 function mainController($scope, $http, $sce, $document, socket){
-    
-    	
+	    
+	  $scope.sortType     = 'name'; // set the default sort type
+	  $scope.sortReverse  = false;  // set the default sort order
+	  $scope.searchFish   = '';     // set the default search/filter term
+	  
+	  // create the list of sushi rolls 
+	  $scope.sushi = [
+	    { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
+	    { name: 'Philly', fish: 'Tuna', tastiness: 4 },
+	    { name: 'Tiger', fish: 'Eel', tastiness: 7 },
+	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
+	  ];
 
 	      var client_email = '';
 
@@ -208,7 +222,7 @@ init();
     		var usersocket = {person: $scope.client_email};
 		    console.log('tis is the submit user data object', usersocket)
 		    socket.emit('new user', usersocket);
-		    
+
 			var access_code = $scope.access_code;
 			console.log("These are the user's details",data);
 			
