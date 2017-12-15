@@ -32,7 +32,11 @@
                 </div>        
             </div>
             <div class="col-md-8">
-              <div class="chat" id="chat"></div>
+              <div class="chat" id="chat">
+                <ul>
+                    <li ng-repeat="chatMessage in chatMessages">{{chatMessage.user}}: </strong>{{chatMessage.msg}}</li>
+                 <ul> 
+              </div>
               
                <form ng-submit="submitMessage(message)" id="messageForm">
                 <div class="form-group">
