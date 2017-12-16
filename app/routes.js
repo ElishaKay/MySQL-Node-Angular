@@ -54,6 +54,15 @@ module.exports = function(app,passport) {
 
 
 
+     // Get rows for the logged in user's messages
+    app.get('/api/messages',isLoggedIn,function(req,res){
+        var row = [];
+        connection.query('select * from message m inner join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
+            res.json(rows);
+        });
+      
+    });
+
       // Get row for the logged in user (i.e. client)
     app.get('/api/user',isLoggedIn,function(req,res){
         var row = [];
@@ -133,7 +142,7 @@ module.exports = function(app,passport) {
     app.post('/api/newmessage', function(req,res){
         console.log(req.body.message);
         debugger;
-        connection.query('INSERT INTO message (message_content, client_id) VALUES ("'+req.body.message+'","' +req.user.client_id+'")');
+        connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
         // connection.query('insert into comment(text,client_id,post_id) values("'+comment+'","'+req.user.client_id+'","'+postID+'")')
    
 

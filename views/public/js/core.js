@@ -86,21 +86,34 @@ function mainController($scope, $http, $sce, $document, socket){
 
 	init();
 
+	$scope.reverse = true;
 	
+	// Load exisiting messages
+	$http.get('/api/messages')
+		.success(function(data){
+			$scope.messages = data;
+			console.log('these are all the messages',$scope.messages);
+        	})
+		.error(function(data){
+			console.log('couldn\'t load data');
+			});
+
 
 
 
     $scope.submitMessage = function(messageData){
         console.log('message submitted');
         console.log('This is the messageData object:',messageData);
-        var data = {msg: $scope.messageData.message, user: $scope.client_email};
+        var date = new Date();
+
+        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 
          // Saving to DB via routes.js
          $http.post('/api/newmessage', $scope.messageData)
 			.success(function(data) {
-				 delete $scope.messageData;
+				 $scope.messageData = {};
 		 // clear the form so our user is ready to enter another		
 			})
 			.error(function(data) {

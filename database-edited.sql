@@ -41,6 +41,7 @@ CREATE TABLE `message` (
   `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `message_content` longtext,
   `client_id` int(11) unsigned DEFAULT NULL,
+  `message_sent_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `client_id message_idx` (`client_id`),
   CONSTRAINT `client_id message` FOREIGN KEY (`client_id`) 
