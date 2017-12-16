@@ -75,9 +75,9 @@ function mainController($scope, $http, $sce, $document, socket){
 	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
 	  ];
 
-	  $scope.message = {};
+	  $scope.messageData = {};
 
-	      var client_email = '';
+	  var client_email = '';
 
         
 	var init = function (client_email) {
@@ -90,16 +90,17 @@ function mainController($scope, $http, $sce, $document, socket){
 
 
 
-    $scope.submitMessage = function(message){
+    $scope.submitMessage = function(messageData){
         console.log('message submitted');
-        console.log(message);
-        var data = {msg: message, user: $scope.client_email};
+        console.log('This is the messageData object:',messageData);
+        var data = {msg: $scope.messageData.message, user: $scope.client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 
          // Saving to DB via routes.js
-         $http.post('/api/newmessage')
+         $http.post('/api/newmessage', $scope.messageData)
 			.success(function(data) {
+				 delete $scope.messageData;
 		 // clear the form so our user is ready to enter another		
 			})
 			.error(function(data) {
