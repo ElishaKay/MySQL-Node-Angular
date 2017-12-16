@@ -9,7 +9,7 @@ var urlencodedparser = bodyParser.urlencoded({extended:false});
 module.exports = function(app,passport) {
 
 
-      app.get('/',isLoggedIn,function(req,res){
+    app.get('/',isLoggedIn,function(req,res){
         res.render('index.ejs'); 
     });
 
@@ -129,6 +129,13 @@ module.exports = function(app,passport) {
             
         });
     });
+
+    app.post('/api/newmessage', function(req,res){
+        connection.query("INSERT INTO message (message_content, client_id) VALUES ('ELISHA HERE'," +req.user.client_id+")");
+           
+
+        res.render('index.ejs'); 
+      });
 
     app.post('/api/todos',function(req,res){
         var row = [];

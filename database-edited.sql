@@ -7,6 +7,7 @@ CREATE TABLE `client` (
   `client_email` varchar(100) DEFAULT NULL,
   `client_password` varchar(100) DEFAULT NULL,
   `client_analytics_code` varchar(50) DEFAULT NULL,
+  `client_creation_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (client_id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -36,5 +37,14 @@ create table comment (
     foreign key(post_id) references post(post_id)
 );
 
+CREATE TABLE `message` (
+  `message_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `message_content` longtext,
+  `client_id` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`message_id`),
+  KEY `client_id message_idx` (`client_id`),
+  CONSTRAINT `client_id message` FOREIGN KEY (`client_id`) 
+  REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')

@@ -75,45 +75,18 @@ function mainController($scope, $http, $sce, $document, socket){
 	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
 	  ];
 
+	  $scope.message = {};
+
 	      var client_email = '';
 
-          console.log('controller loaded - mainController');   
+        
+	var init = function (client_email) {
+	   
+			};
 
-            console.log('this is the controller in socket.io');
-            $scope.messageForm = document.getElementById('messageForm');
-            $scope.message = document.getElementById('message');
-            $scope.chat = document.getElementById('chat');
-            $scope.messageArea = document.getElementById('messageArea');
-            $scope.userFormArea = document.getElementById('userFormArea');
-            $scope.userForm = document.getElementById('userForm');
-            $scope.users = document.getElementById('users');
-            $scope.username = document.getElementById('username');
+	init();
 
-          
-
-       // userForm.submit(function(e){
-            //     e.preventDefault();
-            //     socket.emit('new user', username.val(), function(data){
-            //         if(data){
-            //             userFormArea.hide();
-            //             messageArea.show();
-            //         }
-            //     });
-            //     username.val('');
-            // });
-
-
-
-
-
-
-
-
-var init = function (client_email) {
-   
-		};
-
-init();
+	
 
 
 
@@ -123,7 +96,16 @@ init();
         var data = {msg: message, user: $scope.client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
-         };
+
+         // Saving to DB via routes.js
+         $http.post('/api/newmessage')
+			.success(function(data) {
+		 // clear the form so our user is ready to enter another		
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+    };
 
 
        
@@ -166,6 +148,7 @@ init();
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
+
 
 
 
