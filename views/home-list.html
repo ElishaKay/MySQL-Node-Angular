@@ -44,14 +44,14 @@
 
               <div class="brandnewchats" id="chat">
                 <ul>
-                    <li ng-repeat="chatMessage in chatMessages">{{chatMessage.user}}: </strong>{{chatMessage.msg}}</li>
+                    <li ng-repeat="chatMessage in chatMessages | orderBy: '-message_sent_date'">{{chatMessage.user}}: </strong>{{chatMessage.msg}}</li>
                  <ul> 
               </div>
 
 
               <div class="loadingchats" id="loadingchats">
                 <ul>
-                    <li ng-repeat="message in messages">{{message.client_email}}: </strong>{{message.message_content}}</li>
+                    <li ng-repeat="message in messages | orderBy: '-message_sent_date'">{{message.client_email}}: </strong>{{message.message_content}}</li>
                  <ul> 
               </div>
 

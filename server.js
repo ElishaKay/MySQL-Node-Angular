@@ -92,7 +92,7 @@ io.sockets.on('connection', function(socket){
     } 
 
     function updateMessages(messages){
-        io.sockets.emit('new message', messages);
+        // io.sockets.emit('new message', messages);
     } 
 });
 

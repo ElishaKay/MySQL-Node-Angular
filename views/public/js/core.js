@@ -86,6 +86,7 @@ function mainController($scope, $http, $sce, $document, socket){
 
 	init();
 
+	$scope.reverse = true;
 	
 	// Load exisiting messages
 	$http.get('/api/messages')
@@ -103,7 +104,9 @@ function mainController($scope, $http, $sce, $document, socket){
     $scope.submitMessage = function(messageData){
         console.log('message submitted');
         console.log('This is the messageData object:',messageData);
-        var data = {msg: $scope.messageData.message, user: $scope.client_email};
+        var date = new Date();
+
+        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 

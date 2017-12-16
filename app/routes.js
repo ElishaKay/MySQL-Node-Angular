@@ -142,7 +142,7 @@ module.exports = function(app,passport) {
     app.post('/api/newmessage', function(req,res){
         console.log(req.body.message);
         debugger;
-        connection.query('INSERT INTO message (message_content, client_id) VALUES ("'+req.body.message+'","' +req.user.client_id+'")');
+        connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
         // connection.query('insert into comment(text,client_id,post_id) values("'+comment+'","'+req.user.client_id+'","'+postID+'")')
    
 
