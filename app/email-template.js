@@ -1,6 +1,125 @@
-<!doctype html>
+var dbconfig = require('../config/database');
+var mysql = require('mysql');
+var connection = mysql.createConnection(dbconfig.connection); 
+var nodemailer = require('nodemailer');
+var schedule = require('node-schedule');
 
-<html>
+module.exports = function(app) {
+
+// Sending at specific time:
+     
+//     var j = schedule.scheduleJob('* * * * * *', function(){
+//       console.log('The answer to life, the universe, and everything!');
+
+
+// You can also use arrays to specify a list of acceptable values, 
+// and the Range object to specify a range of start and end values, 
+// with an optional step parameter. For instance, this will print a message on Thursday, 
+// Friday, Saturday, and Sunday at 5pm:
+
+// var rule = new schedule.RecurrenceRule();
+// rule.dayOfWeek = [0, new schedule.Range(4, 6)];
+// rule.hour = 17;
+// rule.minute = 0;
+
+// To make things a little easier, an object literal syntax is also supported, 
+// like in this example which will log a message every Sunday at 2:30pm:
+
+// var j = schedule.scheduleJob({hour: 14, minute: 30, dayOfWeek: 0}, function(){
+//   console.log('Time for tea!');
+// });
+
+
+
+//       // End of scheduling
+
+
+
+
+// Defining variables
+
+    const output = '';
+
+    // Send email
+
+
+// Sending email immediately based on User Input - like contact form - from client
+
+  // const output = `
+  //   <p>You have a new contact request</p>
+  //   <h3>Contact Details</h3>
+  //   <ul>  
+  //     <li>Name: ${req.body.name}</li>
+  //     <li>Company: ${req.body.company}</li>
+  //     <li>Email: ${req.body.email}</li>
+  //     <li>Phone: ${req.body.phone}</li>
+  //   </ul>
+  //   <h3>Message</h3>
+  //   <p>${req.body.message}</p>
+  // `;
+
+  // // create reusable transporter object using the default SMTP transport
+  // let transporter = nodemailer.createTransport({
+  //   service: 'Mailgun',
+  //   auth: {
+  //       user: process.env.MAILGUN_USER, // generated ethereal user
+  //       pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
+  //   },
+  //   tls:{
+  //     rejectUnauthorized:false
+  //   }
+  // });
+
+  // // setup email data with unicode symbols
+  // let mailOptions = {
+  //     from: '"Growth-X Team" <help@growth-x.com>', // sender address
+  //     to: req.body.email, // list of receivers
+  //     subject: 'Hey from GX', // Subject line
+  //     text: 'Hello world?', // plain text body
+  //     html: output // html body
+  // };
+
+  // // send mail with defined transport object
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //     if (error) {
+  //         return console.log(error);
+  //     }
+  //     console.log('Message sent: %s', info.messageId);   
+  //     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+  //     
+  // });
+
+    
+
+  // 
+
+// var sendmail = function(){
+
+    app.post('/send', (req, res) => {
+
+    // res.render('',{ message: req.flash('loginMessage') });
+      
+    console.log('mailgun logic goes here with variables');
+
+    // create reusable transporter object using the default SMTP transport
+      let transporter = nodemailer.createTransport({
+       service: 'Mailgun',
+       auth: {
+             user: process.env.MAILGUN_USER, // generated ethereal user
+             pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
+             },
+        tls:{
+          rejectUnauthorized:false
+        }
+      });
+
+
+// Pass in the client id here - in this case 404 (Hannah)
+        connection.query('select * from client where client_id = ?',1, function (err, rows) {
+       
+        const output = `
+
 <body leftmargin="0" topmargin="0" marginwidth="100%" marginheight="0" yahoo="fix" style="font-family: Georgia, Times, serif">
 
 <!-- Wrapper -->
@@ -26,7 +145,7 @@
                                 </td>
                                 <td valign="middle" style="padding:0 10px 10px 0"><a href="#" style="text-decoration: none; color: #272727; font-size: 16px; color: #272727; font-weight: bold; font-family:Arial, sans-serif ">
 
-                                Wassup <---- This is the sql results</a>
+                                Wassup `+ rows[0].client_email + `<---- This is the sql results</a>
                                 </td>
                             </tr>
                         </table>
@@ -200,4 +319,39 @@
 
 </body>
             
-</html>  
+             
+
+         `;
+
+     
+
+      // setup email data with unicode symbols
+      let mailOptions = {
+          from: '"Elisha" <alephmarketingpros@gmail.com>', // sender address
+          to: 'kramer1346@gmail.com', // list of receivers
+          subject: 'Test 91 - Ramat Gan Test', // Subject line
+          text: rows[0].client_name, // plain text body
+          html: output // html body
+              };
+
+
+      // send mail with defined transport object
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+          console.log('Message sent: %s', info.messageId);   
+          console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+
+          
+      });
+
+     });
+
+         res.redirect('/');
+});
+
+
+
+};
