@@ -32,13 +32,8 @@
                 </div>        
             </div>
             <div class="col-md-8">
-              <div class="chat" id="chat">
-                <ul>
-                    <li ng-repeat="chatMessage in chatMessages">{{chatMessage.user}}: </strong>{{chatMessage.msg}}</li>
-                 <ul> 
-              </div>
-              
-               <form ng-submit="submitMessage(message)" id="messageForm">
+             
+             <form ng-submit="submitMessage(message)" id="messageForm">
                 <div class="form-group">
                     <label>Enter Message</label>
                     <textarea ng-model="messageData.message" class="form-control" id="message"></textarea>
@@ -46,6 +41,22 @@
                     <input ng-model="messageData.message" type="submit" class="btn btn-primary" value="Send Message" />
                     </div>
               </form>
+
+              <div class="brandnewchats" id="chat">
+                <ul>
+                    <li ng-repeat="chatMessage in chatMessages">{{chatMessage.user}}: </strong>{{chatMessage.msg}}</li>
+                 <ul> 
+              </div>
+
+
+              <div class="loadingchats" id="loadingchats">
+                <ul>
+                    <li ng-repeat="message in messages">{{message.client_email}}: </strong>{{message.message_content}}</li>
+                 <ul> 
+              </div>
+
+
+              
             </div>
          </div>
      </div>

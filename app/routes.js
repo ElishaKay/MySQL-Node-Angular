@@ -54,6 +54,15 @@ module.exports = function(app,passport) {
 
 
 
+     // Get rows for the logged in user's messages
+    app.get('/api/messages',isLoggedIn,function(req,res){
+        var row = [];
+        connection.query('select * from message m inner join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
+            res.json(rows);
+        });
+      
+    });
+
       // Get row for the logged in user (i.e. client)
     app.get('/api/user',isLoggedIn,function(req,res){
         var row = [];

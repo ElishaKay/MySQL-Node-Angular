@@ -87,6 +87,16 @@ function mainController($scope, $http, $sce, $document, socket){
 	init();
 
 	
+	// Load exisiting messages
+	$http.get('/api/messages')
+		.success(function(data){
+			$scope.messages = data;
+			console.log('these are all the messages',$scope.messages);
+        	})
+		.error(function(data){
+			console.log('couldn\'t load data');
+			});
+
 
 
 
@@ -100,7 +110,7 @@ function mainController($scope, $http, $sce, $document, socket){
          // Saving to DB via routes.js
          $http.post('/api/newmessage', $scope.messageData)
 			.success(function(data) {
-				 delete $scope.messageData;
+				 $scope.messageData = {};
 		 // clear the form so our user is ready to enter another		
 			})
 			.error(function(data) {
