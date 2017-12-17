@@ -1,16 +1,25 @@
 var dbconfig = require('../config/database');
 var mysql = require('mysql');
-var connection = mysql.createConnection(dbconfig.connection); 
+
+//Query data from a second database
+var connection2 = mysql.createConnection(dbconfig.connection2); 
 var nodemailer = require('nodemailer');
 var schedule = require('node-schedule');
 
 module.exports = function(app) {
 
-// Sending at specific time:
+// Every day at 5 am, segment the audience that wants a specific daily update:
      
-//     var j = schedule.scheduleJob('* * * * * *', function(){
-//       console.log('The answer to life, the universe, and everything!');
+    var j = schedule.scheduleJob('42 * * * * *', function(){
 
+      console.log('The answer to life, the universe, and everything!');
+
+      connection2.query('select * from client where client_id = ?',404, function (err, rows) {
+      
+      console.log(rows[0]);
+
+          });
+    });
 
 // You can also use arrays to specify a list of acceptable values, 
 // and the Range object to specify a range of start and end values, 
@@ -21,6 +30,9 @@ module.exports = function(app) {
 // rule.dayOfWeek = [0, new schedule.Range(4, 6)];
 // rule.hour = 17;
 // rule.minute = 0;
+
+
+
 
 // To make things a little easier, an object literal syntax is also supported, 
 // like in this example which will log a message every Sunday at 2:30pm:
