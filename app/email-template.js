@@ -14,12 +14,16 @@ module.exports = function(app) {
 
       console.log('The answer to life, the universe, and everything!');
 
-      connection2.query('select * from client where client_id = ?',404, function (err, rows) {
+      connection2.query("select * from client where client_email like '%alephmarketingpros%' or client_email like '%kramer1346%'", function (err, rows) {
       
-      console.log(rows[0]);
-
+      senderEmail = 'elisha@growth-x.com';      
+      
+       for (i = 0; i < rows.length; i++) { 
+            recipientEmail = rows[i].client_email;
+            sendmail(senderEmail, recipientEmail, rows[i].client_id);
+                };
           });
-    });
+     });
 
 // You can also use arrays to specify a list of acceptable values, 
 // and the Range object to specify a range of start and end values, 
@@ -48,67 +52,70 @@ module.exports = function(app) {
 
 
 
-// Defining variables
+// Just the code for sending based on User Input in the '/send' route
 
-    const output = '';
+// app.post('/send', (req, res) => {
 
-    // Send email
+// // Defining variables
+
+//     const output = '';
 
 
-// Sending email immediately based on User Input - like contact form - from client
+// // Sending email immediately based on User Input - like contact form - from client
 
-  // const output = `
-  //   <p>You have a new contact request</p>
-  //   <h3>Contact Details</h3>
-  //   <ul>  
-  //     <li>Name: ${req.body.name}</li>
-  //     <li>Company: ${req.body.company}</li>
-  //     <li>Email: ${req.body.email}</li>
-  //     <li>Phone: ${req.body.phone}</li>
-  //   </ul>
-  //   <h3>Message</h3>
-  //   <p>${req.body.message}</p>
-  // `;
+//   const output = `
+//     <p>You have a new contact request</p>
+//     <h3>Contact Details</h3>
+//     <ul>  
+//       <li>Name: ${req.body.name}</li>
+//       <li>Company: ${req.body.company}</li>
+//       <li>Email: ${req.body.email}</li>
+//       <li>Phone: ${req.body.phone}</li>
+//     </ul>
+//     <h3>Message</h3>
+//     <p>${req.body.message}</p>
+//   `;
 
-  // // create reusable transporter object using the default SMTP transport
-  // let transporter = nodemailer.createTransport({
-  //   service: 'Mailgun',
-  //   auth: {
-  //       user: process.env.MAILGUN_USER, // generated ethereal user
-  //       pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
-  //   },
-  //   tls:{
-  //     rejectUnauthorized:false
-  //   }
-  // });
+//   // create reusable transporter object using the default SMTP transport
+//   let transporter = nodemailer.createTransport({
+//     service: 'Mailgun',
+//     auth: {
+//         user: process.env.MAILGUN_USER, // generated ethereal user
+//         pass: process.env.MAILGUN_PASSWORD  // generated ethereal password
+//     },
+//     tls:{
+//       rejectUnauthorized:false
+//     }
+//   });
 
-  // // setup email data with unicode symbols
-  // let mailOptions = {
-  //     from: '"Growth-X Team" <help@growth-x.com>', // sender address
-  //     to: req.body.email, // list of receivers
-  //     subject: 'Hey from GX', // Subject line
-  //     text: 'Hello world?', // plain text body
-  //     html: output // html body
-  // };
+//   // setup email data with unicode symbols
+//   let mailOptions = {
+//       from: '"Growth-X Team" <help@growth-x.com>', // sender address
+//       to: req.body.email, // list of receivers
+//       subject: 'Hey from GX', // Subject line
+//       text: 'Hello world?', // plain text body
+//       html: output // html body
+//   };
 
-  // // send mail with defined transport object
-  // transporter.sendMail(mailOptions, (error, info) => {
-  //     if (error) {
-  //         return console.log(error);
-  //     }
-  //     console.log('Message sent: %s', info.messageId);   
-  //     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+//   // send mail with defined transport object
+//   transporter.sendMail(mailOptions, (error, info) => {
+//       if (error) {
+//           return console.log(error);
+//       }
+//       console.log('Message sent: %s', info.messageId);   
+//       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-  //     
-  // });
-
+      
+//   });
+// });
     
 
-  // 
+  
 
-// var sendmail = function(){
 
-    app.post('/send', (req, res) => {
+
+
+var sendmail = function(senderEmail, recipientEmail, clientIdFromSql){
 
     // res.render('',{ message: req.flash('loginMessage') });
       
@@ -128,7 +135,7 @@ module.exports = function(app) {
 
 
 // Pass in the client id here - in this case 404 (Hannah)
-        connection.query('select * from client where client_id = ?',1, function (err, rows) {
+        connection2.query('select * from client where client_id = ?',clientIdFromSql, function (err, rows) {
        
         const output = `
 
@@ -157,7 +164,7 @@ module.exports = function(app) {
                                 </td>
                                 <td valign="middle" style="padding:0 10px 10px 0"><a href="#" style="text-decoration: none; color: #272727; font-size: 16px; color: #272727; font-weight: bold; font-family:Arial, sans-serif ">
 
-                                Wassup `+ rows[0].client_email + `<---- This is the sql results</a>
+                                Wassup `+ rows[0].client_name + `<---- This is the name associated with the account, taken from the sql results</a>
                                 </td>
                             </tr>
                         </table>
@@ -339,9 +346,9 @@ module.exports = function(app) {
 
       // setup email data with unicode symbols
       let mailOptions = {
-          from: '"Elisha" <alephmarketingpros@gmail.com>', // sender address
-          to: 'kramer1346@gmail.com', // list of receivers
-          subject: 'Test 91 - Ramat Gan Test', // Subject line
+          from: '"GX" <'+senderEmail+'>', // sender address
+          to: recipientEmail, // list of receivers
+          subject: 'Sunday, the 17th- Ramat Gan Test', // Subject line
           text: rows[0].client_name, // plain text body
           html: output // html body
               };
@@ -361,9 +368,6 @@ module.exports = function(app) {
 
      });
 
-         res.redirect('/');
-});
-
-
-
+    
+};
 };
