@@ -46,7 +46,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('partyDetail', {
     url: '/party/:partyID/:partyLocation',
     templateUrl: 'partytime',
-    controller: 'mainController'
+    controller: 'mainController'  
+
   });
   // .state('beer', {
   //     url: '/beers/:id', 
@@ -231,6 +232,7 @@ function mainController($scope, $http, $sce, $document, socket, $stateParams){
 		.success(function(data){
 			$scope.kullanici = data;
 			$scope.access_code = data[0].client_analytics_code;
+     		$scope.client_id = data[0].client_id;
      		$scope.client_email = data[0].client_email;
 			console.log('username submitted');
     		var usersocket = {person: $scope.client_email};
