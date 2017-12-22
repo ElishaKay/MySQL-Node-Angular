@@ -90,6 +90,15 @@ function mainController($scope, $http, $sce, $document, socket, $stateParams){
 		.error(function(data){
 	  });
 
+	  // Filter by column user chooses from dropdown
+	  $scope.filterType	= 'client_id';
+
+	  $scope.ourTeamCategories = [
+        {"id":18,"title":'Management'},
+        {"id":19,"title":'Administration'},
+        {"id":21,"title":'Designers'},
+        {"id":22,"title":'Accounts'},
+    ]
 
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order

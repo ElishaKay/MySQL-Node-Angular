@@ -10,7 +10,7 @@
     <div class="form-group">
       <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-        <input type="text" class="form-control" placeholder="Search da Fish" ng-model="searchFish">
+        <input type="text" class="form-control" style="width:auto" placeholder="Search by Email" ng-model="searchFish">
       </div>      
     </div>
   </form>
@@ -20,22 +20,22 @@
     <thead>
       <tr>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-            Sushi Roll 
+          <a href="#/home/search" ng-click="sortType = 'client_id'; sortReverse = !sortReverse">
+            Client ID
             <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'fish'; sortReverse = !sortReverse">
-          Fish Type 
+          <a href="#/home/search" ng-click="sortType = 'client_email'; sortReverse = !sortReverse">
+          Client Email
             <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'tastiness'; sortReverse = !sortReverse">
-          Taste Level 
+          <a href="#/home/search" ng-click="sortType = 'client_creation_date'; sortReverse = !sortReverse">
+          Client Creation Date
             <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
           </a>
@@ -44,7 +44,7 @@
     </thead>
     
     <tbody>
-      <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse | filter:searchFish">
+      <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse | filter: {client_email:searchFish}">
         <td>{{ user.client_id }}</td>
         <td>{{ user.client_email }}</td>
         <td>{{ user.client_creation_date }}</td>
@@ -53,6 +53,15 @@
     
   </table>
   
+    <select name="show-filter" ng-model="catFilter" 
+    ng-options="category as category.title for category in ourTeamCategories">
+  </select>
+
+  <li ng-repeat="cat in ourTeamCategories | filter : {id: catFilter.id}: true">
+    <h3>{{cat.title}}</h3>
+    <!-- for testing -->
+    <b>input: {{catFilter.id}}</b> - - ID: {{cat.id}}
+  </li>
 
   
 </div>
