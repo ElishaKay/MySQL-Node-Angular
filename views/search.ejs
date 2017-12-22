@@ -45,9 +45,10 @@
     
     <tbody>
       <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse | filter: {client_email:searchFish}">
-        <td>{{ user.client_id }}</td>
+        <td>{{ user.client_id }}</a></td>
         <td>{{ user.client_email }}</td>
         <td>{{ user.client_creation_date }}</td>
+        <td><a class="btn btn-primary" ui-sref="profile({ id: user.client_id, email: user.client_email })">Visit Profile</a></td>
       </tr>
     </tbody>
     

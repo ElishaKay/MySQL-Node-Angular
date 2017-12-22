@@ -98,7 +98,7 @@ function mainController($scope, $http, $sce, $document, socket, $stateParams){
         {"id":19,"title":'Administration'},
         {"id":21,"title":'Designers'},
         {"id":22,"title":'Accounts'},
-    ]
+      ];
 
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
