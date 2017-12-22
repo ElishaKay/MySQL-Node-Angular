@@ -43,16 +43,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     template: 'This Is A State',
   })
   $stateProvider
-  .state('partyDetail', {
-    url: '/party/:partyID/:partyLocation',
-    template: 'partytime - <h4>This is the id: {{id}}</h4><h4>This is the location: {{location}}</h4>',
-    controller: function($scope, $stateParams) {
-      // get the id
-      $scope.id = $stateParams.partyID;
+  .state('profile', {
+    url: '/profile/:id/:email',
+    templateUrl: 'profile',
+    controller: 'mainController'  
 
-      // get the location
-      $scope.location = $stateParams.partyLocation;   
-    }
   });
   // .state('beer', {
   //     url: '/beers/:id', 
@@ -81,10 +76,29 @@ app.config(function($stateProvider, $urlRouterProvider) {
 function mainController($scope, $http, $sce, $document, socket, $stateParams){
 	    // Getting stuff from URL
 	  // get the id
-      $scope.id = $stateParams.partyID;
+      $scope.id = $stateParams.id;
 
-      // get the location
-      $scope.location = $stateParams.partyLocation;   
+      // get the email
+      $scope.email = $stateParams.email;   
+
+      // Populate client's campaigns in the dropdown
+	  $http.get('/api/search')
+		.success(function(data){
+			$scope.allUsers = data;
+			console.log('These are all of the apps users: ',data)
+		})
+		.error(function(data){
+	  });
+
+	  // Filter by column user chooses from dropdown
+	  $scope.filterType	= 'client_id';
+
+	  $scope.ourTeamCategories = [
+        {"id":18,"title":'Management'},
+        {"id":19,"title":'Administration'},
+        {"id":21,"title":'Designers'},
+        {"id":22,"title":'Accounts'},
+      ];
 
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
@@ -237,6 +251,7 @@ function mainController($scope, $http, $sce, $document, socket, $stateParams){
 		.success(function(data){
 			$scope.kullanici = data;
 			$scope.access_code = data[0].client_analytics_code;
+     		$scope.client_id = data[0].client_id;
      		$scope.client_email = data[0].client_email;
 			console.log('username submitted');
     		var usersocket = {person: $scope.client_email};

@@ -13,14 +13,24 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
-    app.get('/partytime',isLoggedIn,function(req,res){
-        res.render('partytime.ejs'); 
+    app.get('/profile',isLoggedIn,function(req,res){
+        res.render('profile.ejs'); 
     });
 
     app.get('/search', function(req, res) {
         res.render('search.ejs');   
     });    
 
+     // Get all App Users to populate search results page
+
+     app.get('/api/search',isLoggedIn,function(req,res){
+        var row = [];
+        connection.query("select * from client", function (err, rows) {
+            
+            res.json(rows);
+        });
+      
+    });
 
     app.get('/community', function(req, res) {
         var row = [];
