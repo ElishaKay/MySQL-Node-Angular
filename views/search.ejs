@@ -44,10 +44,10 @@
     </thead>
     
     <tbody>
-      <tr ng-repeat="roll in sushi | orderBy:sortType:sortReverse | filter:searchFish">
-        <td>{{ roll.name }}</td>
-        <td>{{ roll.fish }}</td>
-        <td>{{ roll.tastiness }}</td>
+      <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse | filter:searchFish">
+        <td>{{ user.client_id }}</td>
+        <td>{{ user.client_email }}</td>
+        <td>{{ user.client_creation_date }}</td>
       </tr>
     </tbody>
     
