@@ -45,14 +45,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('partyDetail', {
     url: '/party/:partyID/:partyLocation',
-    template: 'partytime - <h4>This is the id: {{id}}</h4><h4>This is the location: {{location}}</h4>',
-    controller: function($scope, $stateParams) {
-      // get the id
-      $scope.id = $stateParams.partyID;
-
-      // get the location
-      $scope.location = $stateParams.partyLocation;   
-    }
+    templateUrl: 'partytime',
+    controller: 'mainController'
   });
   // .state('beer', {
   //     url: '/beers/:id', 
