@@ -21,6 +21,16 @@ module.exports = function(app,passport) {
         res.render('search.ejs');   
     });    
 
+     // Get all App Users to populate search results page
+
+     app.get('/api/search',isLoggedIn,function(req,res){
+        var row = [];
+        connection.query("select * from client", function (err, rows) {
+            
+            res.json(rows);
+        });
+      
+    });
 
     app.get('/community', function(req, res) {
         var row = [];

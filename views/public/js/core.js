@@ -78,8 +78,18 @@ function mainController($scope, $http, $sce, $document, socket, $stateParams){
 	  // get the id
       $scope.id = $stateParams.id;
 
-      // get the location
+      // get the email
       $scope.email = $stateParams.email;   
+
+      // Populate client's campaigns in the dropdown
+	  $http.get('/api/search')
+		.success(function(data){
+			$scope.allUsers = data;
+			console.log('These are all of the apps users: ',data)
+		})
+		.error(function(data){
+	  });
+
 
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
