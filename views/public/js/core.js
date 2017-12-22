@@ -1,7 +1,3 @@
-
-
-          
-
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
 var app = angular.module('GXLeads', ['ui.router',
@@ -16,9 +12,11 @@ var app = angular.module('GXLeads', ['ui.router',
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
+
+ 
   $urlRouterProvider.otherwise('/home/list');
-  
-  // First Page
+
+
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: 'partial-home.html'
@@ -40,6 +38,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/search',
     templateUrl: 'search',
   })
+  .state('party', {
+    url: '/party',
+    template: 'This Is A State',
+  })
+  $stateProvider
+  .state('partyDetail', {
+    url: '/party/:partyID/:partyLocation',
+    template: 'partytime - <h4>This is the id: {{id}}</h4><h4>This is the location: {{location}}</h4>',
+    controller: function($scope, $stateParams) {
+      // get the id
+      $scope.id = $stateParams.partyID;
+
+      // get the location
+      $scope.location = $stateParams.partyLocation;   
+    }
+  });
   // .state('beer', {
   //     url: '/beers/:id', 
   //     controller: 'BeersCtrl',
@@ -54,15 +68,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
   // })
 
 
+
 });
+
+
 
 // end of router
 // Beginning of controller
 
 
 
-function mainController($scope, $http, $sce, $document, socket){
-	    
+function mainController($scope, $http, $sce, $document, socket, $stateParams){
+	    // Getting stuff from URL
+	  // get the id
+      $scope.id = $stateParams.partyID;
+
+      // get the location
+      $scope.location = $stateParams.partyLocation;   
+
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
 	  $scope.searchFish   = '';     // set the default search/filter term
