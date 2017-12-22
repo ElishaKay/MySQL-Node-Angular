@@ -44,7 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   $stateProvider
   .state('partyDetail', {
-    url: '/party/:partyID/:partyLocation',
+    url: '/party/:id/:email',
     templateUrl: 'partytime',
     controller: 'mainController'  
 
@@ -76,10 +76,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 function mainController($scope, $http, $sce, $document, socket, $stateParams){
 	    // Getting stuff from URL
 	  // get the id
-      $scope.id = $stateParams.partyID;
+      $scope.id = $stateParams.id;
 
       // get the location
-      $scope.location = $stateParams.partyLocation;   
+      $scope.email = $stateParams.email;   
 
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
