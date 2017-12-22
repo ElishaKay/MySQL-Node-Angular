@@ -13,8 +13,8 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
-    app.get('/partytime',isLoggedIn,function(req,res){
-        res.render('partytime.ejs'); 
+    app.get('/profile',isLoggedIn,function(req,res){
+        res.render('profile.ejs'); 
     });
 
     app.get('/search', function(req, res) {

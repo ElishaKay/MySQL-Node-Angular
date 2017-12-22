@@ -43,9 +43,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
     template: 'This Is A State',
   })
   $stateProvider
-  .state('partyDetail', {
-    url: '/party/:id/:email',
-    templateUrl: 'partytime',
+  .state('profile', {
+    url: '/profile/:id/:email',
+    templateUrl: 'profile',
     controller: 'mainController'  
 
   });
