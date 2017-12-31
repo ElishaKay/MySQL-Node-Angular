@@ -51,7 +51,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 // end of router
 // Beginning of controller
 
-function searchController($scope, $http, socket){
+function searchController($scope, $http){
 	 
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
