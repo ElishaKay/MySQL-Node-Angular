@@ -37,33 +37,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
     .state('home.search', {
     url: '/search',
     templateUrl: 'search',
+    controller: 'searchController'  
   })
-  .state('party', {
-    url: '/party',
-    template: 'This Is A State',
-  })
-  $stateProvider
   .state('profile', {
     url: '/profile/:id/:email',
     templateUrl: 'profile',
-    controller: 'mainController'  
-
+    controller: 'profilesController'  
   });
-  // .state('beer', {
-  //     url: '/beers/:id', 
-  //     controller: 'BeersCtrl',
-  //     templateUrl: 'beer.html'
-  // })
-  // .state('scotch', {
-  //   url: '/scotch/:scotch',
-  //   templateUrl: function ($stateParams){
-  //     console.log($stateParams)
-  //     return 'partial-scotch-' + $stateParams.scotch + '.html';
-  //   }
-  // })
-
-
-
 });
 
 
@@ -71,16 +51,60 @@ app.config(function($stateProvider, $urlRouterProvider) {
 // end of router
 // Beginning of controller
 
+function searchController($scope, $http, socket){
+	 
+      // Populate client's campaigns in the dropdown
+	  $http.get('/api/search')
+		.success(function(data){
+			$scope.allUsers = data;
+			console.log('These are all of the apps users: ',data)
+		})
+		.error(function(data){
+	  });
+
+	  // Filter by column user chooses from dropdown
+	  $scope.filterType	= 'client_id';
+
+	  $scope.ourTeamCategories = [
+        {"id":18,"title":'Management'},
+        {"id":19,"title":'Administration'},
+        {"id":21,"title":'Designers'},
+        {"id":22,"title":'Accounts'},
+      ];
+
+	  $scope.sortType     = 'name'; // set the default sort type
+	  $scope.sortReverse  = false;  // set the default sort order
+	  $scope.searchFish   = '';     // set the default search/filter term
+	  
+	var client_email = '';
+
+        
+	var init = function (client_email) {
+	   
+			};
+
+	init();
+
+	$scope.reverse = true;
+	
+};
 
 
-function mainController($scope, $http, $sce, $document, socket, $stateParams){
-	    // Getting stuff from URL
+function profilesController($scope, $http, $stateParams, $window){
+	   // Getting stuff from URL
 	  // get the id
+
+	  $window.scrollTo(0, 0);
+	  
       $scope.id = $stateParams.id;
 
       // get the email
       $scope.email = $stateParams.email;   
+	};
 
+
+function mainController($scope, $http, socket){
+	 	  
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
 		.success(function(data){
