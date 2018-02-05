@@ -43,9 +43,22 @@ CREATE TABLE `message` (
   `client_id` int(11) unsigned DEFAULT NULL,
   `message_sent_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`message_id`),
-  KEY `client_id message_idx` (`client_id`),
+  KEY `client_id message_id` (`client_id`),
   CONSTRAINT `client_id message` FOREIGN KEY (`client_id`) 
   REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')
+
+CREATE TABLE `blogpost` (
+  `blogpost_id` int(11) UNSIGNED NOT NULL auto_increment,
+  `blogpost_content` longtext,
+  `client_id` int(11) unsigned DEFAULT NULL,
+  `post_published_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`blogpost_id`),
+  KEY `client_id blogpost_id` (`client_id`),
+  CONSTRAINT `client_id blogpost` FOREIGN KEY (`client_id`) 
+  REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),'<p>THis is some text</p>',1);

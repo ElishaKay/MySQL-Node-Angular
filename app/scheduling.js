@@ -19,6 +19,3 @@ var j = schedule.scheduleJob({hour: 14, minute: 30, dayOfWeek: 0}, function(){
 });
 
 
-
-      // End of scheduling
-

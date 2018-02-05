@@ -5,6 +5,9 @@
 <center>
 <button type="submit" class="btn btn-primary btn-lg" href="community#postModal" role="button" data-toggle="modal">Say Something</button>
 </center>
+
+<button type="submit" class="btn btn-primary btn-lg" href="community#postModal2" role="button" data-toggle="modal">New Blogpost</button>
+</center>
 <br>
 
 
@@ -87,7 +90,7 @@
       <div class="modal-body">
           <form class="form center-block">
             <div class="form-group">
-              <textarea class="form-control input-lg" autofocus=""  placeholder="Text" ng-model="formData.gonderi_icerik"></textarea>
+              <textarea class="form-control input-lg" autofocus="" placeholder="Text" ng-model="formData.gonderi_icerik"></textarea>
             </div>
           </form>
 		 
@@ -101,3 +104,42 @@
   </div>
   </div>
 </div>
+
+ <div class="modal-dialog">
+  <div class="modal-content">
+ <h1>Editor <small>{{version}}</small></h1>
+        <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button>
+        <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent.text" ta-disabled='disabled'></div>
+        <h1>Raw HTML in a text area</h1>
+        <textarea ng-model="htmlcontent.text" style="width: 100%"></textarea>
+        <h1>Bound with ng-bind-html</h1>
+        <div ng-bind-html="htmlcontent.text"></div>
+        
+         <div class="modal-footer">
+          <div>
+          <button type="submit" class="btn btn-primary btn-lg" data-dismiss="modal" aria-hidden="true" ng-click="submitBlogPost(htmlcontent.text)">Add</button>
+      </div>  
+      </div>
+    </div>
+</div>
+
+<!--Modal #2 - blogpost-->
+<div id="postModal2" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+     
+             <text-angular ng-model="blogPostData.html"></text-angular>
+ 
+     
+          <form class="form center-block">
+            <div class="form-group">
+              <textarea class="form-control input-lg" autofocus="" placeholder="Text" ng-model="blogdata.html"></textarea>
+            </div>
+          </form>
+     
+     
+      </div>
+  </div>
+  </div>
+</div>
+

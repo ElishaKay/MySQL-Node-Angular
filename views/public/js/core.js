@@ -1,11 +1,10 @@
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
-var app = angular.module('GXLeads', ['ui.router',
+var app = angular.module('GXLeads', ['textAngular', 'ui.router',
     'GXLeads.services',
     'GXLeads.filters',
     'btford.socket-io',
     'GXLeads.directives',
-    
   ]);
 
 // Beginning of router
@@ -103,7 +102,7 @@ function profilesController($scope, $http, $stateParams, $window){
 	};
 
 
-function mainController($scope, $http, socket){
+function mainController($scope, $http, socket, textAngularManager){
 	 	  
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
@@ -140,14 +139,11 @@ function mainController($scope, $http, socket){
 
 	  var client_email = '';
 
-        
-	var init = function (client_email) {
-	   
-			};
+	  var init = function (client_email) {};
 
-	init();
+      init();
 
-	$scope.reverse = true;
+	  $scope.reverse = true;
 	
 	// Load exisiting messages
 	$http.get('/api/messages')
@@ -163,6 +159,7 @@ function mainController($scope, $http, socket){
 
 
     $scope.submitMessage = function(messageData){
+        $scope.messageData = {};
         console.log('message submitted');
         console.log('This is the messageData object:',messageData);
         var date = new Date();
@@ -175,6 +172,37 @@ function mainController($scope, $http, socket){
          $http.post('/api/newmessage', $scope.messageData)
 			.success(function(data) {
 				 $scope.messageData = {};
+		 // clear the form so our user is ready to enter another		
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+    };
+
+
+
+    $scope.submitBlogPost = function(blogdata){
+    	
+    	  	
+    	  $scope.version = textAngularManager.getVersion();
+          $scope.versionNumber = $scope.version.substring(1);
+          $scope.orightml = '<h2>Try me!</h2><p>textAngular is a super cool WYSIWYG Text Editor directive for AngularJS</p><p><img class="ta-insert-video" ta-insert-video="http://www.youtube.com/embed/2maA1-mvicY" src="" allowfullscreen="true" width="300" frameborder="0" height="250"/></p><p><b>Features:</b></p><ol><li>Automatic Seamless Two-Way-Binding</li><li>Super Easy <b>Theming</b> Options</li><li style="color: green;">Simple Editor Instance Creation</li><li>Safely Parses Html for Custom Toolbar Icons</li><li class="text-danger">Doesn&apos;t Use an iFrame</li><li>Works with Firefox, Chrome, and IE9+</li></ol><p><b>Code at GitHub:</b> <a href="https://github.com/fraywing/textAngular">Here</a> </p><h4>Supports non-latin Characters</h4><p>昮朐 魡 燚璒瘭 譾躒鑅, 皾籈譧 紵脭脧 逯郹酟 煃 瑐瑍, 踆跾踄 趡趛踠 顣飁 廞 熥獘 豥 蔰蝯蝺 廦廥彋 蕍蕧螛 溹溦 幨懅憴 妎岓岕 緁, 滍 蘹蠮 蟷蠉蟼 鱐鱍鱕, 阰刲 鞮鞢騉 烳牼翐 魡 骱 銇韎餀 媓幁惁 嵉愊惵 蛶觢, 犝獫 嶵嶯幯 縓罃蔾 魵 踄 罃蔾 獿譿躐 峷敊浭, 媓幁 黐曮禷 椵楘溍 輗 漀 摲摓 墐墆墏 捃挸栚 蛣袹跜, 岓岕 溿 斶檎檦 匢奾灱 逜郰傃</p>';
+          $scope.htmlcontent = $scope.orightml;
+          $scope.disabled = false;
+
+        console.log('blogPost submitted');
+        console.log('This is the blogdata object:',blogdata);
+        var date = new Date();
+
+        // var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
+        // console.log('this is the submitmessage object',data);
+         // socket.emit('send message', blogPostData);
+
+         // Saving to DB via routes.js
+         var blogdataobject = {html: blogdata}
+         $http.post('/api/blogPostData', blogdataobject)
+			.success(function(data) {
+				delete $scope.htmlcontent.text;
 		 // clear the form so our user is ready to enter another		
 			})
 			.error(function(data) {
@@ -204,6 +232,7 @@ function mainController($scope, $http, socket){
 
 // Original controller below here:
 	$scope.formData = {};
+	$scope.blogdata = {};
 
 	$(function(){
     var $select = $(".1-100");
@@ -239,231 +268,17 @@ function mainController($scope, $http, socket){
 			});
 	};
 	
-
-	// Creating the initial iframe on page load
-
-	var baseurl = 'https://meta-g.herokuapp.com/public/dashboard/7431c8e3-542e-4d21-a664-1abeccbac880';
-	// var baseurl = 'https://meta-g.herokuapp.com/public/question/b71f7fda-4dfd-419e-b4ff-1b3418d1c147'
-	var selectedCampaign = '';
-	var selectedUser = '';
-	var newurl = '';
-	var newesturl = '';
-	$scope.url = '';
-	
-
-	// Reset any or all of the 3 variable
-	$scope.resetCampaign = function(){
-        delete $scope.selectedCampaign;
-	};
-
-	$scope.resetUser = function(){
-        delete $scope.selectedUser;
-	};	
-
-	$scope.resetDay = function(){
-        delete $scope.selectedDay;
-	};
-
-	// How to add option to beginning of dropdown menu
-	 // var select = $document[0].getElementById('1-100');
- 	//  var opt = new Option('All Time', 'my-option');
- 	//  select.insertBefore(opt, select.firstChild);
- 	//  select.prepend("<option value='' disabled selected>Choose Time</option>");
-
-
-	$http.get('/api/user')
-		.success(function(data){
-			$scope.kullanici = data;
-			$scope.access_code = data[0].client_analytics_code;
-     		$scope.client_id = data[0].client_id;
-     		$scope.client_email = data[0].client_email;
-			console.log('username submitted');
-    		var usersocket = {person: $scope.client_email};
-		    console.log('tis is the submit user data object', usersocket)
-		    socket.emit('new user', usersocket);
-
-			var access_code = $scope.access_code;
-			console.log("These are the user's details",data);
-			
-	        console.log('This is the analytics code:',access_code);
-			
-			var newurl = baseurl.concat('?access_code=',access_code);
-			console.log(newurl);
-			
-        	$scope.url = $sce.trustAsResourceUrl(newurl);
-
-        	
-        			})
-		.error(function(data){
-			
-			});
-
-
-		// function for replacing all occurences of a specific substring
-	String.prototype.replaceAll = function(target, replacement) {
-		  return this.split(target).join(replacement);
-	};
-
-
-	$scope.updateIframe = function() {
-		var currentUrl = $sce.valueOf($scope.url);
-		console.log('This is the url before anything changes',currentUrl);
-         var access_code = $scope.access_code;
-		 var newurl = baseurl.concat('?access_code=',access_code);
-
-// campaign is selected, but not user or day
-          if ((typeof $scope.selectedCampaign !== 'undefined') && (typeof $scope.selectedUser === 'undefined')
-          			&& (typeof $scope.selectedDay === 'undefined') ) {
-          	console.log('campaign is selected, but not user or day');
-          	var selectedCampaign = $scope.selectedCampaign;
-          	console.log('currently a campaign is selected');
-          	var selectedCampaign = selectedCampaign.replaceAll('+', '%2B');
-			var selectedCampaign = selectedCampaign.replaceAll('#', '%23');
-			var newesturl = newurl.concat('&campaign_name=',selectedCampaign);
-			
-          }
-// user is selected, but not campaign or day
-          else if ((typeof $scope.selectedCampaign === 'undefined') && (typeof $scope.selectedUser !== 'undefined')
-          			&& (typeof $scope.selectedDay === 'undefined')	) {
-          	console.log('user is selected, but not campaign or day');
-          	var selectedUser = $scope.selectedUser;
-          	console.log('currently, a user is selected');
-          	var newesturl = newurl.concat('&user_name=',selectedUser);
-          
-          } 
-
-// Day is selected, but not user or campaign
- 	else if ((typeof $scope.selectedCampaign === 'undefined') && (typeof $scope.selectedUser === 'undefined')
-          			&& (typeof $scope.selectedDay !== 'undefined')	) {
- 			// if(typeof $scope.muchacho === 'undefined') {
- 			// var select = $document[0].getElementById('1-100');
- 			// var opt = new Option('All Time', 'my-option');
- 			// select.insertBefore(opt, select.firstChild);
- 			// $scope.muchacho = 'mister muchacho';
- 			// 									}
-          	console.log('Day is selected, but not user or campaign');
-          	$scope.selectedDay = $(".1-100").find(":selected").val();// set this equal to scope.selected Day
-          	var selectedDay = $scope.selectedDay;
-          	console.log(selectedDay);
-          	var newesturl = newurl.concat('&last_x_days=',selectedDay);
-          	console.log(newesturl);
-          } 
-
-
-// User and campaign are selected, but not day
-          else if ((typeof $scope.selectedCampaign !== 'undefined') && (typeof $scope.selectedUser !== 'undefined') 
-          			&& (typeof $scope.selectedDay === 'undefined')	) {
-          	console.log('User and campaign are selected, but not day');
-          	var selectedCampaign = $scope.selectedCampaign;
-          	console.log(selectedCampaign);
-          	var selectedUser = $scope.selectedUser;
-          	console.log(selectedUser);
-          	var selectedCampaign = selectedCampaign.replaceAll('+', '%2B');
-			var selectedCampaign = selectedCampaign.replaceAll('#', '%23');
-
-			// var currentUrl = $sce.valueOf($scope.url);
-			var newesturl = newurl.concat('&campaign_name=',selectedCampaign);
-			var newesturl = newesturl.concat('&user_name=',selectedUser);
-			$scope.url = $sce.trustAsResourceUrl(newesturl);
-			// $scope.url = $sce.trustAsResourceUrl(newesturl);
-			
-          } 
-
-// User and campaign are selected, but not day
-          else if ((typeof $scope.selectedCampaign !== 'undefined') && (typeof $scope.selectedUser !== 'undefined') 
-          			&& (typeof $scope.selectedDay === 'undefined')	) {
-          	console.log('User and campaign are selected, but not day');
-          	var selectedCampaign = $scope.selectedCampaign;
-          	console.log(selectedCampaign);
-          	var selectedUser = $scope.selectedUser;
-          	console.log(selectedUser);
-          	var selectedCampaign = selectedCampaign.replaceAll('+', '%2B');
-			var selectedCampaign = selectedCampaign.replaceAll('#', '%23');
-
-			// var currentUrl = $sce.valueOf($scope.url);
-			var newesturl = newurl.concat('&campaign_name=',selectedCampaign);
-			var newesturl = newesturl.concat('&user_name=',selectedUser);
-			
-
-		}
-
-//Campaign and Day
-		 else if ((typeof $scope.selectedCampaign !== 'undefined') && (typeof $scope.selectedUser === 'undefined') 
-          			&& (typeof $scope.selectedDay !== 'undefined')	) {
-		 	var selectedCampaign = $scope.selectedCampaign;
-		 	$scope.selectedDay = $(".1-100").find(":selected").val();// set this equal to scope.selected Day
-          	var selectedDay = $scope.selectedDay;
-          	console.log(selectedDay);
-          	var selectedCampaign = selectedCampaign.replaceAll('+', '%2B');
-			var selectedCampaign = selectedCampaign.replaceAll('#', '%23');
-          	var newurl = newurl.concat('&last_x_days=',selectedDay);
-          	var newesturl = newurl.concat('&campaign_name=',selectedCampaign);
-		 }
-
-//User and Day
-		 else if ((typeof $scope.selectedCampaign === 'undefined') && (typeof $scope.selectedUser !== 'undefined') 
-          			&& (typeof $scope.selectedDay !== 'undefined')	) {
-		 	var selectedUser = $scope.selectedUser;
-		 	$scope.selectedDay = $(".1-100").find(":selected").val();// set this equal to scope.selected Day
-          	var selectedDay = $scope.selectedDay;
-          	var newesturl = newurl.concat('&last_x_days=',selectedDay);
-		 	var newesturl = newesturl.concat('&user_name=',selectedUser);
-		 }
-// All 3
-          else {
-          	console.log('All 3 are selected');
-          	var selectedUser = $scope.selectedUser;
-		 	$scope.selectedDay = $(".1-100").find(":selected").val();// set this equal to scope.selected Day
-          	var selectedDay = $scope.selectedDay;
-          	var selectedCampaign = $scope.selectedCampaign;
-          	var selectedCampaign = selectedCampaign.replaceAll('+', '%2B');
-			var selectedCampaign = selectedCampaign.replaceAll('#', '%23');
-          	var newesturl = newurl.concat('&last_x_days=',selectedDay);
-		 	var newesturl = newesturl.concat('&user_name=',selectedUser);
-		 	var newesturl = newesturl.concat('&campaign_name=',selectedCampaign);
-          }
-
-          $scope.url = $sce.trustAsResourceUrl(newesturl);
-
-	};
-
-
-	// Populate client's campaigns in the dropdown
-	$http.get('/api/campaigns')
-		.success(function(data){
-			$scope.campaigns = data;
-			console.log('These are the camapaigns: ',data)
+	$scope.createTodo = function() { 
+		$http.post('/api/todos', $scope.formData)
+			.success(function(data) {
+				$scope.formData = {}; // clear the form so our user is ready to enter another
+				$scope.gonderi = data;
+				console.log(data);
 			})
-			.error(function(data){
+			.error(function(data) {
+				console.log('Error: ' + data);
 			});
-
-	// Change the iframe based on the user's selected 'Past X Days'
-
-	$scope.daySelected = function() {
-		// var selectedUser = $scope.selectedUser;
-		console.log('you ran the daySelected function');
-		updateIframe();
 	};
-
-
-	// Change the iframe based on the user's selected LinkedIn user
-
-	$scope.userSelected = function() {
-		// var selectedUser = $scope.selectedUser;
-		console.log('you ran the userSelected function');
-		updateIframe();
-	};
-
-
-
-	// Change the iframe based on the user's selected campaigns
-
-	$scope.campaignSelected = function() {
-		  // var selectedCampaign = $scope.selectedCampaign;
-		  console.log('you ran the campaignSelected function');
-		  updateIframe();	       		
-	};
-
 	
 
 	// Populate client's LinkedIn users in the dropdown

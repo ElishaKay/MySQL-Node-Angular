@@ -8,7 +8,6 @@ var urlencodedparser = bodyParser.urlencoded({extended:false});
 
 module.exports = function(app,passport) {
 
-
     app.get('/',isLoggedIn,function(req,res){
         res.render('index.ejs'); 
     });
@@ -157,11 +156,23 @@ module.exports = function(app,passport) {
         console.log(req.body.message);
         debugger;
         connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
-        // connection.query('insert into comment(text,client_id,post_id) values("'+comment+'","'+req.user.client_id+'","'+postID+'")')
-   
-
         res.render('index.ejs'); 
-      });
+    });
+
+    // function for replacing all occurences of a specific substring
+    String.prototype.replaceAll = function(target, replacement) {
+          return this.split(target).join(replacement);
+    };
+
+
+    app.post('/api/blogPostData', function(req,res){
+        console.log('this is the blog post string',req.body.html);
+        debugger;
+        connection.query('INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),"'+req.body.html+'","' +req.user.client_id+'")');
+        res.render('index.ejs'); 
+    });
+
+
 
     app.post('/api/todos',function(req,res){
         var row = [];
