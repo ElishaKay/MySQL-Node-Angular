@@ -42,6 +42,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/profile/:id/:email',
     templateUrl: 'profile',
     controller: 'profilesController'  
+  })
+  .state('home.contact', {
+    url: '/contact',
+    templateUrl: 'contact',
+    controller: 'mainController'  
   });
 });
 

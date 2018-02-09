@@ -7,95 +7,30 @@
   </head>
 <body ng-controller="mainController" >
       
-       <% include partials/header %>
+       <% include partials/header %> 
 
-         <div class="padding">
-
-            <div class="col-sm-12">
-							
-							 <div class="panel panel-default">
-                               
-                               <center>
-                       
-                               <!-- <hr> -->
-
-                               </center> 
-
-
-
-<div class="col-sm-3">
-<div class="form-group">
-<button ng-click="resetCampaign()">Reset</button>
-<select class="form-control input-lg" ng-change="campaignSelected()" ng-model="selectedCampaign">
-<option value="" disabled selected>Choose Campaign</option>
-<option ng-repeat="campaign in campaigns" value="{{campaign.campaign_name}}">{{campaign.campaign_name}}</option>
-</select>
-<!-- <p>selected campaign is: {{selectedCampaign}}</p> -->
-</div>
-</div>
-       
-
-          
-<div class="col-sm-3">
-<div class="form-group">
-<button ng-click="resetUser()">Reset</button>
-<select class="form-control input-lg" ng-change="userSelected()" ng-model="selectedUser">
-<option value="" disabled selected>Choose User</option>
-<option ng-repeat="user in users" value="{{user.fullname}}">{{user.fullname}}</option>
-</select>
-<!-- <p>selected user is: {{selectedUser}}</p> -->
-</div>
-</div>
-
-<!-- Choose past X days -->
-<div class="col-sm-3">
-<div class="form-group">
-<button ng-click="resetDay()">Reset</button>
-<select id="1-100" class="1-100 form-control input-lg" ng-change="daySelected()" ng-model="selectedDay">
-  <option value="" disabled selected>Choose Time</option>
-</select>
-</div>
-</div>
-</div>
-<center><button type="button" class="btn btn-primary btn-lg" ng-click="updateIframe()">Fetch My Data</button>
-</center>                     
-<!--  {{users}}      -->          
-             
-
-<!-- 
-To test the directive again, uncomment these lines, then add link to javasript page directives.js(found in header of this page) and step 3 is go to core.js and uncomment the top 2 lines - "var app = angular.module('GXLeads', ['app.directives']);"
-
-<my-dir></my-dir>
-Testing riccardo's stats view
 <div class="col-sm-12">
-<h2>Riccardo's iframe from core js</h2> 
-<div class="col-sm-12" ng-bind-html="html"></div>
-</div> -->
+							
+<div class="row">
+    <div class="col-md-10">
+       <div  ui-view></div>
+     </div>
+    <div class="col-md-2">
+      <img height="200px" src="../public/images/Koala-time.PNG">            
+    </div>
+</div>
 
-  <a ui-sref="party" class="btn btn-primary">Go To Party</a>
-  <a ui-sref="profile({ id: client_id, email: client_email })" class="btn btn-primary">View My Profile</a>   
-
-
-
-<div  ui-view></div>
-
-
-
-
-
-     
 
                            <div class="col-sm-12">
  							<div class="panel panel-default">
-                              <div class="panel-heading"><a href="#" class="pull-right"></a> <h4>Popular Posts from Help Center</h4></div>
+                              <div class="panel-heading"><a href="#" class="pull-right"></a> <h4>Popular Posts</h4></div>
                                 <div class="panel-body">
                                	<div class="clearfix"></div>
                                     
                                     <ul class="list-unstyled">
-                                    <a href="http://help.growth-x.com/content-guidelines/what-is-the-best-approach-to-invite-others-to-connect-on-linkedin" class="list-group-item ">What is the best approach to invite others to connect on Linkedin?</a>
-                                    <a href="http://help.growth-x.com/mastering-search-url-s/the-basics-of-linkedin-search-and-the-growth-x-product" class="list-group-item ">How To Create the Right Search URL</a>
-                                    <a href="http://help.growth-x.com/the-abc-s-of-campaign-building/how-do-i-create-campaigns-which-will-generate-the-freshest-leads" class="list-group-item ">How do I create campaigns which will generate the freshest leads?</a>
-                                    <a href="http://help.growth-x.com/the-abc-s-of-campaign-building/how-to-organize-your-incoming-leads" class="list-group-item ">How To Organize Your Incoming Leads</a>
+                                    <a href="www.google.com">Google</a>
+                                    <a href="www.facebook.com">Facebook</a>
+                                    <a href="www.twitter.com" class="list-group-item ">Twitter</a>
                                     </ul>
                               	
                              
@@ -127,7 +62,7 @@ Testing riccardo's stats view
                       <hr>
                       
                       <h4 class="text-center">
-                      <a href="http://growth-x.com/" target="ext">Growth-X.com</a>
+                      <a href="/" target="ext">Amp It Up</a>
                       </h4>
                         
                       <hr>
