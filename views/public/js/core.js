@@ -47,6 +47,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/contact',
     templateUrl: 'contact',
     controller: 'mainController'  
+  })
+  .state('home.blog', {
+    url: '/blog',
+    templateUrl: 'blog',
+    controller: 'mainController'  
   });
 });
 
@@ -287,10 +292,10 @@ function mainController($scope, $http, socket, textAngularManager){
 	
 
 	// Populate client's LinkedIn users in the dropdown
-	$http.get('/api/users')
+	$http.get('/api/user')
 		.success(function(data){
-			$scope.users = data;
-
+			$scope.client = data;
+			
 			console.log("hey from users function in core.js!")
 			console.log('These are the users: ',data)
 			})

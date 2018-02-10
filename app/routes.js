@@ -20,6 +20,10 @@ module.exports = function(app,passport) {
         res.render('search.ejs');   
     });
 
+    app.get('/blog', function(req, res) {
+        res.render('blog.ejs');   
+    });
+
     app.get('/contact', function(req, res) {
         res.render('contact.ejs');   
     });    
