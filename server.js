@@ -56,7 +56,6 @@ connections = [];
 
 io.sockets.on('connection', function(socket){
 
-
     connections.push(socket);
     console.log("connected: % of sockets connected", connections.length);
     
@@ -136,7 +135,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-    secret: 'kodizimcomisrunning',
+    secret: 'leeshkay',
     resave: true,
     saveUninitialized: true
  } )); // session secret
@@ -149,7 +148,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // routes ======================================================================
-// require('./app/email-template2.js')(app); // load our routes and pass in our app and fully configured passport
+require('./app/email-template2.js')(app); // load our routes and pass in our app and fully configured passport
 
 
 // launch ======================================================================
