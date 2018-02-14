@@ -14,7 +14,6 @@ module.exports = function(app) {
 
 app.post('/contact', (req, res) => {
 
-  console.log(req);
 
 // Sending email immediately based on User Input - like contact form - from client
 
@@ -45,9 +44,9 @@ app.post('/contact', (req, res) => {
 
   // setup email data with unicode symbols
   let mailOptions = {
-      from: '"Elisha" <kramer1346@gmail.com>', // sender address
+      from: '"Growth-X Team" <help@growth-x.com>', // sender address
       to: req.body.email, // list of receivers
-      subject: 'Hey from Leesh', // Subject line
+      subject: 'Hey from GX', // Subject line
       text: 'Hello world?', // plain text body
       html: output // html body
   };
@@ -62,8 +61,5 @@ app.post('/contact', (req, res) => {
 
       
     });
-
-  // res.render('index.ejs', {rows : row,rows3:row3});
-  res.render('index.ejs', {message: 'hey man. The message was sent succesfully!'});  
   });
  };   
