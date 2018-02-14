@@ -6,31 +6,18 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
     'btford.socket-io',
     'GXLeads.directives',
     'ngIntercom'
-  ])
-  .value('User', {
+  ]);
+
+//Intercom // you may use Intercom rather than $intercom
+  app.controller('intercomController', function($scope, $intercom, User, $http) {
+
+
+  	var User = {
     email: 'kramer1346@gmail.com',
     name: 'Leesg Kay',
     created_at: 1234567890,
     user_id: '1'
-  })// inject your app_id anyway you like
-  .constant('INTERCOM_APPID', 'd0idn8ii')
-
-  // Configure your $intercom module with appID
-  .config(function($intercomProvider, INTERCOM_APPID) {
-    // Either include your app_id here or later on boot
-    $intercomProvider
-      .appID(INTERCOM_APPID);
-
-    // you can include the Intercom's script yourself or use the built in async loading feature
-    $intercomProvider
-      .asyncLoading(true)
-  })
-  .run(function($intercom, User) {
-    // boot $intercom after you have user data usually after auth success
-    $intercom.boot(fakeUser); // app_id not required if set in .config() block
-  })
-  //                                       Intercom // you may use Intercom rather than $intercom
-  .controller('intercomController', function($scope, $intercom, User) {
+  		}
 
     $scope.user = User;
 
@@ -43,7 +30,7 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
       $scope.showing = false;
     });
 
-
+    $intercom.boot(User);
 
     $scope.show = function() {
       $intercom.show();
@@ -60,12 +47,25 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
   });
 
 
+
+
 // Beginning of router
 
-app.config(function($stateProvider, $urlRouterProvider) {
 
+  // Configure your $intercom module with appID
+  .config(function() {
+    // Either include your app_id here or later on boot
+  
 
- 
+app.constant('INTERCOM_APPID', 'd0idn8ii')
+
+app.config(function($stateProvider, $urlRouterProvider, $intercomProvider, INTERCOM_APPID) {
+
+  $intercomProvider.appID(INTERCOM_APPID);
+
+    // you can include the Intercom's script yourself or use the built in async loading feature
+  $intercomProvider.asyncLoading(true)
+
   $urlRouterProvider.otherwise('/home/chat');
 
 
@@ -113,7 +113,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
   });
 });
 
+app.run(function($intercom, User) {
+    // boot $intercom after you have user data usually after auth success
+     // app_id not required if set in .config() block
+})
 
+app.factory('PeopleService', function(){
+  var Movies = [{name: "Reservoir Dogs", img: "img/reservoirDogs.jpg", description: "A group of thieves assemble to pull of the perfect diamond heist. It turns into a bloody ambush when one of the men turns out to be a police informer. As the group begins to question each other's guilt, the heightening tensions threaten to explode the situation before the police step in."}, 
+  		{name: 'Edge of Tomorrow', img: 'img/edgeOfTomorrow.jpg', description: "When Earth falls under attack from invincible aliens, no military unit in the world is able to beat them. Maj. William Cage (Tom Cruise), an officer who has never seen combat, is assigned to a suicide mission. Killed within moments, Cage finds himself thrown into a time loop, in which he relives the same brutal fight -- and his death -- over and over again."}, 
+  		{name: 'Dunston Checks In', img: 'img/dunston.jpg', description: "Robert, hoping to be rewarded with some time off of work to relax with his sons (Eric Lloyd, Graham Sack), vows to put the utmost care into his duties -- a task that's complicated by one guest's unruly, light-fingered orangutan, Dunston."},
+  		{name: 'The Rock', img: 'img/therock.jpg', description: "FBI chemical warfare expert Stanley Goodspeed (Nicolas Cage) is sent on an urgent mission with a former British spy, John Patrick Mason (Sean Connery), to stop Gen. Francis X. Hummel (Ed Harris) from launching chemical weapons on Alcatraz Island into San Francisco."}];
+
+  return { 
+    Movies: Movies 
+  };
+});
 
 // end of router
 // Beginning of controller
