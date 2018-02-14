@@ -12,10 +12,6 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
-    app.get('/chat',isLoggedIn,function(req,res){
-        res.render('chat.ejs'); 
-    });
-
     app.get('/profile',isLoggedIn,function(req,res){
         res.render('profile.ejs'); 
     });

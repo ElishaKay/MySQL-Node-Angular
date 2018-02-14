@@ -7,16 +7,17 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/home/chat');
+  $urlRouterProvider.otherwise('/home/list');
 
   $stateProvider.state('home', {
     url: '/home',
-    templateUrl: 'partial-home.html'
-    // controller: 'MainCtrl'
+    templateUrl: 'partial-home.html',
+    controller: 'mainController'
   })
-  .state('home.chat', {
-  	url: '/chat',
-  	templateUrl: 'chat.ejs',
+  .state('home.list', {
+  	url: '/list',
+  	templateUrl: 'home-list.html',
+    controller: 'mainController'
   })
     .state('home.list2', {
     url: '/list2',
