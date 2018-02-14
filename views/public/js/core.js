@@ -3,93 +3,29 @@
 var app = angular.module('GXLeads', ['textAngular', 'ui.router',
     'GXLeads.services',
     'GXLeads.filters',
-    'btford.socket-io',
-    'GXLeads.directives',
-    'ngIntercom'
-  ])
-  .value('User', {
-    email: 'kramer1346@gmail.com',
-    name: 'Leesg Kay',
-    created_at: 1234567890,
-    user_id: '1'
-  })// inject your app_id anyway you like
-  .constant('INTERCOM_APPID', 'd0idn8ii')
-
-  // Configure your $intercom module with appID
-  .config(function($intercomProvider, INTERCOM_APPID) {
-    // Either include your app_id here or later on boot
-    $intercomProvider
-      .appID(INTERCOM_APPID);
-
-    // you can include the Intercom's script yourself or use the built in async loading feature
-    $intercomProvider
-      .asyncLoading(true)
-  })
-  .run(function($intercom, User) {
-    // boot $intercom after you have user data usually after auth success
-    $intercom.boot(fakeUser); // app_id not required if set in .config() block
-  })
-  //                                       Intercom // you may use Intercom rather than $intercom
-  .controller('intercomController', function($scope, $intercom, User) {
-
-    $scope.user = User;
-
-    // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
-    $intercom.$on('show', function() {
-      $scope.showing = true; // currently Intercom onShow callback isn't working
-    });
-
-    $intercom.$on('hide', function() {
-      $scope.showing = false;
-    });
-
-
-
-    $scope.show = function() {
-      $intercom.show();
-    };
-
-    $scope.hide = function() {
-      $intercom.hide();
-    };
-
-    $scope.update = function(user) {
-      $intercom.update(user);
-    };
-
-  });
-
-
-// Beginning of router
+    'btford.socket-io', ]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
-
- 
-  $urlRouterProvider.otherwise('/home/chat');
-
+  $urlRouterProvider.otherwise('/home/list');
 
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: 'partial-home.html',
-    controller: 'intercomController'
+    controller: 'mainController'
   })
-  .state('home.chat', {
-  	url: '/chat',
-  	templateUrl: 'chat',
+  .state('home.list', {
+  	url: '/list',
+  	templateUrl: 'home-list.html',
     controller: 'mainController'
   })
     .state('home.list2', {
     url: '/list2',
     templateUrl: 'home-list2.html',
-    controller: 'mainController'
-
   })
     .state('home.community', {
     url: '/community',
     templateUrl: 'community',
-    controller: 'mainController'
-
   })
     .state('home.search', {
     url: '/search',
@@ -114,6 +50,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
+app.factory('PeopleService', function(){
+  var Movies = [{name: "Reservoir Dogs", img: "img/reservoirDogs.jpg", description: "A group of thieves assemble to pull of the perfect diamond heist. It turns into a bloody ambush when one of the men turns out to be a police informer. As the group begins to question each other's guilt, the heightening tensions threaten to explode the situation before the police step in."}, 
+  		{name: 'Edge of Tomorrow', img: 'img/edgeOfTomorrow.jpg', description: "When Earth falls under attack from invincible aliens, no military unit in the world is able to beat them. Maj. William Cage (Tom Cruise), an officer who has never seen combat, is assigned to a suicide mission. Killed within moments, Cage finds himself thrown into a time loop, in which he relives the same brutal fight -- and his death -- over and over again."}, 
+  		{name: 'Dunston Checks In', img: 'img/dunston.jpg', description: "Robert, hoping to be rewarded with some time off of work to relax with his sons (Eric Lloyd, Graham Sack), vows to put the utmost care into his duties -- a task that's complicated by one guest's unruly, light-fingered orangutan, Dunston."},
+  		{name: 'The Rock', img: 'img/therock.jpg', description: "FBI chemical warfare expert Stanley Goodspeed (Nicolas Cage) is sent on an urgent mission with a former British spy, John Patrick Mason (Sean Connery), to stop Gen. Francis X. Hummel (Ed Harris) from launching chemical weapons on Alcatraz Island into San Francisco."}];
+
+  return { 
+    Movies: Movies 
+  };
+});
 
 // end of router
 // Beginning of controller
@@ -144,6 +90,14 @@ function searchController($scope, $http){
 	  $scope.searchFish   = '';     // set the default search/filter term
 	  
 	var client_email = '';
+
+        
+	var init = function (client_email) {
+	   
+			};
+
+	init();
+
 	$scope.reverse = true;
 	
 };
@@ -164,15 +118,6 @@ function profilesController($scope, $http, $stateParams, $window){
 
 function mainController($scope, $http, socket, textAngularManager){
 	 	  
-
-		 var init = function (client_email) {
-	 	  window.Intercom("boot", {
-		  		app_id: "brgsi84c"
-			});
-		};
-
-		init();
-	  
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
 		.success(function(data){

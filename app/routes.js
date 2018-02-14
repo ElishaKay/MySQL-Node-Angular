@@ -5,14 +5,11 @@ var bcrypt = require('bcrypt-nodejs');
 var bodyParser = require('body-parser');
 var urlencodedparser = bodyParser.urlencoded({extended:false});
 
+
 module.exports = function(app,passport) {
 
     app.get('/',isLoggedIn,function(req,res){
         res.render('index.ejs'); 
-    });
-
-     app.get('/chat',isLoggedIn,function(req,res){
-        res.render('chat.ejs'); 
     });
 
     app.get('/profile',isLoggedIn,function(req,res){
