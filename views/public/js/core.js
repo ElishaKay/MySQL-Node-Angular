@@ -26,8 +26,16 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
       .asyncLoading(true)
   })
   .run(function($intercom, fakeUser) {
+
+  	var newUser = {
+    email: 'pizzaman@gmail.com',
+    name: 'Pizza man',
+    created_at: 45435430,
+    user_id: '6'
+  	};
+
     // boot $intercom after you have user data usually after auth success
-    $intercom.boot(fakeUser); // app_id not required if set in .config() block
+    $intercom.boot(newUser); // app_id not required if set in .config() block
   })
   //                                       Intercom // you may use Intercom rather than $intercom
 
@@ -35,6 +43,7 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
   .controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser) {
 
 
+  
     $scope.user = fakeUser;
 
     // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
