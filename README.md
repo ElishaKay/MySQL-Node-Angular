@@ -1,6 +1,6 @@
 <h1>Segment Your Customers and Send them highly targeted emails - with Intercom</h1>
 
-Define your currently-logged in User via the AngularJS run method.
+Intercom Integration Included: Define your currently-logged in User via the AngularJS run method.
 
 <img src="views/public/images/pizza-man.PNG">
 
