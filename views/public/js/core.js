@@ -28,14 +28,22 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
   .run(function($intercom, fakeUser) {
 
   	var newUser = {
-    email: 'pizzaman@gmail.com',
-    name: 'Pizza man',
+    email: 'kramer1346@gmail.com',
+    name: 'Leeshy Kay Kapish',
     created_at: 45435430,
-    user_id: '6'
+    user_id: '108',
+    upgrade_request: true
   	};
 
     // boot $intercom after you have user data usually after auth success
     $intercom.boot(newUser); // app_id not required if set in .config() block
+
+   	$intercom("boot", {
+  			app_id: "brgsi84c"
+		});
+
+
+
   })
   //                                       Intercom // you may use Intercom rather than $intercom
 
@@ -54,8 +62,6 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
       $scope.showing = false;
     });
 
-
-
     $scope.show = function() {
       $intercom.show();
     };
@@ -65,14 +71,17 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
     };
 
     $scope.update = function(user) {
-      $intercom.update(user);
+        var newUser = {
+    		email: 'wassupyoutubedevelopers@gmail.com',
+   			name: 'YouTube Series',
+    		created_at: 45435430,
+    		user_id: '105'
+  		};
+
+      $intercom.update(newUser);
     };
 
 
- 	 	  
-	 $window.Intercom("boot", {
-			  app_id: "brgsi84c"
-	 });
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
 		.success(function(data){
