@@ -4,106 +4,84 @@ var app = angular.module('GXLeads', ['textAngular', 'ui.router',
     'GXLeads.services',
     'GXLeads.filters',
     'btford.socket-io',
-    'GXLeads.directives',
-  ]);
-
-// Beginning of router
-
-app.config(function($stateProvider, $urlRouterProvider) {
-
-
- 
-  $urlRouterProvider.otherwise('/home/list');
-
-
-  $stateProvider.state('home', {
-    url: '/home',
-    templateUrl: 'partial-home.html'
-    // controller: 'MainCtrl'
+    'ngIntercom' ])
+ .value('fakeUser', {
+    email: 'john.doe@example.com',
+    name: 'JAKE sMIT',
+    created_at: 45435430,
+    user_id: '3248'
   })
-  .state('home.list', {
-  	url: '/list',
-  	templateUrl: 'home-list.html',
+
+  // inject your app_id anyway you like
+  .constant('INTERCOM_APPID', 'brgsi84c')
+
+  // Configure your $intercom module with appID
+  .config(function($intercomProvider, INTERCOM_APPID) {
+    // Either include your app_id here or later on boot
+    $intercomProvider
+      .appID(INTERCOM_APPID);
+
+    // you can include the Intercom's script yourself or use the built in async loading feature
+    $intercomProvider
+      .asyncLoading(true)
   })
-    .state('home.list2', {
-    url: '/list2',
-    templateUrl: 'home-list2.html',
+  .run(function($intercom, fakeUser) {
+
+  	var newUser = {
+    email: 'kramer1346@gmail.com',
+    name: 'Leeshy Kay Kapish',
+    created_at: 45435430,
+    user_id: '108',
+    upgrade_request: true
+  	};
+
+    // boot $intercom after you have user data usually after auth success
+    $intercom.boot(newUser); // app_id not required if set in .config() block
+
+   	$intercom("boot", {
+  			app_id: "brgsi84c"
+		});
+
+
+
   })
-    .state('home.community', {
-    url: '/community',
-    templateUrl: 'community',
-  })
-    .state('home.search', {
-    url: '/search',
-    templateUrl: 'search',
-    controller: 'searchController'  
-  })
-  .state('profile', {
-    url: '/profile/:id/:email',
-    templateUrl: 'profile',
-    controller: 'profilesController'  
-  });
-});
+  //                                       Intercom // you may use Intercom rather than $intercom
 
 
-
-// end of router
-// Beginning of controller
-
-function searchController($scope, $http){
-	 
-      // Populate client's campaigns in the dropdown
-	  $http.get('/api/search')
-		.success(function(data){
-			$scope.allUsers = data;
-			console.log('These are all of the apps users: ',data)
-		})
-		.error(function(data){
-	  });
-
-	  // Filter by column user chooses from dropdown
-	  $scope.filterType	= 'client_id';
-
-	  $scope.ourTeamCategories = [
-        {"id":18,"title":'Management'},
-        {"id":19,"title":'Administration'},
-        {"id":21,"title":'Designers'},
-        {"id":22,"title":'Accounts'},
-      ];
-
-	  $scope.sortType     = 'name'; // set the default sort type
-	  $scope.sortReverse  = false;  // set the default sort order
-	  $scope.searchFish   = '';     // set the default search/filter term
-	  
-	var client_email = '';
-
-        
-	var init = function (client_email) {
-	   
-			};
-
-	init();
-
-	$scope.reverse = true;
-	
-};
+  .controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser) {
 
 
-function profilesController($scope, $http, $stateParams, $window){
-	   // Getting stuff from URL
-	  // get the id
+  
+    $scope.user = fakeUser;
 
-	  $window.scrollTo(0, 0);
-	  
-      $scope.id = $stateParams.id;
+    // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
+    $intercom.$on('show', function() {
+      $scope.showing = true; // currently Intercom onShow callback isn't working
+    });
+    $intercom.$on('hide', function() {
+      $scope.showing = false;
+    });
 
-      // get the email
-      $scope.email = $stateParams.email;   
-	};
+    $scope.show = function() {
+      $intercom.show();
+    };
+
+    $scope.hide = function() {
+      $intercom.hide();
+    };
+
+    $scope.update = function(user) {
+        var newUser = {
+    		email: 'wassupyoutubedevelopers@gmail.com',
+   			name: 'YouTube Series',
+    		created_at: 45435430,
+    		user_id: '105'
+  		};
+
+      $intercom.update(newUser);
+    };
 
 
-function mainController($scope, $http, socket, textAngularManager){
-	 	  
       // Populate client's campaigns in the dropdown
 	  $http.get('/api/search')
 		.success(function(data){
@@ -135,7 +113,6 @@ function mainController($scope, $http, socket, textAngularManager){
 	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
 	  ];
 
-	  $scope.messageData = {};
 
 	  var client_email = '';
 
@@ -156,6 +133,7 @@ function mainController($scope, $http, socket, textAngularManager){
 			});
 
 
+	$scope.messageData = {};
 
 
     $scope.submitMessage = function(messageData){
@@ -282,10 +260,10 @@ function mainController($scope, $http, socket, textAngularManager){
 	
 
 	// Populate client's LinkedIn users in the dropdown
-	$http.get('/api/users')
+	$http.get('/api/user')
 		.success(function(data){
-			$scope.users = data;
-
+			$scope.client = data;
+			
 			console.log("hey from users function in core.js!")
 			console.log('These are the users: ',data)
 			})
@@ -354,5 +332,118 @@ function mainController($scope, $http, socket, textAngularManager){
 	
 
 
+});
+
+
+
+
+app.config(function($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/home/list');
+
+  $stateProvider.state('home', {
+    url: '/home',
+    templateUrl: 'partial-home.html',
+    controller: 'mainController'
+  })
+  .state('home.list', {
+  	url: '/list',
+  	templateUrl: 'home-list.html',
+    controller: 'mainController'
+  })
+    .state('home.list2', {
+    url: '/list2',
+    templateUrl: 'home-list2.html',
+  })
+    .state('home.community', {
+    url: '/community',
+    templateUrl: 'community',
+  })
+    .state('home.search', {
+    url: '/search',
+    templateUrl: 'search',
+    controller: 'searchController'  
+  })
+  .state('profile', {
+    url: '/profile/:id/:email',
+    templateUrl: 'profile',
+    controller: 'profilesController'  
+  })
+  .state('home.contact', {
+    url: '/contact',
+    templateUrl: 'contact',
+    controller: 'mainController'  
+  })
+  .state('home.blog', {
+    url: '/blog',
+    templateUrl: 'blog',
+    controller: 'mainController'  
+  });
+});
+
+
+app.factory('PeopleService', function(){
+  var Movies = [{name: "Reservoir Dogs", img: "img/reservoirDogs.jpg", description: "A group of thieves assemble to pull of the perfect diamond heist. It turns into a bloody ambush when one of the men turns out to be a police informer. As the group begins to question each other's guilt, the heightening tensions threaten to explode the situation before the police step in."}, 
+  		{name: 'Edge of Tomorrow', img: 'img/edgeOfTomorrow.jpg', description: "When Earth falls under attack from invincible aliens, no military unit in the world is able to beat them. Maj. William Cage (Tom Cruise), an officer who has never seen combat, is assigned to a suicide mission. Killed within moments, Cage finds himself thrown into a time loop, in which he relives the same brutal fight -- and his death -- over and over again."}, 
+  		{name: 'Dunston Checks In', img: 'img/dunston.jpg', description: "Robert, hoping to be rewarded with some time off of work to relax with his sons (Eric Lloyd, Graham Sack), vows to put the utmost care into his duties -- a task that's complicated by one guest's unruly, light-fingered orangutan, Dunston."},
+  		{name: 'The Rock', img: 'img/therock.jpg', description: "FBI chemical warfare expert Stanley Goodspeed (Nicolas Cage) is sent on an urgent mission with a former British spy, John Patrick Mason (Sean Connery), to stop Gen. Francis X. Hummel (Ed Harris) from launching chemical weapons on Alcatraz Island into San Francisco."}];
+
+  return { 
+    Movies: Movies 
+  };
+});
+
+// end of router
+// Beginning of controller
+
+function searchController($scope, $http){
+	 
+      // Populate client's campaigns in the dropdown
+	  $http.get('/api/search')
+		.success(function(data){
+			$scope.allUsers = data;
+			console.log('These are all of the apps users: ',data)
+		})
+		.error(function(data){
+	  });
+
+	  // Filter by column user chooses from dropdown
+	  $scope.filterType	= 'client_id';
+
+	  $scope.ourTeamCategories = [
+        {"id":18,"title":'Management'},
+        {"id":19,"title":'Administration'},
+        {"id":21,"title":'Designers'},
+        {"id":22,"title":'Accounts'},
+      ];
+
+	  $scope.sortType     = 'name'; // set the default sort type
+	  $scope.sortReverse  = false;  // set the default sort order
+	  $scope.searchFish   = '';     // set the default search/filter term
+	  
+	var client_email = '';
+
+        
+	var init = function (client_email) {
+	   
+			};
+
+	init();
+
+	$scope.reverse = true;
+	
 };
+
+
+function profilesController($scope, $http, $stateParams, $window){
+	   // Getting stuff from URL
+	  // get the id
+
+	  $window.scrollTo(0, 0);
+	  
+      $scope.id = $stateParams.id;
+
+      // get the email
+      $scope.email = $stateParams.email;   
+	};
 

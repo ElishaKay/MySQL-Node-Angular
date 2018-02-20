@@ -1,13 +1,18 @@
+var dbconfig = require('../config/database');
+var mysql = require('mysql');
+
+//Query data from a second database
+var connection2 = mysql.createConnection(dbconfig.connection2); 
+var nodemailer = require('nodemailer');
+var schedule = require('node-schedule');
+
+module.exports = function(app) {
 
 
 
 // Just the code for sending based on User Input in the '/send' route
 
-app.post('/send', (req, res) => {
-
-// Defining variables
-
-    const output = '';
+app.post('/contact', (req, res) => {
 
 
 // Sending email immediately based on User Input - like contact form - from client
@@ -55,6 +60,6 @@ app.post('/send', (req, res) => {
       console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
       
+    });
   });
-});
-    
+ };   

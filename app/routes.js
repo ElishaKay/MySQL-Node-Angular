@@ -18,6 +18,14 @@ module.exports = function(app,passport) {
 
     app.get('/search', function(req, res) {
         res.render('search.ejs');   
+    });
+
+    app.get('/blog', function(req, res) {
+        res.render('blog.ejs');   
+    });
+
+    app.get('/contact', function(req, res) {
+        res.render('contact.ejs');   
     });    
 
      // Get all App Users to populate search results page
@@ -73,7 +81,6 @@ module.exports = function(app,passport) {
         connection.query('select * from message m inner join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
             res.json(rows);
         });
-      
     });
 
       // Get row for the logged in user (i.e. client)

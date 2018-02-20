@@ -48,7 +48,7 @@ CREATE TABLE `message` (
   REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza')
+INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com','pizza');
 
 CREATE TABLE `blogpost` (
   `blogpost_id` int(11) UNSIGNED NOT NULL auto_increment,

@@ -1,4 +1,8 @@
-<h1>Segment Your Customers and Send them highly targeted emails</h1>
+<h1>Segment Your Customers and Send them highly targeted emails - with Intercom</h1>
+
+Intercom Integration Included: Define your currently-logged in User via the AngularJS run method.
+
+<img src="views/public/images/pizza-man.PNG">
 
 "# MySQL-Node-Angular" 
 
@@ -65,3 +69,11 @@ Here's the syntax to control when emails get sent.
 <h2>Deploy To Heroku</h2>
 
 You can upload the app to Heroku, and the automated emails will work - but you may have to pay to keep the app running full-time (i.e. pay for a 'dyno' - highly isolated Linux Process) so that your Heroku app is turned on when the scheduler reaches the Send-Time.
+
+
+<p>This project is part of an <a href="www.youtube.com">Intercom Tutorial Series</a></p>
+
+<img src="views/public/images/intercom-chart.png">
+
+<img src="views/public/images/email-flow.png">
+
