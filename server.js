@@ -109,6 +109,12 @@ var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life and love, the universe, and everything!');
 });
 
+// For deployment time
+var port     = process.env.PORT || 80;
+
+// for development
+// var port     = 8000;
+
 var passport = require('passport');
 var flash    = require('connect-flash');
 
