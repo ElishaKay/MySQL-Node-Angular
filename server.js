@@ -27,10 +27,10 @@ var io = require('socket.io').listen(server);
 
 // all environments
 //for development
-app.set('port', process.env.PORT || 8000);
+// app.set('port', process.env.PORT || 8000);
 
 // for heroku
-// app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 80);
 
 
 app.set('views', __dirname + '/views');
@@ -108,12 +108,6 @@ server.listen(app.get('port'), function () {
 var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life, the universe, and everything!');
 });
-
-// For deployment time
-// var port     = process.env.PORT || 80;
-
-// for development
-var port     = 8000;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
