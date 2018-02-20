@@ -106,7 +106,7 @@ server.listen(app.get('port'), function () {
 
 
 var j = schedule.scheduleJob('42 * * * *', function(){
-  console.log('The answer to life, the universe, and everything!');
+  console.log('The answer to life and love, the universe, and everything!');
 });
 
 var passport = require('passport');
