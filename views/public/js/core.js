@@ -26,12 +26,10 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
   $stateProvider.state('home', {
     url: '/home',
     templateUrl: 'partial-home.html',
-    controller: 'mainController'
   })
   .state('home.list', {
   	url: '/list',
   	templateUrl: 'home-list.html',
-    controller: 'mainController'
   })
     .state('home.list2', {
     url: '/list2',
@@ -53,8 +51,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
   })
   .state('home.contact', {
     url: '/contact',
-    templateUrl: 'contact',
-    controller: 'mainController'  
+    templateUrl: 'contact',  
   })
   .state('home.blog', {
     url: '/blog',
@@ -95,8 +92,8 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 
   app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
 
-    $scope.user1 = ClientService.Client;
-	console.log('This is the $scope.user1 object',$scope.user1);  
+    $scope.client = ClientService.Client;
+	console.log('This is the $scope.client object',$scope.client);  
     $scope.user = fakeUser;
 
     // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
@@ -126,16 +123,6 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
       $intercom.update(newUser);
     };
 
-
-      // Populate client's campaigns in the dropdown
-	  $http.get('/api/search')
-		.success(function(data){
-			$scope.allUsers = data;
-			console.log('These are all of the apps users: ',data)
-		})
-		.error(function(data){
-	  });
-
 	  // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
@@ -150,15 +137,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 	  $scope.sortReverse  = false;  // set the default sort order
 	  $scope.searchFish   = '';     // set the default search/filter term
 	  
-	  // create the list of sushi rolls 
-	  $scope.sushi = [
-	    { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
-	    { name: 'Philly', fish: 'Tuna', tastiness: 4 },
-	    { name: 'Tiger', fish: 'Eel', tastiness: 7 },
-	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
-	  ];
-
-
+	
 	  var client_email = '';
 
 	  var init = function (client_email) {};
@@ -187,7 +166,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
         console.log('This is the messageData object:',messageData);
         var date = new Date();
 
-        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
+        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client.data[0].client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 
@@ -237,7 +216,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
        
         socket.on('new message', function(data){
             $scope.chatMessages = data;
-
+            console.log("THis is a new chat-message", data);
             // chat.append($("<div class='well'><strong>hello</strong>" 
             //     + data.user +"</strong>: "
             //     + data.msg + "</div>"));
@@ -247,135 +226,10 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
         socket.on('get users', function(data){
         	$scope.onlineUsers = data;
         });
-     
-
-
-
-	          
-
+    
 // Original controller below here:
 	$scope.formData = {};
 	$scope.blogdata = {};
-
-	$(function(){
-    var $select = $(".1-100");
-    // $select.prepend("<option value='allTime'>Always</option>");
-    for (i=1;i<=100;i++){
-     	   $select.append($("<option value='i'></option>").val(i).html("Last "+i+" Days"))
-   		 }
-   		 
-	});
-
-	// Hiç bir şeye basılmadığında yani direk site açılğında router.js içerisine direk get methoduna gidiyor . 
-	$http.get('/api/todos')
-		.success(function(data) {
-			$scope.gonderi = data;
-			console.log($scope.gonderi.length,'veri geldi')
-		})
-		.error(function(data) {
-			console.log('Error: ' + data);
-		});
-
-
-
-
-	$scope.createTodo = function() { 
-		$http.post('/api/todos', $scope.formData)
-			.success(function(data) {
-				$scope.formData = {}; // clear the form so our user is ready to enter another
-				$scope.gonderi = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-	$scope.createTodo = function() { 
-		$http.post('/api/todos', $scope.formData)
-			.success(function(data) {
-				$scope.formData = {}; // clear the form so our user is ready to enter another
-				$scope.gonderi = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-
-	// Populate client's LinkedIn users in the dropdown
-	$http.get('/api/user')
-		.success(function(data){
-			$scope.client = data;
-			
-			console.log("hey from users function in core.js!")
-			console.log('These are the users: ',data)
-			})
-			.error(function(data){
-			});
-
-
-
-	
-	$scope.addcomment = function(id) { 
-		console.log("id"+id);
-		$http.post('/api/comments/' + id, $scope.formData)
-			.success(function(data) {
-				$scope.formData = {}; // clear the form so our user is ready to enter another
-				$scope.comment = data;
-				
-				console.log(data,'kadar');
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-	
-
-	
-	$scope.viewcomment=function(id){
-		console.log("id"+id);
-		$http.get('/api/viewcomments/'+ id, $scope.formData)
-			.success(function(data) {
-				$scope.formData = {};
-				$scope.comments = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-	$scope.viewlikes=function(id){
-		console.log("id"+id);
-		$http.get('/api/viewlikes/'+ id, $scope.formData)
-			.success(function(data) {
-				$scope.formData = {};
-				$scope.likes = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-		
-	$scope.likepost=function(id){
-		console.log("id"+id);
-		$http.get('/api/like/'+ id, $scope.formData)
-			.success(function(data) {
-				$scope.formData = {};
-				$scope.likes = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-
 
 });
 
@@ -387,8 +241,7 @@ app.factory('ClientService', function($http){
 	$http.get('/api/user')
 		.success(function(data){
 			Client.data = data;
-		console.log("hey from users factory in core.js!")
-		console.log('This is the currently logged-in client: ',data)
+		console.log("hey from users factory in core.js!");
 		})
 		.error(function(data){
 	});
@@ -408,16 +261,7 @@ app.factory('ClientService', function($http){
 // Beginning of controller
 
 function searchController($scope, $http){
-	 
-      // Populate client's campaigns in the dropdown
-	  $http.get('/api/search')
-		.success(function(data){
-			$scope.allUsers = data;
-			console.log('These are all of the apps users: ',data)
-		})
-		.error(function(data){
-	  });
-
+	
 	  // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
@@ -434,14 +278,7 @@ function searchController($scope, $http){
 	  
 	var client_email = '';
 
-        
-	var init = function (client_email) {
-	   
-			};
-
-	init();
-
-	$scope.reverse = true;
+    $scope.reverse = true;
 	
 };
 
