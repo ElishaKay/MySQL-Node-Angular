@@ -1,61 +1,11 @@
 
 
    <div class="padding">
-                          <!-- main col right -->
-            <div class="col-sm-6">
-              
-               <div class="panel panel-default">
-                               <hr>
-                              <hr></div>
-                              
-
-                                <% rows3.forEach(function(rows3) { %> 
-
-                                <div class="checkbox" >
-                                  <div class="panel panel-default">
-                                    <div class="panel-heading"><a href="#" class="pull-right" > </a> <h4><a href="#" > <%=rows3.client_email%> </a></h4></div>
-                                      <div class="panel-body">
-                                        <%=rows3.text%>
-                                        <div class="clearfix"></div><hr>
-                                        <form>
-                                            <div class="input-group">
-                                              <div class="input-group-btn">
-                                              
-                                              <button class="btn btn-default" >
-                                                <a href="/" ng-click="likepost(<%=rows3.post_id%>)">
-                                                <%=rows3.likes%> 
-                                                </a>
-                                              </button>
-                                              </div>
-                                              
-                                              <input type="text" class="form-control" placeholder="add comment" ng-model="formData.commenttext">
-                            
-                                            </div>
-                                            
-                                            <a href="#" ng-click="viewcomment(<%=rows3.post_id%>)"><center><span class="label label-primary"> show Comments</span></center></a>
-                                            <div ng-repeat="todo2 in comments">
-                                            <h4>
-                                              <div ng-if="todo2.idsi1 == <%=rows3.post_id%>">
-                                                -{{todo2.u}}
-                                              
-                                              <span class="label label-success">{{todo2.t}}</span>
-                                                  
-                                              </div>
-
-                                              </h4>
-                                            
-                                            </div>
-                                            <button type="submit" class="btn btn-default"><a href="/" ng-click="addcomment(<%=rows3.post_id%>)">Add</a></button>
-                                        </form>
-                                      </div>
-                                  </div>
-                                </div>
-                                <% }); %>
-
-                   
-                          
-                
-
+      <!-- main col right -->
+        <div class="col-sm-6">        
+              <div class="panel panel-default">
+                <hr>
+                <hr></div>
               </div>
 
 

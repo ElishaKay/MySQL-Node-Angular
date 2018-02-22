@@ -261,16 +261,7 @@ app.factory('ClientService', function($http){
 // Beginning of controller
 
 function searchController($scope, $http){
-	 
-      // Populate client's campaigns in the dropdown
-	  $http.get('/api/search')
-		.success(function(data){
-			$scope.allUsers = data;
-			console.log('These are all of the apps users: ',data)
-		})
-		.error(function(data){
-	  });
-
+	
 	  // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
@@ -287,14 +278,7 @@ function searchController($scope, $http){
 	  
 	var client_email = '';
 
-        
-	var init = function (client_email) {
-	   
-			};
-
-	init();
-
-	$scope.reverse = true;
+    $scope.reverse = true;
 	
 };
 
