@@ -166,7 +166,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
         console.log('This is the messageData object:',messageData);
         var date = new Date();
 
-        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
+        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client.data[0].client_email};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 
@@ -216,7 +216,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
        
         socket.on('new message', function(data){
             $scope.chatMessages = data;
-
+            console.log("THis is a new chat-message", data);
             // chat.append($("<div class='well'><strong>hello</strong>" 
             //     + data.user +"</strong>: "
             //     + data.msg + "</div>"));
