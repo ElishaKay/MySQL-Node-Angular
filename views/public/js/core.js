@@ -150,15 +150,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 	  $scope.sortReverse  = false;  // set the default sort order
 	  $scope.searchFish   = '';     // set the default search/filter term
 	  
-	  // create the list of sushi rolls 
-	  $scope.sushi = [
-	    { name: 'Cali Roll', fish: 'Crab', tastiness: 2 },
-	    { name: 'Philly', fish: 'Tuna', tastiness: 4 },
-	    { name: 'Tiger', fish: 'Eel', tastiness: 7 },
-	    { name: 'Rainbow', fish: 'Variety', tastiness: 6 }
-	  ];
-
-
+	
 	  var client_email = '';
 
 	  var init = function (client_email) {};
@@ -257,14 +249,6 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 	$scope.formData = {};
 	$scope.blogdata = {};
 
-	$(function(){
-    var $select = $(".1-100");
-    // $select.prepend("<option value='allTime'>Always</option>");
-    for (i=1;i<=100;i++){
-     	   $select.append($("<option value='i'></option>").val(i).html("Last "+i+" Days"))
-   		 }
-   		 
-	});
 
 	// Hiç bir şeye basılmadığında yani direk site açılğında router.js içerisine direk get methoduna gidiyor . 
 	$http.get('/api/todos')
@@ -275,33 +259,6 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
-
-
-
-
-	$scope.createTodo = function() { 
-		$http.post('/api/todos', $scope.formData)
-			.success(function(data) {
-				$scope.formData = {}; // clear the form so our user is ready to enter another
-				$scope.gonderi = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
-	
-	$scope.createTodo = function() { 
-		$http.post('/api/todos', $scope.formData)
-			.success(function(data) {
-				$scope.formData = {}; // clear the form so our user is ready to enter another
-				$scope.gonderi = data;
-				console.log(data);
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-	};
 	
 
 	// Populate client's LinkedIn users in the dropdown
