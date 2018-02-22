@@ -225,6 +225,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 
         socket.on('get users', function(data){
         	$scope.onlineUsers = data;
+        	console.log('these are the socket users',data);
         });
     
 // Original controller below here:
@@ -235,12 +236,15 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 
 
 
-app.factory('ClientService', function($http){
+app.factory('ClientService', function($http, socket){
 	var Client = {};
 
 	$http.get('/api/user')
 		.success(function(data){
 			Client.data = data;
+			var usersocket = {person: Client.data[0].client_email};
+		    console.log('this is the submit user data object', usersocket)
+		    socket.emit('new user', usersocket);	
 		console.log("hey from users factory in core.js!");
 		})
 		.error(function(data){
