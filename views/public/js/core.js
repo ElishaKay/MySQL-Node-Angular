@@ -1,6 +1,6 @@
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
-var app = angular.module('GXLeads', ['textAngular', 'ui.router',
+var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
     'GXLeads.services',
     'GXLeads.filters',
     'btford.socket-io',
