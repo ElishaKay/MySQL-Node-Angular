@@ -21,8 +21,8 @@ Table of Contents for this Repo:
 - [Automated Email Integration](#automated-email-integration)
 - [License](#license)
 
-<hr>
-<hr>
+<br>
+<br>
 
 Technologies
 --------
@@ -31,8 +31,8 @@ The project includes a long list of technologies, including:
 
 <img src="views/public/images/Angularjs.png">
 
-<hr>
-<hr>
+<br>
+<br>
 
 Getting Started
 ---------------
@@ -98,8 +98,8 @@ save you a lot of time in the long run, because you won't need to manually
 restart the server each time you make a small change in code. To install, run
 `sudo npm install -g nodemon`.
 
-<hr>
-<hr>
+<br>
+<br>
 
 Deployment
 ----------
@@ -116,16 +116,15 @@ deployments and custom domain support on free accounts.
 
 - Download and install [Heroku Toolbelt](https://toolbelt.heroku.com/)
 - In terminal, run `heroku login` and enter your Heroku credentials
-- From *your app* directory run `heroku create`
-- Run `heroku addons:create mongolab`.  This will set up the mLab add-on and configure the `MONGOLAB_URI` environment variable in your Heroku app for you.
+- Follow the instructions within the Heroku Admin Dashboard - the list of commands is neatly written out there for you.
 - Lastly, do `git push heroku master`.  Done!
 
 **Note:** To install Heroku add-ons your account must be verified.
 
 Regarding the automated node-schedule features, you can upload the app to Heroku, and the automated emails will work - but you may have to pay to keep the app running full-time (i.e. pay for a 'dyno' - highly isolated Linux Process) so that your Heroku app is turned on when the scheduler reaches the Send-Time.
 
-<hr>
-<hr>
+<br>
+<br>
 
 Intercom
 ----------
@@ -173,8 +172,8 @@ Regarding Node-Schedule, here's the syntax to control when emails get sent, or t
 ```
 
 
-<hr>
-<hr>
+<br>
+<br>
 
 License
 -------
