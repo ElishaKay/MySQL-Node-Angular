@@ -21,7 +21,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 
 // BEGINNNING OF OLD COFIG
 
-  $urlRouterProvider.otherwise('/home/list');
+  $urlRouterProvider.otherwise('/blog');
 
   $stateProvider.state('home', {
     url: '/home',
