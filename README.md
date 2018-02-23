@@ -1,15 +1,15 @@
 <h1>Live Startup Series</h1>
 
-<a bref="http://koalacms.herokuapp.com" target="_blank">Live Site Available Here</a>
+<a href="http://koalacms.herokuapp.com" target="_blank">Live Site Available Here</a>
 
 Dear friends,
 
 This repo has been the subject of many YouTube series tutorials, including:
 
-- <a bref="https://www.youtube.com/watch?v=xyA2qstl5YA" target="_blank">Building a Modern-Day CMS using NodeJS, AngularJS, MySQL</a>
-- <a bref="https://www.youtube.com/watch?v=xs-_kZUoRIY" target="_blank">Metabase Data Visualization</a>
-- <a bref="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Using Intercom.io As Your CRM</a>
-- <a bref="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">Deploying to Heroku</a>
+- <a href="https://www.youtube.com/watch?v=xyA2qstl5YA" target="_blank">Building a Modern-Day CMS using NodeJS, AngularJS, MySQL</a>
+- <a href="https://www.youtube.com/watch?v=xs-_kZUoRIY" target="_blank">Metabase Data Visualization</a>
+- <a href="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Using Intercom.io As Your CRM</a>
+- <a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">Deploying to Heroku</a>
 
 
 Table of Contents for this Repo:
@@ -104,7 +104,7 @@ restart the server each time you make a small change in code. To install, run
 Deployment
 ----------
 
-You can view our <a bref="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">YouTube Tutorial Series</a> on deploying this app to Heroku.
+You can view our <a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">YouTube Tutorial Series</a> on deploying this app to Heroku.
 
 Once you are ready to deploy your app, you will need to create an account with
 a cloud platform to host it. These are not the only choices, but they are my top
@@ -134,7 +134,7 @@ Intercom Integration is included: Define your currently-logged in User via the A
 <img src="views/public/images/pizza-man.PNG">
 
 
-<p>This project is part of an <a bref="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Intercom Tutorial Series</a></p>
+<p>This project is part of an <a href="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Intercom Tutorial Series</a></p>
 
 <img src="views/public/images/intercom-chart.png">
 
@@ -147,7 +147,7 @@ Automated Email Integration
 
 Amongst the app's features is the ability to send automated emails with MySQL and Node, and includes an Angular front-end with EJS and UI-Router for a single-page-application experience.
 
-The app also uses <a bref="https://www.npmjs.com/package/node-schedule" target="_blank">'node-schedule'</a> to automatically send the results of a MySQL database to your choice of email address[es].
+The app also uses <a href="https://www.npmjs.com/package/node-schedule" target="_blank">'node-schedule'</a> to automatically send the results of a MySQL database to your choice of email address[es].
 
 The app is kind of like an email server - which allows you to send customized emails to your choice of clients. It runs on MailGun. So, you have to first create a Mailgun account.
 
