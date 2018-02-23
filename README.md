@@ -1,18 +1,148 @@
-<h1>Segment Your Customers and Send them highly targeted emails - with Intercom</h1>
+<h1>Live Startup Series</h1>
 
-Intercom Integration Included: Define your currently-logged in User via the AngularJS run method.
+<a href="http://koalacms.herokuapp.com">Live Site Available Here</a>
+
+Dear friends,
+
+This repo has been the subject of many YouTube series tutorials, including:
+
+<a href="https://www.youtube.com/watch?v=xyA2qstl5YA">Building a Modern-Day CMS using NodeJS, AngularJS, MySQL</a>
+<a href="https://www.youtube.com/watch?v=xs-_kZUoRIY">Metabase Data Visualization</a>
+<a href="https://www.youtube.com/watch?v=8-31Ar8ea58">Using Intercom.io As Your CRM</a>
+<a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s">Deploying to Heroku</a>
+
+- [Technologies Overview](#technologies)
+- [Getting Started](#getting-started)
+- [Deployment with Heroku](#deployment)
+- [Intercom.io Integration](#intercom)
+- [Automated Email Integration](#automated-email-integration)
+- [License](#license)
+
+
+
+Technologies
+--------
+
+The project includes a long list of technologies, including:
+
+<img src="views/public/images/Angularjs.png">
+
+
+Getting Started
+---------------
+
+The easiest way to get started is to clone the repository:
+
+```bash
+# Get the latest snapshot
+git clone https://github.com/ElishaKay/MySQL-Node-Angular
+
+# Change directory
+cd MySQL-Node-Angular
+
+# Install NPM dependencies
+npm install
+
+# Or, if you prefer to use `yarn` instead of `npm`
+yarn install
+
+```
+
+Next, we need to set up our MySQL Database.
+
+Step 1: Using Xampp, or any other MySQL Client, create a database - with any name.
+
+Step 2: Import the 'database.sql' file into your database - or just copy-paste that text into your SQL Command Query Runner. That will create the neccessary tables for the app to work.
+
+Step 3: Add a .env file to your root directory that includes MySQL and Mailgun Email Creds - should look like this (the Mailgun and Second database Creds are optional - if you want to set up automated emails based on clients that match specific criteria:
+
+
+```bash
+HOST=the.ip.goes.here	
+DATABASE=yourdbname
+USER=username
+PASSWORD=thepassword
+
+MAILGUN_USER=user@subdomain.domain.com
+MAILGUN_PASSWORD=longhashpassword
+
+HOST2=the.ip.goes.here	
+DATABASE2=yourseconddbname
+USER2=username
+PASSWORD2=thepassword
+
+```
+
+
+# Once, you've achieved that, Then simply start your app
+
+```
+node server.js 
+
+or:
+
+nodemon server.js
+```
+
+
+**Note:** I highly recommend installing [Nodemon](https://github.com/remy/nodemon).
+It watches for any changes in your  node.js app and automatically restarts the
+server. Once installed, instead of `node app.js` use `nodemon app.js`. It will
+save you a lot of time in the long run, because you won't need to manually
+restart the server each time you make a small change in code. To install, run
+`sudo npm install -g nodemon`.
+
+
+
+Deployment
+----------
+
+You can view our <a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s">YouTube Tutorial Series</a> on deploying this app to Heroku.
+
+Once you are ready to deploy your app, you will need to create an account with
+a cloud platform to host it. These are not the only choices, but they are my top
+picks. From my experience, **Heroku** is the easiest to get started with, it will
+automatically restart your Node.js process when it crashes, zero-downtime
+deployments and custom domain support on free accounts. 
+
+### 1-Step Deployment with Heroku
+
+- Download and install [Heroku Toolbelt](https://toolbelt.heroku.com/)
+- In terminal, run `heroku login` and enter your Heroku credentials
+- From *your app* directory run `heroku create`
+- Run `heroku addons:create mongolab`.  This will set up the mLab add-on and configure the `MONGOLAB_URI` environment variable in your Heroku app for you.
+- Lastly, do `git push heroku master`.  Done!
+
+**Note:** To install Heroku add-ons your account must be verified.
+
+Regarding the automated node-schedule features, you can upload the app to Heroku, and the automated emails will work - but you may have to pay to keep the app running full-time (i.e. pay for a 'dyno' - highly isolated Linux Process) so that your Heroku app is turned on when the scheduler reaches the Send-Time.
+
+
+
+Intercom
+----------
+
+Intercom Integration is included: Define your currently-logged in User via the AngularJS run method.
 
 <img src="views/public/images/pizza-man.PNG">
 
-"# MySQL-Node-Angular" 
 
-The app allows you to send automated emails with MySQL and Node, and includes an Angular front-end with EJS and UI-Router for a single-page-application experience.
+<p>This project is part of an <a href="www.youtube.com">Intercom Tutorial Series</a></p>
 
+<img src="views/public/images/intercom-chart.png">
+
+<img src="views/public/images/email-flow.png">
+
+
+
+Automated Email Integration
+----------
+
+<h2>Automated Email Integration</h2>
+
+Amongst the app's features is the ability to send automated emails with MySQL and Node, and includes an Angular front-end with EJS and UI-Router for a single-page-application experience.
 
 The app also uses <a href="https://www.npmjs.com/package/node-schedule">'node-schedule'</a> to automatically send the results of a MySQL database to your choice of email address[es].
-
-
-<h2>How It Works</h2>
 
 The app is kind of like an email server - which allows you to send customized emails to your choice of clients. It runs on MailGun. So, you have to first create a Mailgun account.
 
@@ -20,37 +150,7 @@ Once you've done that, within your .env file, we give you the option to add 2 da
 
 The second database connection is for the db that you want to segment your audience from and to pull data from for custom reports.
 
-
-<h2>Steps For Getting Started</h2>
-
-Step 1: Create a database - any name.
-
-Step 2: Import the 'database-edited.sql' file into your database - or just copy-paste that text into your SQL Command Query Runner. That will create the neccessary tables for the app to work.
-
-Step 3: Add a .env file to your root directory that includes MySQL and Email Creds - should look like this:
-
-```bash
-export HOST=the.ip.goes.here	
-export DATABASE=yourdbname
-export USER=username
-export PASSWORD=thepassword
-
-export MAILGUN_USER=user@subdomain.domain.com
-export MAILGUN_PASSWORD=longhashpassword
-
-export HOST2=the.ip.goes.here	
-export DATABASE2=yourseconddbname
-export USER2=username
-export PASSWORD2=thepassword
-
-```
-
-
-Currently the app will send an email every 42 seconds - you're gonna want to change that. Go to routes.js, and search for:
-
- var j = schedule.scheduleJob('42 * * * * *', function(){
-
-Here's the syntax to control when emails get sent.
+Regarding Node-Schedule, here's the syntax to control when emails get sent, or to defined other triggers based on a schedule.
 
 
 ```bash
@@ -66,14 +166,19 @@ Here's the syntax to control when emails get sent.
 
 ```
 
-<h2>Deploy To Heroku</h2>
-
-You can upload the app to Heroku, and the automated emails will work - but you may have to pay to keep the app running full-time (i.e. pay for a 'dyno' - highly isolated Linux Process) so that your Heroku app is turned on when the scheduler reaches the Send-Time.
 
 
-<p>This project is part of an <a href="www.youtube.com">Intercom Tutorial Series</a></p>
 
-<img src="views/public/images/intercom-chart.png">
 
-<img src="views/public/images/email-flow.png">
+License
+-------
 
+The MIT License (MIT)
+
+Copyright (c) 2014-2016 Sahat Yalkabov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
