@@ -6,10 +6,13 @@ Dear friends,
 
 This repo has been the subject of many YouTube series tutorials, including:
 
-<a href="https://www.youtube.com/watch?v=xyA2qstl5YA" target="_blank">Building a Modern-Day CMS using NodeJS, AngularJS, MySQL</a>
-<a href="https://www.youtube.com/watch?v=xs-_kZUoRIY" target="_blank">Metabase Data Visualization</a>
-<a href="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Using Intercom.io As Your CRM</a>
-<a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">Deploying to Heroku</a>
+- <a href="https://www.youtube.com/watch?v=xyA2qstl5YA" target="_blank">Building a Modern-Day CMS using NodeJS, AngularJS, MySQL</a>
+- <a href="https://www.youtube.com/watch?v=xs-_kZUoRIY" target="_blank">Metabase Data Visualization</a>
+- <a href="https://www.youtube.com/watch?v=8-31Ar8ea58" target="_blank">Using Intercom.io As Your CRM</a>
+- <a href="https://www.youtube.com/watch?v=XAOvH6yFcz4&t=3s" target="_blank">Deploying to Heroku</a>
+
+
+Table of Contents for this Repo:
 
 - [Technologies Overview](#technologies)
 - [Getting Started](#getting-started)
@@ -18,7 +21,8 @@ This repo has been the subject of many YouTube series tutorials, including:
 - [Automated Email Integration](#automated-email-integration)
 - [License](#license)
 
-
+<hr>
+<hr>
 
 Technologies
 --------
@@ -27,6 +31,8 @@ The project includes a long list of technologies, including:
 
 <img src="views/public/images/Angularjs.png">
 
+<hr>
+<hr>
 
 Getting Started
 ---------------
@@ -74,7 +80,7 @@ PASSWORD2=thepassword
 ```
 
 
-# Once, you've achieved that, Then simply start your app
+Once, you've achieved that, Then simply start your app
 
 ```
 node server.js 
@@ -92,7 +98,8 @@ save you a lot of time in the long run, because you won't need to manually
 restart the server each time you make a small change in code. To install, run
 `sudo npm install -g nodemon`.
 
-
+<hr>
+<hr>
 
 Deployment
 ----------
@@ -117,7 +124,8 @@ deployments and custom domain support on free accounts.
 
 Regarding the automated node-schedule features, you can upload the app to Heroku, and the automated emails will work - but you may have to pay to keep the app running full-time (i.e. pay for a 'dyno' - highly isolated Linux Process) so that your Heroku app is turned on when the scheduler reaches the Send-Time.
 
-
+<hr>
+<hr>
 
 Intercom
 ----------
@@ -137,8 +145,6 @@ Intercom Integration is included: Define your currently-logged in User via the A
 
 Automated Email Integration
 ----------
-
-<h2>Automated Email Integration</h2>
 
 Amongst the app's features is the ability to send automated emails with MySQL and Node, and includes an Angular front-end with EJS and UI-Router for a single-page-application experience.
 
@@ -167,8 +173,8 @@ Regarding Node-Schedule, here's the syntax to control when emails get sent, or t
 ```
 
 
-
-
+<hr>
+<hr>
 
 License
 -------
