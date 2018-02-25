@@ -1,4 +1,30 @@
 
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #713F5C;
+    color: #ffffff;
+    background: #713F5C;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #713000;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #713000;
+    box-shadow: none;
+}
 
 .fblogin {
   height: 50px;
