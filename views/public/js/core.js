@@ -92,7 +92,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
   app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
 
     $scope.client = ClientService.Client;
-	console.log('This is the $scope.client object',$scope.client);  
+	  console.log('This is the $scope.client object',$scope.client);  
     $scope.user = fakeUser;
 
     // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
@@ -125,18 +125,12 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 	  // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
-	  $scope.ourTeamCategories = [
-        {"id":18,"title":'Management'},
-        {"id":19,"title":'Administration'},
-        {"id":21,"title":'Designers'},
-        {"id":22,"title":'Accounts'},
-      ];
-
 	  $scope.sortType     = 'name'; // set the default sort type
 	  $scope.sortReverse  = false;  // set the default sort order
 	  $scope.searchFish   = '';     // set the default search/filter term
 	  
-	
+	    // create the list of sushi rolls 
+
 	  var client_email = '';
 
 	  var init = function (client_email) {};
@@ -258,7 +252,16 @@ app.factory('ClientService', function($http, socket){
 
 function searchController($scope, $http){
 	
-	  // Filter by column user chooses from dropdown
+    // Populate client's campaigns in the dropdown
+    $http.get('/api/search')
+        .success(function(data){
+        $scope.allUsers = data;
+        console.log('These are all of the apps users: ',data)
+      })
+      .error(function(data){
+    });
+	  
+    // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
 	  $scope.ourTeamCategories = [

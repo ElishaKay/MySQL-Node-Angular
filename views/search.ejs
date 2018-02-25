@@ -62,15 +62,4 @@
     
   </table>
   
-    <select name="show-filter" ng-model="catFilter" 
-    ng-options="category as category.title for category in ourTeamCategories">
-  </select>
-
-  <li ng-repeat="cat in ourTeamCategories | filter : {id: catFilter.id}: true">
-    <h3>{{cat.title}}</h3>
-    <!-- for testing -->
-    <b>input: {{catFilter.id}}</b> - - ID: {{cat.id}}
-  </li>
-
-  
 </div>
