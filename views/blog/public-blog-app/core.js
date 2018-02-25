@@ -1,6 +1,6 @@
-var app = angular.module('blogapp', []);
+var app = angular.module('blogapp', ['ui.router']);
 
 
-function mainController($scope, $http){
+function mainController(){
 	console.log("ran the main controller");
 };
