@@ -1,16 +1,15 @@
- 
 
   <div class="alert alert-info">
     <p>Sort Type: {{ sortType }}</p>
     <p>Sort Reverse: {{ sortReverse }}</p>
-    <p>Search Query: {{ searchFish }}</p>
+    <p>Search Query: {{ contentSearch }}</p>
   </div>
   
   <form>
     <div class="form-group">
       <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-search"></i></div>
-        <input type="text" class="form-control" style="width:auto" placeholder="Search by Email" ng-model="searchFish">
+        <input type="text" class="form-control" style="width:auto" placeholder="Search by Content" ng-model="contentSearch">
       </div>      
     </div>
   </form>
@@ -20,43 +19,41 @@
     <thead>
       <tr>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'client_id'; sortReverse = !sortReverse">
-            Client ID
+          <a href="#/home/search" ng-click="orderColumn('blogpost_id')">
+            Blogpost ID
             <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'client_email'; sortReverse = !sortReverse">
-          Client Email
+          <a href="#/home/search" ng-click="orderColumn('blogpost_content')">
+          Blogpost Content
             <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
         <td>
-          <a href="#/home/search" ng-click="sortType = 'client_password'; sortReverse = !sortReverse">
-          Client Creation Date
+          <a href="#/home/search" ng-click="orderColumn('client_id')">
+          Client ID
             <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
          <td>
-          <a href="#/home/search" ng-click="sortType = 'client_creation_date'; sortReverse = !sortReverse">
-          Client Creation Date
-            <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
+          <a href="#/home/search" ng-click="orderColumn('post_published_date')">
+          Post Creation Date
           </a>
         </td>
       </tr>
     </thead>
     
     <tbody>
-      <tr ng-repeat="user in allUsers | orderBy:sortType:sortReverse | filter: {client_email:searchFish}">
-        <td>{{ user.client_id }}</a></td>
-        <td>{{ user.client_email }}</td>
-        <td>{{ user.client_password }}</td>
-        <td>{{ user.client_creation_date }}</td>
-        <td><a class="btn btn-primary" ui-sref="profile({ id: user.client_id, email: user.client_email })">Visit Profile</a></td>
+      <tr ng-repeat="blog in blogposts | orderBy:sortType:sortReverse | filter: {blogpost_content:contentSearch}">
+        <td>{{ blog.blogpost_id }}</td>
+        <td>{{ blog.blogpost_content }}</a></td>
+        <td>{{ blog.client_id }}</a></td>
+        <td>{{ blog.post_published_date }}</td>
+        <td><a class="btn btn-primary" ui-sref="post({ id: blog.blogpost_id, created_at: blog.post_published_date })">More Info</a></td>
       </tr>
     </tbody>
     

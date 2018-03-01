@@ -2,7 +2,7 @@
 
 /* Filters */
 
-angular.module('GXLeads.filters', []).
+angular.module('KoalaCMS.filters', []).
   filter('interpolate', function (version) {
     return function (text) {
       return String(text).replace(/\%VERSION\%/mg, version);

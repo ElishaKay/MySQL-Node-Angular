@@ -1,8 +1,8 @@
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
 var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
-    'GXLeads.services',
-    'GXLeads.filters',
+    'KoalaCMS.services',
+    'KoalaCMS.filters',
     'btford.socket-io',
     'ngIntercom' ])
  .value('fakeUser', {
@@ -44,10 +44,10 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
     templateUrl: 'search',
     controller: 'searchController'  
   })
-  .state('profile', {
-    url: '/profile/:id/:email',
-    templateUrl: 'profile',
-    controller: 'profilesController'  
+  .state('post', {
+    url: '/post/:id/:created_at',
+    templateUrl: 'post',
+    controller: 'postController'  
   })
   .state('home.contact', {
     url: '/contact',
@@ -126,23 +126,7 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
       $intercom.update(newUser);
     };
 
-	  // Filter by column user chooses from dropdown
-	  $scope.filterType	= 'client_id';
-
-	  $scope.sortType     = 'name'; // set the default sort type
-	  $scope.sortReverse  = false;  // set the default sort order
-	  $scope.searchFish   = '';     // set the default search/filter term
 	  
-	    // create the list of sushi rolls 
-
-	  var client_email = '';
-
-	  var init = function (client_email) {};
-
-      init();
-
-	  $scope.reverse = true;
-	
 	// Load exisiting messages
 	$http.get('/api/messages')
 		.success(function(data){
@@ -259,7 +243,7 @@ function searchController($scope, $http){
     // Populate client's campaigns in the dropdown
     $http.get('/api/search')
         .success(function(data){
-        $scope.allUsers = data;
+        $scope.blogposts = data;
         console.log('These are all of the apps users: ',data)
       })
       .error(function(data){
@@ -268,33 +252,22 @@ function searchController($scope, $http){
     // Filter by column user chooses from dropdown
 	  $scope.filterType	= 'client_id';
 
-	  $scope.ourTeamCategories = [
-        {"id":18,"title":'Management'},
-        {"id":19,"title":'Administration'},
-        {"id":21,"title":'Designers'},
-        {"id":22,"title":'Accounts'},
-      ];
+	  // Sort Columns
+      $scope.sortType = ''; // set the default sorting type
+      $scope.sortReverse = false;  // set the default sort order
 
-	  $scope.sortType     = 'name'; // set the default sort type
-	  $scope.sortReverse  = false;  // set the default sort order
-	  $scope.searchFish   = '';     // set the default search/filter term
-	  
-	var client_email = '';
-
-    $scope.reverse = true;
-	
+      $scope.orderColumn = function (column){
+          $scope.sortType = column;
+          $scope.sortReverse = !$scope.sortReverse;
+      };
 };
 
 
-function profilesController($scope, $http, $stateParams, $window){
+function postController($scope, $http, $stateParams, $window){
 	   // Getting stuff from URL
 	  // get the id
-
-	  $window.scrollTo(0, 0);
-	  
-      $scope.id = $stateParams.id;
-
-      // get the email
-      $scope.email = $stateParams.email;   
+	  $window.scrollTo(0,0);
+    $scope.id = $stateParams.id;
+    $scope.created_at = $stateParams.created_at;   
 	};
 

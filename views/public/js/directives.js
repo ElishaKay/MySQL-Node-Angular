@@ -3,7 +3,7 @@
 /* Directives */
 
 
-angular.module('GXLeads.directives', []).
+angular.module('directives', []).
 	directive('mainArea', function() {
     return {
         restrict: "E",
