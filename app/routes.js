@@ -16,8 +16,8 @@ module.exports = function(app,passport) {
         res.render('blog/index.ejs'); 
     });    
 
-    app.get('/profile',isLoggedIn,function(req,res){
-        res.render('profile.ejs'); 
+    app.get('/post',isLoggedIn,function(req,res){
+        res.render('post.ejs'); 
     });
 
     app.get('/search', function(req, res) {
@@ -50,7 +50,7 @@ module.exports = function(app,passport) {
 
      app.get('/api/search',isLoggedIn,function(req,res){
         var row = [];
-        connection.query("select * from client", function (err, rows) {
+        connection.query("select * from blogpost", function (err, rows) {
             
             res.json(rows);
         });
