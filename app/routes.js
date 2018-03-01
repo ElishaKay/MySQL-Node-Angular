@@ -26,7 +26,21 @@ module.exports = function(app,passport) {
 
     app.get('/contact', function(req, res) {
         res.render('contact.ejs');   
+    });   
+
+    app.get('/blog-posts', function(req, res) {
+        res.render('blog/posts.ejs');   
     });    
+
+    app.get('/s3creds',function(req,res){
+        s3 = {};
+        s3.region = process.env.S3REGION;
+        s3.accessKeyId = process.env.S3ACCESSKEYID;
+        s3.secretAccessKey = process.env.S3SECRETACCESSKEY;
+        s3.bucket = process.env.S3BUCKET;
+        s3.region = 'eu-central-1';
+        res.json(s3); 
+    });
 
      // Get all App Users to populate search results page
 
@@ -295,6 +309,6 @@ module.exports = function(app,passport) {
 function isLoggedIn(req,res,next){
 	if(req.isAuthenticated())
 		return next();
-	res.redirect('/blog/blockbusterarticle/index.html');
+	res.redirect('/blog-posts');
 }
 

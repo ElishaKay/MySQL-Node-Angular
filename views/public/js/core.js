@@ -56,6 +56,10 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
   .state('home.blog', {
     url: '/blog',
     templateUrl: 'blog', 
+  })
+  .state('blog', {
+    url: '/blog-posts',
+    templateUrl: 'blog/posts', 
   });
 
 

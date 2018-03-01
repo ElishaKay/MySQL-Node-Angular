@@ -1,0 +1,88 @@
+<div>
+	<div class="row">
+		<form name="compressionForm">
+			<div class="col-xs-6">
+				<label>Max Width (px)</label>
+				<input type="number" class="form-control" name="maxWidth" ng-model="vm.maxWidth" ng-pattern="/^(0|[1-9][0-9]*)$/" min="100">
+				<span ng-show="compressionForm.maxWidth.$invalid" class="text-danger">
+					Please enter a number larger than 99.
+				</span>
+			</div>
+			<div class="col-xs-6">
+				<label>Max Height (px)</label>
+				<input type="number" class="form-control" name="maxHeight" ng-model="vm.maxHeight" ng-pattern="/^(0|[1-9][0-9]*)$/" min="100">
+				<span ng-show="compressionForm.maxHeight.$invalid" class="text-danger">
+					Please enter a number larger than 99.
+				</span>
+			</div>
+		</form>
+	</div>
+	<br>
+	<h2 id="image" class="text-center">Upload an Image</h2>
+
+	<tabset>
+		<tab ng-repeat="image in vm.images" heading="{{ $index + 1 }}" active="image.tab">
+			<br>
+			<div class="row">
+				<div class="col-xs-8 col-xs-offset-2">
+					<input image="image" type="file" class="form-control">
+				</div>
+			</div>
+			<br>
+			<div class="row" ng-hide="vm.isSimulation">
+				<div class="col-xs-8 col-xs-offset-2">
+					<div class="progress">
+						<div class="progress-bar" role="progressbar" aria-valuenow="{{ image.uploadProgress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ image.uploadProgress }}%;">
+							{{ image.uploadProgress == 0 ? '' : image.uploadProgress + '%' }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+					<img class="center-block" ng-src="{{ image.dataURL }}">
+					<br>
+					<div ng-show="image.dataURL">
+						<p class="bg-success">Wow! You've achieved a compression of {{ image.compression }}%!</p>
+						<table class="table text-center">
+							<thead>
+								<tr>
+									<th class="text-center"></th>
+									<th class="text-center">Width (px)</th>
+									<th class="text-center">Height (px)</th>
+									<th class="text-center">Size (bytes)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row" class="text-center">Before</th>
+									<td class="text-center">{{ image.srcWidth }}</td>
+									<td class="text-center">{{ image.srcHeight }}</td>
+									<td class="text-center">{{ image.srcSize }}</td>
+
+								</tr>
+								<tr>
+									<th scope="row" class="text-center">After</th>
+									<td class="text-center">{{ image.srcWidth * image.ratio | number: 0}}</td>
+									<td class="text-center">{{ image.srcHeight * image.ratio | number: 0}}</td>
+									<td class="text-center">{{ image.resultSize }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-xs-6 text-left">
+					<button ng-if="vm.images.length > 1" class="btn btn-danger" ng-click="vm.removeImage(image)">Remove Image</button>
+				</div>
+				<div class="col-xs-6 text-right">
+					<button ng-if="vm.images.length < 5" class="btn btn-default" ng-click="vm.addImage()">Add Another Image</button>
+				</div>    
+			</div>
+			<br>
+		</tab>
+	</tabset>
+</div>
