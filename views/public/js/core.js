@@ -242,17 +242,14 @@ function searchController($scope, $http){
     $http.get('/api/search')
         .success(function(data){
         $scope.blogposts = data;
-        console.log('These are all of the apps users: ',data)
+        console.log('These are all of the blogposts ',data)
       })
       .error(function(data){
     });
 	  
-    // Filter by column user chooses from dropdown
-	  $scope.filterType	= 'client_id';
-
 	  // Sort Columns
-      $scope.sortType = ''; // set the default sorting type
-      $scope.sortReverse = false;  // set the default sort order
+      $scope.sortType = 'title'; // set the default sorting type
+      $scope.sortReverse = true;  // set the default sort order
 
       $scope.orderColumn = function (column){
           $scope.sortType = column;
