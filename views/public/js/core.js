@@ -176,16 +176,14 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
         console.log('blogPost submitted');
         console.log('This is the blogdata object:',blogdata);
         var date = new Date();
-
-        // var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client_email};
-        // console.log('this is the submitmessage object',data);
-         // socket.emit('send message', blogPostData);
+        var title = $scope.title;
+        // socket.emit('send message', blogPostData);
 
          // Saving to DB via routes.js
-         var blogdataobject = {html: blogdata}
-         $http.post('/api/blogPostData', blogdataobject)
-			.success(function(data) {
-				delete $scope.htmlcontent.text;
+        $http.post('/api/blogPostData', blogdata)
+			       .success(function(data) {
+				      delete $scope.htmlcontent.text;
+              delete $scope.title;
 		 // clear the form so our user is ready to enter another		
 			})
 			.error(function(data) {
@@ -268,6 +266,8 @@ function postController($scope, $http, $stateParams, $window){
 	  // get the id
 	  $window.scrollTo(0,0);
     $scope.id = $stateParams.id;
-    $scope.created_at = $stateParams.created_at;   
+    $scope.created_at = $stateParams.created_at; 
+
+    blogpost_content  
 	};
 

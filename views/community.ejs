@@ -7,6 +7,16 @@
 
 <pt-image-uploader></pt-image-uploader>
 
+<h1>Choose a title</h1>
+
+<form>
+    <div class="form-group">
+      <div class="input-group">
+        <input type="text" class="form-control" style="width:auto" placeholder="Enter Title" ng-model="title">
+      </div>      
+    </div>
+  </form>
+
 
  <div class="modal-dialog">
   <div class="modal-content">
@@ -20,7 +30,7 @@
         
          <div class="modal-footer">
           <div>
-          <button type="submit" class="btn btn-primary btn-lg" data-dismiss="modal" aria-hidden="true" ng-click="submitBlogPost(htmlcontent.text)">Add</button>
+          <button type="submit" class="btn btn-primary btn-lg" data-dismiss="modal" aria-hidden="true" ng-click="submitBlogPost({html: htmlcontent.text, title: title})">Add</button>
       </div>  
       </div>
     </div>
