@@ -247,12 +247,9 @@ function searchController($scope, $http){
       .error(function(data){
     });
 	  
-    // Filter by column user chooses from dropdown
-	  $scope.filterType	= 'client_id';
-
 	  // Sort Columns
-      $scope.sortType = ''; // set the default sorting type
-      $scope.sortReverse = false;  // set the default sort order
+      $scope.sortType = 'title'; // set the default sorting type
+      $scope.sortReverse = true;  // set the default sort order
 
       $scope.orderColumn = function (column){
           $scope.sortType = column;

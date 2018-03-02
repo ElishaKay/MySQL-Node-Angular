@@ -19,24 +19,18 @@
     <thead>
       <tr>
         <td>
-          <a href="#/home/search" ng-click="orderColumn('blogpost_id')">
-            Blogpost ID
-            <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
-          </a>
+          <a href="#/home/search" ng-click="orderColumn('title')">
+            Title
+           </a>
         </td>
         <td>
           <a href="#/home/search" ng-click="orderColumn('blogpost_content')">
           Blogpost Content
-            <span ng-show="sortType == 'fish' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'fish' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
         <td>
           <a href="#/home/search" ng-click="orderColumn('client_id')">
           Client ID
-            <span ng-show="sortType == 'tastiness' && !sortReverse" class="fa fa-caret-down"></span>
-            <span ng-show="sortType == 'tastiness' && sortReverse" class="fa fa-caret-up"></span>
           </a>
         </td>
          <td>
@@ -49,7 +43,7 @@
     
     <tbody>
       <tr ng-repeat="blog in blogposts | orderBy:sortType:sortReverse | filter: {blogpost_content:contentSearch}">
-        <td>{{ blog.blogpost_id }}</td>
+        <td>{{ blog.title }}</td>
         <td>{{ blog.blogpost_content }}</a></td>
         <td>{{ blog.client_id }}</a></td>
         <td>{{ blog.post_published_date }}</td>
