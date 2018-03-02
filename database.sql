@@ -52,6 +52,7 @@ INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com
 
 CREATE TABLE `blogpost` (
   `blogpost_id` int(11) UNSIGNED NOT NULL auto_increment,
+  'title' varchar(50),
   `blogpost_content` longtext,
   `client_id` int(11) unsigned DEFAULT NULL,
   `post_published_date` timestamp NULL DEFAULT NULL,
@@ -61,4 +62,4 @@ CREATE TABLE `blogpost` (
   REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),'<p>THis is some text</p>',1);
+INSERT INTO blogpost (post_published_date, title, blogpost_content, client_id) VALUES (NOW(),'this is your first blogpost title','<p>THis is some text</p>',1);

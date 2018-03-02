@@ -1,12 +1,6 @@
 
-<h1>This is H1</h1>
-<h2> This is H2</h2>
+<h2>{{blogpost.title}}</h2>
 
-<h4 ng-if="id">This is the blogpost_id: {{id}}</h4>
-<br>
-<h4 ng-if="created_at">It was created at: {{created_at}}</h4>
-
-
-<div class="well">
+<div class="well" ng-if="blogpost.blogpost_content">
 	<div ng-bind-html="blogpost.blogpost_content"></div>
 </div>

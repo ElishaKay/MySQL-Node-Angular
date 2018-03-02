@@ -242,7 +242,7 @@ function searchController($scope, $http){
     $http.get('/api/search')
         .success(function(data){
         $scope.blogposts = data;
-        console.log('These are all of the apps users: ',data)
+        console.log('These are all of the blogposts ',data)
       })
       .error(function(data){
     });

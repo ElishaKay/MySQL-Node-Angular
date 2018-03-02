@@ -188,7 +188,7 @@ module.exports = function(app,passport) {
         encodedhtml = Base64.encode(html);
         console.log("this is the string after base64 encoding", encodedhtml);
         debugger;
-        connection.query('INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),"'+encodedhtml+'","' +req.user.client_id+'")');
+        connection.query('INSERT INTO blogpost (post_published_date, title, blogpost_content, client_id) VALUES (NOW(),"'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
         res.render('index.ejs'); 
     });
 
