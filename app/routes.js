@@ -60,6 +60,18 @@ module.exports = function(app,passport) {
       
     });
 
+
+    app.get('/api/blogpost/:id',isLoggedIn,function(req,res){
+        var blogpost_id = req.params.id;
+        connection.query('select * from blogpost where blogpost_id = ?',[blogpost_id], function (err, rows) {
+            for (var i in rows) {
+                    rows[i].blogpost_content = Base64.decode(rows[i].blogpost_content);
+                }
+            res.json(rows);
+        });
+    });
+  
+
     app.get('/community', function(req, res) {
         var row = [];
         var row2=[];
@@ -104,6 +116,8 @@ module.exports = function(app,passport) {
         });
     });
 
+
+
       // Get row for the logged in user (i.e. client)
     app.get('/api/user',isLoggedIn,function(req,res){
         var row = [];
@@ -113,31 +127,6 @@ module.exports = function(app,passport) {
         });
       
     });
-
-
-    // Get all campaigns
-     app.get('/api/campaigns',isLoggedIn,function(req,res){
-        var row = [];
-        connection.query('select * from campaign where client_id = ?',[req.user.client_id], function (err, rows) {
-            
-            res.json(rows);
-        });
-      
-    });
-
-
-     // Get all LinkedIn Users of the logged in client
-
-     app.get('/api/users',isLoggedIn,function(req,res){
-        var row = [];
-        connection.query("select concat(user_first_name, ' ', user_last_name) as fullname from user where client_id = ?",[req.user.client_id], function (err, rows) {
-            
-            res.json(rows);
-        });
-      
-    });
-
-
 
 
     app.get('/api/todos',function(req,res){
