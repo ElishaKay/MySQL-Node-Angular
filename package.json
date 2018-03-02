@@ -18,6 +18,7 @@
     "express": "*",
     "express3-handlebars": "~0.5.0",
     "heroku-dotenv": "^0.4.1",
+    "js-base64": "^2.4.3",
     "json-socket": "*",
     "morgan": "*",
     "mysql": "^2.14.1",

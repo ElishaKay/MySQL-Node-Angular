@@ -4,6 +4,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 var bcrypt = require('bcrypt-nodejs');
 var bodyParser = require('body-parser');
 var urlencodedparser = bodyParser.urlencoded({extended:false});
+var Base64 = require('js-base64').Base64;
 
 
 module.exports = function(app,passport) {
@@ -51,7 +52,9 @@ module.exports = function(app,passport) {
      app.get('/api/search',isLoggedIn,function(req,res){
         var row = [];
         connection.query("select * from blogpost", function (err, rows) {
-            
+            for (var i in rows) {
+                    rows[i].blogpost_content = Base64.decode(rows[i].blogpost_content);
+                }
             res.json(rows);
         });
       
@@ -189,11 +192,14 @@ module.exports = function(app,passport) {
           return this.split(target).join(replacement);
     };
 
-
     app.post('/api/blogPostData', function(req,res){
+        var html = req.body.html;
         console.log('this is the blog post string',req.body.html);
+        console.log('this is the blog post title',req.body.title);
+        encodedhtml = Base64.encode(html);
+        console.log("this is the string after base64 encoding", encodedhtml);
         debugger;
-        connection.query('INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),"'+req.body.html+'","' +req.user.client_id+'")');
+        connection.query('INSERT INTO blogpost (post_published_date, blogpost_content, client_id) VALUES (NOW(),"'+encodedhtml+'","' +req.user.client_id+'")');
         res.render('index.ejs'); 
     });
 
