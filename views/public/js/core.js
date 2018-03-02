@@ -129,13 +129,13 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 	  
 	// Load exisiting messages
 	$http.get('/api/messages')
-		.success(function(data){
-			$scope.messages = data;
-			console.log('these are all the messages',$scope.messages);
-        	})
-		.error(function(data){
-			console.log('couldn\'t load data');
-			});
+		  .success(function(data){
+			   $scope.messages = data;
+			   console.log('these are all the messages',$scope.messages);
+      })
+		  .error(function(data){
+			   console.log('couldn\'t load data');
+	});
 
 
 	$scope.messageData = {};
@@ -268,6 +268,14 @@ function postController($scope, $http, $stateParams, $window){
     $scope.id = $stateParams.id;
     $scope.created_at = $stateParams.created_at; 
 
-    blogpost_content  
-	};
+    $http.get('/api/blogpost/'+$scope.id)
+      .success(function(data){
+         $scope.blogpost = data[0];
+         console.log('this the blogpost',$scope.blogpost);
+      })
+      .error(function(data){
+         console.log('couldn\'t load data');
+    });
+
+};
 
