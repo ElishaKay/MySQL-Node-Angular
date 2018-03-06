@@ -52,7 +52,7 @@ INSERT INTO client ( client_email, client_password ) values ('kramer16@gmail.com
 
 CREATE TABLE `blogpost` (
   `blogpost_id` int(11) UNSIGNED NOT NULL auto_increment,
-  'title' varchar(50),
+  `title` varchar(50),
   `blogpost_content` longtext,
   `client_id` int(11) unsigned DEFAULT NULL,
   `post_published_date` timestamp NULL DEFAULT NULL,
