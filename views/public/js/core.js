@@ -1,6 +1,6 @@
 // uncomment this line if the directive ends up working
 // var app = angular.module('GXLeads', ['app.directives']);
-var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
+var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
     'KoalaCMS.services',
     'KoalaCMS.filters',
     'btford.socket-io',
@@ -60,7 +60,33 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
   .state('blog', {
     url: '/blog-posts',
     templateUrl: 'blog/posts', 
-  });
+  })
+  // route to show our basic form (/form)
+        .state('home.form', {
+            url: '/form',
+            templateUrl: 'form'
+        })
+        
+        // nested states 
+        // each of these sections will have their own view
+        // url will be nested (/form/profile)
+        .state('home.form.profile', {
+            url: '/profile',
+            templateUrl: 'form-profile.html'
+        })
+        
+        // url will be /form/interests
+        .state('home.form.interests', {
+            url: '/interests',
+            templateUrl: 'form-interests.html'
+        })
+        
+        // url will be /form/payment
+        .state('home.form.payment', {
+            url: '/payment',
+            templateUrl: 'form-payment.html'
+        });
+
 
 
 // END OF OLD CONFIG
@@ -95,6 +121,8 @@ var app = angular.module('KoalaCMS', ['textAngular', 'ui.router',
 
   app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
 
+    $scope.formData = {};
+    
     $scope.client = ClientService.Client;
 	  console.log('This is the $scope.client object',$scope.client);  
     $scope.user = fakeUser;

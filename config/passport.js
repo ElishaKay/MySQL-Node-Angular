@@ -44,7 +44,7 @@ module.exports = function(passport) {
                         password: password
                     };
 
-                    var insertQuery = "INSERT INTO client (client_creation_date, client_email, client_password ) values (NOW(),?,?)";
+                    var insertQuery = "INSERT INTO client (client_name, client_creation_date, client_email, client_password ) values (NOW(),?,?)";
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
                         newUserMysql.client_id = rows.insertId;

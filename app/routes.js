@@ -35,7 +35,24 @@ module.exports = function(app,passport) {
 
     app.get('/blog-posts', function(req, res) {
         res.render('blog/posts.ejs');   
-    });    
+    });
+
+    app.get('/form', function(req, res) {
+        res.render('form.ejs');   
+    });
+
+    app.get('/form/profile', function(req, res) {
+        res.render('form-profile.html');   
+    });
+
+    app.get('/form/interests', function(req, res) {
+        res.render('form-interests.html');   
+    });
+
+    app.get('/form/payment', function(req, res) {
+        res.render('form-payment.html');   
+    });
+
 
     app.get('/s3creds',function(req,res){
         s3 = {};
