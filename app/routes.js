@@ -9,7 +9,7 @@ var Base64 = require('js-base64').Base64;
 
 module.exports = function(app,passport) {
 
-    app.get('/',isLoggedIn,function(req,res){
+    app.get('/',function(req,res){
         res.render('index.ejs'); 
     });
 
