@@ -17,7 +17,7 @@ module.exports = function(app,passport) {
         res.render('blog/index.ejs'); 
     });    
 
-    app.get('/post',isLoggedIn,function(req,res){
+    app.get('/post',function(req,res){
         res.render('post.ejs'); 
     });
 
@@ -66,7 +66,7 @@ module.exports = function(app,passport) {
 
      // Get all App Users to populate search results page
 
-     app.get('/api/search',isLoggedIn,function(req,res){
+     app.get('/api/search',function(req,res){
         var row = [];
         connection.query("select * from blogpost", function (err, rows) {
             for (var i in rows) {
@@ -78,7 +78,7 @@ module.exports = function(app,passport) {
     });
 
 
-    app.get('/api/blogpost/:id',isLoggedIn,function(req,res){
+    app.get('/api/blogpost/:id',function(req,res){
         var blogpost_id = req.params.id;
         connection.query('select * from blogpost where blogpost_id = ?',[blogpost_id], function (err, rows) {
             for (var i in rows) {
@@ -126,7 +126,7 @@ module.exports = function(app,passport) {
 
 
      // Get rows for the logged in user's messages
-    app.get('/api/messages',isLoggedIn,function(req,res){
+    app.get('/api/messages',function(req,res){
         var row = [];
         connection.query('select * from message m inner join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
             res.json(rows);

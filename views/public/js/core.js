@@ -45,7 +45,7 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
     controller: 'searchController'  
   })
   .state('post', {
-    url: '/post/:id/:created_at',
+    url: '/post/:id',
     templateUrl: 'post',
     controller: 'postController'  
   })
@@ -175,8 +175,12 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
         console.log('message submitted');
         console.log('This is the messageData object:',messageData);
         var date = new Date();
-
-        var data = {message_sent_date: date, msg: $scope.messageData.message, user: $scope.client.data[0].client_email};
+        if ($scope.client.data[0].client_email){
+          var poster = $scope.client.data[0].client_email;
+        } else {  
+          var poster = 'visitor' 
+        };
+        var data = {message_sent_date: date, msg: $scope.messageData.message, user: poster};
         console.log('this is the submitmessage object',data);
          socket.emit('send message', data);
 
