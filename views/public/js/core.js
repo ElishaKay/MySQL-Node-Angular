@@ -124,7 +124,8 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
     $scope.formData = {};
     
     $scope.client = ClientService.Client;
-	  console.log('This is the $scope.client object',$scope.client);  
+	  
+    console.log('This is the $scope.client object',$scope.client);  
     $scope.user = fakeUser;
 
     // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
