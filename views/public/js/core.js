@@ -178,7 +178,7 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
         if ($scope.client.data[0].client_email){
           var poster = $scope.client.data[0].client_email;
         } else {  
-          var poster = 'visitor' 
+          var poster = 'Visitor' 
         };
         var data = {message_sent_date: date, msg: $scope.messageData.message, user: poster};
         console.log('this is the submitmessage object',data);
