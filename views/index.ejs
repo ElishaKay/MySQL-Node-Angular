@@ -4,6 +4,7 @@
     <% include partials/head %>
     </head>
 <body ng-controller="mainController">
+  <link rel="stylesheet"  ng-href="{{'https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/' + myTheme + '/bootstrap.min.css'}}">
     <% include partials/header %> 
   <div class="col-sm-12">							
          <div ui-view></div>
@@ -20,7 +21,6 @@
             </ul>
               </div>
            </div>
-        }
     </div>                      
     
       <div class="row" id="footer">    
