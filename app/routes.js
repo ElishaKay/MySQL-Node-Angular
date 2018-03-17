@@ -125,7 +125,7 @@ module.exports = function(app,passport) {
     app.get('/api/messages',function(req,res){
         var row = [];
         connection.query('select * from message m left join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
-            console.log(rows);
+            
             for (var i in rows) {
                     if(rows[i].client_email==null){
                         rows[i].client_email = "Visitor"
