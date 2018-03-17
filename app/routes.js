@@ -13,6 +13,10 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
+    app.get('/themes',function(req,res){
+        res.render('themes.ejs'); 
+    });
+
     app.get('/post',function(req,res){
         res.render('post.ejs'); 
     });

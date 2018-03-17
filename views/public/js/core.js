@@ -44,6 +44,11 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
     templateUrl: 'search',
     controller: 'searchController'  
   })
+    .state('home.themes', {
+    url: '/themes',
+    templateUrl: 'themes',
+    controller: 'themesController'  
+  })
   .state('post', {
     url: '/post/:id',
     templateUrl: 'post',
@@ -120,25 +125,6 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
 
 
   app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
-
-
-    // Set the user's bootswatch theme
-    $scope.themes = ['cerulean',
-                      'cosmo',
-                      'cyborg',
-                      'darkly',
-                      'flatly',
-                      'journal',
-                      'lumen',
-                      'paper',
-                      'readable',
-                      'sandstone',
-                      'simplex',
-                      'slate',
-                      'spacelab',
-                      'superhero',
-                      'united',
-                      'yeti'];
 
     $scope.myTheme = 'darkly';
 
@@ -327,6 +313,31 @@ function postController($scope, $http, $stateParams, $window){
       .error(function(data){
          console.log('couldn\'t load data');
     });
+
+};
+
+function themesController($scope){
+      // Set the user's bootswatch theme
+    $scope.themes = ['cerulean',
+                      'cosmo',
+                      'cyborg',
+                      'darkly',
+                      'flatly',
+                      'journal',
+                      'lumen',
+                      'paper',
+                      'readable',
+                      'sandstone',
+                      'simplex',
+                      'slate',
+                      'spacelab',
+                      'superhero',
+                      'united',
+                      'yeti'];
+
+    $scope.chooseTheme = function(theme){
+        $scope.myTheme = theme;
+    };                
 
 };
 
