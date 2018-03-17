@@ -13,9 +13,9 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
-    app.get('/', function(req,res){
-        res.render('blog/index.ejs'); 
-    });    
+    app.get('/themes',function(req,res){
+        res.render('themes.ejs'); 
+    });
 
     app.get('/post',function(req,res){
         res.render('post.ejs'); 
@@ -128,7 +128,13 @@ module.exports = function(app,passport) {
      // Get rows for the logged in user's messages
     app.get('/api/messages',function(req,res){
         var row = [];
-        connection.query('select * from message m inner join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
+        connection.query('select * from message m left join client cl on (cl.client_id = m.client_id);', function (err, rows) {        
+            
+            for (var i in rows) {
+                    if(rows[i].client_email==null){
+                        rows[i].client_email = "Visitor"
+                    };
+            }
             res.json(rows);
         });
     });
@@ -188,8 +194,13 @@ module.exports = function(app,passport) {
 
     app.post('/api/newmessage', function(req,res){
         console.log(req.body.message);
-        debugger;
-        connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
+        if (typeof req.user!=='undefined'){
+                 connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
+                console.log("found req.user.client_id");
+            } else {
+                connection.query('INSERT INTO message (message_sent_date, message_content) VALUES (NOW(),"'+req.body.message+'")');
+                console.log("didnt finnd req.user");
+            };
         res.render('index.ejs'); 
     });
 

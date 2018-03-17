@@ -44,6 +44,11 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
     templateUrl: 'search',
     controller: 'searchController'  
   })
+    .state('home.themes', {
+    url: '/themes',
+    templateUrl: 'themes',
+    controller: 'themesController'  
+  })
   .state('post', {
     url: '/post/:id',
     templateUrl: 'post',
@@ -119,7 +124,9 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
   //                                       Intercom // you may use Intercom rather than $intercom
 
 
-  app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
+  app.controller('mainController', function($rootScope, $scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
+
+    $rootScope.myTheme = 'darkly';
 
     $scope.formData = {};
     
@@ -178,7 +185,7 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
         if ($scope.client.data[0].client_email){
           var poster = $scope.client.data[0].client_email;
         } else {  
-          var poster = 'visitor' 
+          var poster = 'Visitor' 
         };
         var data = {message_sent_date: date, msg: $scope.messageData.message, user: poster};
         console.log('this is the submitmessage object',data);
@@ -306,6 +313,31 @@ function postController($scope, $http, $stateParams, $window){
       .error(function(data){
          console.log('couldn\'t load data');
     });
+
+};
+
+function themesController($rootScope, $scope){
+      // Set the user's bootswatch theme
+    $scope.themes = ['cerulean',
+                      'cosmo',
+                      'cyborg',
+                      'darkly',
+                      'flatly',
+                      'journal',
+                      'lumen',
+                      'paper',
+                      'readable',
+                      'sandstone',
+                      'simplex',
+                      'slate',
+                      'spacelab',
+                      'superhero',
+                      'united',
+                      'yeti'];
+
+    $scope.chooseTheme = function(theme){
+        $rootScope.myTheme = theme;
+    };                
 
 };
 

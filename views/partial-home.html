@@ -3,7 +3,7 @@
 	<div class="col-sm-12">
 		  <a ui-sref=".blog" class="btn btn-primary">Blog</a>
 
-		  <a ng-cloak ng-if="client.data[0].client_email" ui-sref=".form" class="btn btn-primary">Multi-Step Blog Post</a>
+		  <a ng-cloak ng-if="client.data[0].client_email" ui-sref=".form.profile" class="btn btn-primary">About Me</a>
 
 		  <a ui-sref=".list" class="btn btn-primary">Community Chat</a>
 
@@ -12,6 +12,8 @@
 		  <a ng-cloak ng-if="client.data[0].client_email" ui-sref=".community" class="btn btn-primary">New Blog Post</a>
 
 		  <a ui-sref=".search" class="btn btn-primary">Search</a>
+
+		  <a ui-sref=".themes" class="btn btn-primary">Themes</a>
 
 		  <a ui-sref=".contact" class="btn btn-primary">Contact</a>
 	</div>
