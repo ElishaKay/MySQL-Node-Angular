@@ -124,9 +124,9 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
   //                                       Intercom // you may use Intercom rather than $intercom
 
 
-  app.controller('mainController', function($scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
+  app.controller('mainController', function($rootScope, $scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
 
-    $scope.myTheme = 'darkly';
+    $rootScope.myTheme = 'darkly';
 
     $scope.formData = {};
     
@@ -316,7 +316,7 @@ function postController($scope, $http, $stateParams, $window){
 
 };
 
-function themesController($scope){
+function themesController($rootScope, $scope){
       // Set the user's bootswatch theme
     $scope.themes = ['cerulean',
                       'cosmo',
@@ -336,7 +336,7 @@ function themesController($scope){
                       'yeti'];
 
     $scope.chooseTheme = function(theme){
-        $scope.myTheme = theme;
+        $rootScope.myTheme = theme;
     };                
 
 };
