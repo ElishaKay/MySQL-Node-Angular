@@ -6,6 +6,7 @@ CREATE TABLE `client` (
   `client_name` varchar(50) DEFAULT NULL,
   `client_email` varchar(100) DEFAULT NULL,
   `client_password` varchar(100) DEFAULT NULL,
+  `client_theme` varchar(15) DEFAULT NULL,
   `client_analytics_code` varchar(50) DEFAULT NULL,
   `client_creation_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (client_id) 
