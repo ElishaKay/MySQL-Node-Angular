@@ -121,18 +121,41 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
   			app_id: "brgsi84c"
 		});
   });
-  //                                       Intercom // you may use Intercom rather than $intercom
+  //          Intercom // you may use Intercom rather than $intercom
+
+
+  app.factory('ClientService', function($rootScope, $http, socket){
+    var Client = {};
+
+   var clientPromise = $http.get('/api/user')
+      .success(function(data){
+        Client.data = data;
+        if (Client.data[0].client_theme){
+          $rootScope.myTheme = Client.data[0].client_theme;
+        } else {
+          $rootScope.myTheme = 'darkly';
+        };
+        var usersocket = {person: Client.data[0].client_email};
+        console.log('this is the submit user data object', usersocket)
+          socket.emit('new user', usersocket);  
+      console.log("hey from users factory in core.js!");
+      })
+      .error(function(data){
+    });
+
+     return {Client: Client};
+
+  });
 
 
   app.controller('mainController', function($rootScope, $scope, $http, socket, textAngularManager, $window, $intercom, fakeUser, ClientService) {
 
-    $rootScope.myTheme = 'darkly';
-
     $scope.formData = {};
     
     $scope.client = ClientService.Client;
-	  
-    console.log('This is the $scope.client object',$scope.client);  
+    
+    console.log('This is the $scope.client object',$scope.client);
+    
     $scope.user = fakeUser;
 
     // Register listeners to $intercom using '.$on()' rather than '.on()' to trigger a safe $apply on $rootScope
@@ -162,7 +185,6 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
       $intercom.update(newUser);
     };
 
-	  
 	// Load exisiting messages
 	$http.get('/api/messages')
 		  .success(function(data){
@@ -252,29 +274,6 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
 	$scope.blogdata = {};
 
 });
-
-
-
-app.factory('ClientService', function($http, socket){
-	var Client = {};
-
-	$http.get('/api/user')
-		.success(function(data){
-			Client.data = data;
-			var usersocket = {person: Client.data[0].client_email};
-		    console.log('this is the submit user data object', usersocket)
-		    socket.emit('new user', usersocket);	
-		console.log("hey from users factory in core.js!");
-		})
-		.error(function(data){
-	});
-
-   return {Client: Client};
-
-});
-
-// end of router
-// Beginning of controller
 
 function searchController($scope, $http){
 	
