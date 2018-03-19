@@ -215,12 +215,12 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
 
          // Saving to DB via routes.js
          $http.post('/api/newmessage', $scope.messageData)
-			.success(function(data) {
-				 $scope.messageData = {};
+			       .success(function(data) {
+				     $scope.messageData = {};
 		 // clear the form so our user is ready to enter another		
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
+			   })
+			       .error(function(data) {
+				      console.log('Error: ' + data);
 			});
     };
 
@@ -315,7 +315,7 @@ function postController($scope, $http, $stateParams, $window){
 
 };
 
-function themesController($rootScope, $scope){
+function themesController($rootScope, $scope, $http){
       // Set the user's bootswatch theme
     $scope.themes = ['cerulean',
                       'cosmo',
@@ -335,8 +335,17 @@ function themesController($rootScope, $scope){
                       'yeti'];
 
     $scope.chooseTheme = function(theme){
-        $rootScope.myTheme = theme;
+        $rootScope.myTheme = theme; 
+        console.log('This is the messageData object:',theme);
+        var data = {theme: theme};
+        console.log('this is the submitTheme object',data);
+        // Saving to DB via routes.js
+        $http.post('/api/updatetheme', data)
+             .success(function(data) {
+              })
+             .error(function(data) {
+              console.log('Error: ' + data);
+        });
     };                
-
 };
 
