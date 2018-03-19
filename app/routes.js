@@ -192,6 +192,11 @@ module.exports = function(app,passport) {
         });
     });
 
+    app.post('/api/updatetheme', function(req,res){
+        console.log('this is the theme',req.body.theme);
+        connection.query('UPDATE client SET client_theme="'+req.body.theme+'"WHERE  client_id="' +req.user.client_id+'"');
+    });
+
     app.post('/api/newmessage', function(req,res){
         console.log(req.body.message);
         if (typeof req.user!=='undefined'){
