@@ -1,24 +1,6 @@
-<div>
-	<div class="row">
-		<form name="compressionForm">
-			<div class="col-xs-6">
-				<label>Max Width (px)</label>
-				<input type="number" class="form-control" name="maxWidth" ng-model="vm.maxWidth" ng-pattern="/^(0|[1-9][0-9]*)$/" min="100">
-				<span ng-show="compressionForm.maxWidth.$invalid" class="text-danger">
-					Please enter a number larger than 99.
-				</span>
-			</div>
-			<div class="col-xs-6">
-				<label>Max Height (px)</label>
-				<input type="number" class="form-control" name="maxHeight" ng-model="vm.maxHeight" ng-pattern="/^(0|[1-9][0-9]*)$/" min="100">
-				<span ng-show="compressionForm.maxHeight.$invalid" class="text-danger">
-					Please enter a number larger than 99.
-				</span>
-			</div>
-		</form>	
-	</div>
-	<br>
-	<h2 id="image" class="text-center">Upload an Image</h2>
+
+		<div class="col-md-6">
+	<h3 id="image">Step 2: Choose a Cover image</h3>
 
 	<tabset>
 		<tab ng-repeat="image in vm.images" heading="{{ $index + 1 }}" active="image.tab">
@@ -86,4 +68,3 @@
 			<br>
 		</tab>
 	</tabset>
-</div>

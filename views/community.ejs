@@ -1,26 +1,29 @@
 
-
-   <div class="padding">
-      <!-- main col right -->
-        
-
-
-<pt-image-uploader></pt-image-uploader>
-
-<h1>Choose a title</h1>
-
-<form>
+<center>
+<div class="col-md-6">
+  <h3>Step 1: Choose a Title
+  </h3>
+  <br>
+  <form>
     <div class="form-group">
       <div class="input-group">
-        <input type="text" class="form-control" style="width:auto" placeholder="Enter Title" ng-model="title">
+        <input type="text" class="form-control" style="width:450px" placeholder="Enter Title" ng-model="title">
       </div>      
     </div>
-  </form>
+</form>
+</div>
+</center>
 
 
- <div class="modal-dialog">
-  <div class="modal-content">
- <h1>Editor <small>{{version}}</small></h1>
+<center>
+<pt-image-uploader></pt-image-uploader>
+</div>
+</div>
+</center>
+
+
+<div class="col-md-12">
+ <h3>Step 3: Add some content <small>{{version}}</small></h3>
         <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button>
         <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent.text" ta-disabled='disabled'></div>
         <h1>Raw HTML in a text area</h1>
