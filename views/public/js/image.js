@@ -84,10 +84,10 @@
 										console.log('Error: ' + data);
 										});
 									}; 
-								submitImageToLibrary();
-								
+
 								console.log("Success 3!");
-								$timeout(function() {scope.image.dataURL = 'https://s3.' + s3.region + '.amazonaws.com/' + s3.bucket + '/' + filename;}, 750);
+								scope.image.dataURL = 'https://s3.' + s3.region + '.amazonaws.com/' + s3.bucket + '/' + filename;
+								submitImageToLibrary();
 							  }
 							})
 							.on('httpUploadProgress',function(progress) {

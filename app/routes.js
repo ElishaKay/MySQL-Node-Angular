@@ -224,10 +224,10 @@ module.exports = function(app,passport) {
         res.render('index.ejs'); 
     });
 
-    app.post('/api/imageData', function(req,res){ 
-        console.log('image received at routesJS',req);  
+    app.post('/api/imageData', function(req,res){  
         var title = req.body.title;
         var imageUrl = req.body.imageUrl;
+        console.log('this is the imageURL: ', imageUrl);
         connection.query('INSERT INTO image_library (image_uploaded_date, title, image_url, client_id) VALUES (NOW(),"'+title+'","'+imageUrl+'","'+req.user.client_id+'")');
         res.render('index.ejs'); 
     });
