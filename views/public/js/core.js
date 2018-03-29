@@ -227,32 +227,39 @@ var app = angular.module('KoalaCMS', ['ngAnimate','textAngular', 'ui.router',
 
 
     $scope.submitBlogPost = function(blogdata){
-    	
-    	  	
-    	  $scope.version = textAngularManager.getVersion();
-          $scope.versionNumber = $scope.version.substring(1);
-          $scope.orightml = '';
-          $scope.htmlcontent = $scope.orightml;
-          $scope.disabled = false;
+    	  var title = blogdata.title;
+        var coverImage = blogdata.coverImage = $rootScope.imageUrl;
+        var content = blogdata.html;
+        console.log('this is the $rootScope blog Cover Image', coverImage);
+        // handling incomplete fields
+        if(typeof title !== 'undefined' && typeof coverImage !== 'undefined' &&
+            typeof content !== 'undefined'){
+                $scope.version = textAngularManager.getVersion();
+              $scope.versionNumber = $scope.version.substring(1);
+              $scope.orightml = '';
+              $scope.htmlcontent = $scope.orightml;
+              $scope.disabled = false;
 
-        console.log('blogPost submitted');
-        console.log('This is the blogdata object:',blogdata);
-        var date = new Date();
-        var title = $scope.title;
-        // socket.emit('send message', blogPostData);
+            console.log('blogPost submitted');
+            console.log('This is the blogdata object:',blogdata);
+            var date = new Date();
+            var title = $scope.title;
+            // socket.emit('send message', blogPostData);
 
-         // Saving to DB via routes.js
-        $http.post('/api/blogPostData', blogdata)
-			       .success(function(data) {
-				      delete $scope.htmlcontent.text;
-              delete $scope.title;
-		 // clear the form so our user is ready to enter another		
-			})
-			.error(function(data) {
-				console.log('Error: ' + data);
-			});
-    };
-
+             // Saving to DB via routes.js
+            $http.post('/api/blogPostData', blogdata)
+                 .success(function(data) {
+                  delete $scope.htmlcontent.text;
+                  delete $scope.title;
+         // clear the form so our user is ready to enter another    
+          })
+          .error(function(data) {
+            console.log('Error: ' + data);
+           });
+        } else {
+          alert('Please make sure you include: a) A Blog Title (b) A Cover Image (c) Some Content!');    
+       };
+  };
 
        
         socket.on('new message', function(data){

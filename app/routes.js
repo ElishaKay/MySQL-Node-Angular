@@ -218,9 +218,10 @@ module.exports = function(app,passport) {
         var html = req.body.html;
         console.log('this is the blog post string',req.body.html);
         console.log('this is the blog post title',req.body.title);
-        encodedhtml = Base64.encode(html);
+        var encodedhtml = Base64.encode(html);
+        var cover_image =  req.body.coverImage;
         console.log("this is the string after base64 encoding", encodedhtml);
-        connection.query('INSERT INTO blogpost (post_published_date, title, blogpost_content, client_id) VALUES (NOW(),"'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
+        connection.query('INSERT INTO blogpost (post_published_date, cover_image, title, blogpost_content, client_id) VALUES (NOW(),"'+cover_image+'","'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
         res.render('index.ejs'); 
     });
 

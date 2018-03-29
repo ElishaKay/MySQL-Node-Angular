@@ -49,14 +49,11 @@ app.controller('ptImageUploaderController', function($http, $location, $anchorSc
 
 			var last = vm.images.length - 1;
 			vm.images[last].tab = true;
-			submitImageToLibrary(image);
 			scroll();
 		}
 
-		
 		function removeImage(image) {
 			vm.images.splice(vm.images.indexOf(image), 1);
-
 			scroll();
 		}
 

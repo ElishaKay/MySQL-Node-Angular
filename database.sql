@@ -56,6 +56,7 @@ CREATE TABLE `blogpost` (
   `title` varchar(50),
   `blogpost_content` longtext,
   `client_id` int(11) unsigned DEFAULT NULL,
+  `cover_image` varchar(90),
   `post_published_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`blogpost_id`),
   KEY `client_id blogpost_id` (`client_id`),
