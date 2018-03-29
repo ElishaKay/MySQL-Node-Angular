@@ -4,7 +4,7 @@
 
 	angular
 	.module('KoalaCMS')
-	.directive('image', function($timeout, $filter) {
+	.directive('image', function($http, $timeout, $filter) {
 		return {
 			restrict: 'EA',
 			require: '^ptImageUploader',
@@ -69,12 +69,30 @@
 							  }
 							  else {
 								// Upload Successfully Finished
-								console.log("Success!");
+							 	function submitImageToLibrary(){
+								 // Saving to DB via routes.js
+									  var imageData = {};
+									  imageData.imageUrl = scope.image.dataURL;
+									  var date = new Date();
+									  imageData.title = 'Image_Uploaded_'+date;
+									  // var imageURL = 'https://s3.' + s3.region + '.amazonaws.com/' + s3.bucket + '/' + filename;}, 750);
+									  						 
+									  $http.post('/api/imageData', imageData)
+											  .success(function(data) {
+									  })
+									.error(function(data) {
+										console.log('Error: ' + data);
+										});
+									}; 
+								submitImageToLibrary();
+								
+								console.log("Success 3!");
 								$timeout(function() {scope.image.dataURL = 'https://s3.' + s3.region + '.amazonaws.com/' + s3.bucket + '/' + filename;}, 750);
 							  }
 							})
 							.on('httpUploadProgress',function(progress) {
 							  scope.image.uploadProgress = Math.round(progress.loaded / progress.total * 100);
+							  
 							  scope.$digest();
 							});
 						}

@@ -220,8 +220,15 @@ module.exports = function(app,passport) {
         console.log('this is the blog post title',req.body.title);
         encodedhtml = Base64.encode(html);
         console.log("this is the string after base64 encoding", encodedhtml);
-        debugger;
         connection.query('INSERT INTO blogpost (post_published_date, title, blogpost_content, client_id) VALUES (NOW(),"'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
+        res.render('index.ejs'); 
+    });
+
+    app.post('/api/imageData', function(req,res){ 
+        console.log('image received at routesJS',req);  
+        var title = req.body.title;
+        var imageUrl = req.body.imageUrl;
+        connection.query('INSERT INTO image_library (image_uploaded_date, title, image_url, client_id) VALUES (NOW(),"'+title+'","'+imageUrl+'","'+req.user.client_id+'")');
         res.render('index.ejs'); 
     });
 

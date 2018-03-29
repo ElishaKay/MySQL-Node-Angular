@@ -64,3 +64,17 @@ CREATE TABLE `blogpost` (
 );
 
 INSERT INTO blogpost (post_published_date, title, blogpost_content, client_id) VALUES (NOW(),'this is your first blogpost title','<p>THis is some text</p>',1);
+
+CREATE TABLE `image_library` (
+  `image_id` int(11) UNSIGNED NOT NULL auto_increment,
+  `title` varchar(50),
+  `image_url` varchar(80),
+  `client_id` int(11) unsigned DEFAULT NULL,
+  `image_uploaded_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`image_id`),
+  KEY `client_id image_id` (`client_id`),
+  CONSTRAINT `client_id image_library` FOREIGN KEY (`client_id`) 
+  REFERENCES `client` (`client_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+
