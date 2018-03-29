@@ -22,14 +22,14 @@
 </center>
 
 
-<div class="col-md-12">
- <h3>Step 3: Add some content <small>{{version}}</small></h3>
-        <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button>
-        <div text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent.text" ta-disabled='disabled'></div>
-        <h1>Raw HTML in a text area</h1>
+<div class="col-md-12 content-box">
+ <h3 class="thecontentchild">Step 3: Content <small>{{version}}</small></h3>
+        <!-- <button ng-click="disabled = !disabled" unselectable>Disable text-angular Toggle</button> -->
+        <div placeholder="Add some content here..." text-angular="text-angular" name="htmlcontent" ng-model="htmlcontent.text" ta-disabled='disabled'></div>
+        <!--  <h1>Raw HTML in a text area</h1>
         <textarea ng-model="htmlcontent.text" style="width: 100%"></textarea>
         <h1>Bound with ng-bind-html</h1>
-        <div ng-bind-html="htmlcontent.text"></div>
+        <div ng-bind-html="htmlcontent.text"></div> -->
         
          <div class="modal-footer">
           <div>

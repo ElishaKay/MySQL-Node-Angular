@@ -1,5 +1,8 @@
-.right-side-title {
+.thecontentchild {
 	position: absolute;
-	top: 50px;
-	right: 50px;
+	top: -100px;
+}
+
+.content-box {
+	position: relative;
 }
