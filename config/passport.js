@@ -48,12 +48,11 @@ module.exports = function(passport) {
 
                     connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+newUserMysql.name+'",NOW(),"'+newUserMysql.username+'","'+newUserMysql.password+'")');
 
-
-                        // newUserMysql.client_id = rows.insertId;
-
+                    connection.query('select client_id from client where client_email = ?',[newUserMysql.username], function (err, rows) {
+                        console.log('heres the client row from passport',rows);
+                        newUserMysql.client_id = rows.client_id;
                         return done(null, newUserMysql);
-                    
-                    
+                    });    
                 }
             });
         })
