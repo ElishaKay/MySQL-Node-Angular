@@ -30,7 +30,7 @@ module.exports = function(passport) {
             passReqToCallback : true 
         },
         function(req, username, password, done) {
-
+            console.log('ran the local-signup function');
             connection.query("SELECT * FROM client WHERE client_email = ?",[username], function(err, rows) {
                 if (err)
                     return done(err);
@@ -40,17 +40,22 @@ module.exports = function(passport) {
 
                     var newUserMysql = {
                         username: username,
-                        // password: bcrypt.hashSync(password, null, null)
                         password: password
                     };
 
-                    var insertQuery = "INSERT INTO client (client_name, client_creation_date, client_email, client_password ) values (NOW(),?,?)";
+                    console.log('this is the newUserMysql object', newUserMysql);
+
+                    var insertQuery = "INSERT INTO client ( values (NOW(),?,?)";
+
+                    connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+cover_image+'","'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
 
                     connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
+                        console.log()
                         newUserMysql.client_id = rows.insertId;
 
                         return done(null, newUserMysql);
-                    });
+                    
+                    );
                 }
             });
         })
