@@ -40,22 +40,20 @@ module.exports = function(passport) {
 
                     var newUserMysql = {
                         username: username,
-                        password: password
+                        password: password,
+                        name: req.body.name
                     };
 
                     console.log('this is the newUserMysql object', newUserMysql);
 
-                    var insertQuery = "INSERT INTO client ( values (NOW(),?,?)";
+                    connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+newUserMysql.name+'",NOW(),"'+newUserMysql.username+'","'+newUserMysql.password+'")');
 
-                    connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+cover_image+'","'+req.body.title+'","'+encodedhtml+'","'+req.user.client_id+'")');
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
-                        console.log()
-                        newUserMysql.client_id = rows.insertId;
+                        // newUserMysql.client_id = rows.insertId;
 
                         return done(null, newUserMysql);
                     
-                    );
+                    
                 }
             });
         })
