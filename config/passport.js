@@ -45,21 +45,28 @@ module.exports = function(passport) {
 
                     console.log('this is the newUserMysql object', newUserMysql);
 
-                    connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
-                        newUserMysql.client_id = rows.insertId;
+                    // var insertQuery = "INSERT INTO client (client_name, client_creation_date, client_email, client_password ) values (NOW(),?,?)";
 
-                        return done(null, newUserMysql);
-                    });
 
-                    // connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+req.body.name+'",NOW(),"'+newUserMysql.username+'","'+newUserMysql.password+'")');
+                    // connection.query(insertQuery,[newUserMysql.username, newUserMysql.password],function(err, rows) {
 
-                    // connection.query('select client_id from client where client_email = ?',[newUserMysql.username], function (err, row) {
-                    //     console.log('heres the client id from passport',row[0].client_id);
-                        
-                    //     newUserMysql.client_id = row[0].client_id;
+                    //     console.log('this is the rows object from the db',rows);
+
+             
+                    //     newUserMysql.client_id = rows.client_id;
 
                     //     return done(null, newUserMysql);
-                    // });    
+                    // });
+
+                    connection.query('INSERT INTO client (client_name, client_creation_date, client_email, client_password) VALUES ("'+req.body.name+'",NOW(),"'+newUserMysql.username+'","'+newUserMysql.password+'")');
+
+                    connection.query('select client_id from client where client_email = ?',[newUserMysql.username], function (err, row) {
+                        console.log('heres the client id from passport',row[0].client_id);
+                        
+                        newUserMysql.client_id = row[0].client_id;
+
+                        return done(null, newUserMysql);
+                    });    
                 }
             });
         })
