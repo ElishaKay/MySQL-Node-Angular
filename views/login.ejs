@@ -3,14 +3,19 @@
 <head>
 	<title>Koala CMS</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css">
+   <link rel="stylesheet" href="style.css">
+    
 	<style>
 		body 		{ padding-top:80px; }
 	</style>
 </head>
 <body>
+
+<div class="centered">
+    <div class="row">
+
     <div class="container" >
-        <div class="col-sm-6 col-sm-offset-3">
-            <center><img src="public/images/koala-time.jpg"></center>
+        <div class="col-md-4">
             <h1><span class="fa fa-sign-in" ></span> Login</h1>
             <% if (message.length > 0) { %>
                 <div class="alert alert-danger"><%= message %></div>
@@ -32,22 +37,31 @@
 
             <hr>
 
-            <p>new user <a href="/signup">register</a></p>
 
-            
-<div class="col-sm-6 col-sm-offset-3">
+</div>
+<div class="col-md-4">
+ <center><img src="public/images/koala-time.jpg"></center>
+           
+</div>
+            <div class="col-md-4">
 
-    <h1><span class="fa fa-sign-in"></span> Register</h1>
+    <h1><span class="fa fa-sign-in"></span> Sign-Up</h1>
 
     <!-- show any messages that come back with authentication -->
     <% if (message.length > 0) { %>
         <div class="alert alert-danger"><%= message %></div>
     <% } %>
 
+
+
     <!-- LOGIN FORM -->
     <form action="/signup" method="post">
         <div class="form-group">
                 
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
+        </div>
+
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="Enter email">
         </div>
         <div class="form-group">
@@ -55,15 +69,12 @@
             <input type="password" class="form-control" placeholder="Password"   name="password">
         </div>
 
-        <div class="form-group">
-        <input type="text" class="form-control" name="name" placeholder="Enter name">
-        </div>
-
-        <button type="submit" class="btn btn-warning btn-lg">Save</button>
+        <button type="submit" class="btn btn-warning btn-lg nav-right">Sign-Up</button>
     </form>
 
     <hr>
 
+            </div>
         </div>
     </div>
 </body>
