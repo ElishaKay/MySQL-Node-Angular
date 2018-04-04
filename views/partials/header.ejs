@@ -13,25 +13,33 @@
 	          				<span class="icon-bar"></span>
                         </button>
                   	</div>
-                    
-                    <ul class="nav navbar-nav">
-                      <li>
-                        <a href="/"><i class="glyphicons-home"></i> Home </a>
+       
+
+
+
+    <div class="sign-up footer-style panel panel-default">
+      <ul class="list-unstyled">
+
+        
+                     <li>
+                        <a href="/" class="list-group-item" ><i class="glyphicons-home"></i> Home </a>
                       </li>
+
+<li ng-cloak ng-if="client.data[0].client_email">
+    <a href="#" class="list-group-item" >Welcome, {{client.data[0].client_email}}</a>
+</li>
+<li ng-cloak ng-if="client.data[0].client_email">
+    <a href="/logout" class="list-group-item" ><i class="glyphicons-home"></i> Logout </a></li>
+<li ng-cloak ng-if="!client.data[0].client_email">
+    <a href="/login" class="list-group-item" ><i class="glyphicons-home"></i> Login </a>
+</li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                       
-                    </ul>          
+                          
 
                    </div>
                    </div>
                    </div>            
 
-
-<ul class="nav navbar-nav navbar-right">
-<li ng-cloak ng-if="client.data[0].client_email"><a href="#">Welcome, {{client.data[0].client_email}}</a></li>
-<li ng-cloak ng-if="client.data[0].client_email"><a href="/logout"><i class="glyphicons-home"></i> Logout </a></li>
-<li ng-cloak ng-if="!client.data[0].client_email"><a href="/login"><i class="glyphicons-home"></i> Login </a>
 </li>
                   	</nav>
                 </div>

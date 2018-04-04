@@ -21,10 +21,11 @@
 
 .hero-image {
     /* The image used */
-    background-image: url("img/koalalogo3.png");
-
+    background-image: url("img/koalalogo4.png");
+    width: 100%;
     /* Set a specific height */
-    height: 500px;
+    height: 400px;
+    border-radius: 50%;
 
     /* Position and center the image to scale nicely on all screens */
     background-position: center;
@@ -33,7 +34,27 @@
     position: relative;
 }
 
+
+
 .mainContent {
 	position: relative;
 	top: 300px;
+}
+
+.mainContainer {
+	position: absolute;
+}
+
+.footer-style {
+	display: inline-block;
+	position: fixed;
+	top: 30px;
+}
+
+.sign-up {
+	top:30px;
+	display: inline-block;
+	position: fixed;
+	right: 50px;
+	z-index: 99;
 }
