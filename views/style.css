@@ -14,3 +14,26 @@
   /* bring your own prefixes */
   transform: translate(-50%, -50%);
 }
+
+.hero-container{
+	postion:absolute;
+}
+
+.hero-image {
+    /* The image used */
+    background-image: url("img/koalalogo3.png");
+
+    /* Set a specific height */
+    height: 500px;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.mainContent {
+	position: relative;
+	top: 300px;
+}
