@@ -15,6 +15,19 @@ module.exports = function(app,passport) {
       next();
     });
 
+    //posting the list of questions from driving-tests site 
+    app.post('/api/drivingquestions', function(req,res){
+        console.log(req.body);
+        // if (typeof req.user!=='undefined'){
+        //          connection.query('INSERT INTO message (message_sent_date, message_content, client_id) VALUES (NOW(),"'+req.body.message+'","' +req.user.client_id+'")');
+        //         console.log("found req.user.client_id");
+        //     } else {
+        //         connection.query('INSERT INTO message (message_sent_date, message_content) VALUES (NOW(),"'+req.body.message+'")');
+        //         console.log("didnt finnd req.user");
+        //     };
+        res.send('successfully called api'); 
+    });
+
     app.get('/',function(req,res){
         res.render('index.ejs'); 
     });
