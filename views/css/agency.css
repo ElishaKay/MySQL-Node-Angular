@@ -453,7 +453,6 @@ header {
 
 section.articles {
   padding-right: 2cm;
-  background-image: url("../img/background-image.jpg");
 }
 
 section h2.section-heading {
@@ -878,5 +877,5 @@ img::-moz-selection {
 
 body {
   webkit-tap-highlight-color: #fed136;
-  background-image: url("/img/large.jpg");
+  background-image: url("/img/large2.jpg");
 }
