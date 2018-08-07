@@ -79,6 +79,13 @@ PASSWORD2=thepassword
 
 ```
 
+For Linux Machines, paste these lines into your CLI (replace the values of Database, User, and Password Accordingly):
+```
+export HOST=localhost
+export DATABASE=koalacms
+export USER=root
+export PASSWORD=
+```
 
 Once, you've achieved that, Then simply start your app
 
