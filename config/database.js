@@ -1,23 +1,15 @@
-// config/database.js
-
-// uncomment before pushing to git
-
 module.exports = {
     'connection': {
-        'host': process.env.HOST, // localde iseniz bu , local değilse ip adresini yazınız .
-        'user': process.env.USER, // kullanıcı adı 
-        'password': process.env.PASSWORD, // şifreniz 
-        'database': process.env.DATABASE // database ismi .
-    },
-
-    // The second connection is for the db that you want to segment your audience from
-    // and to pull data from for custom reports
-    
+        'host': process.env.HOST, 
+        'user': process.env.USER,  
+        'password': process.env.PASSWORD, 
+        'database': process.env.DATABASE 
+    },    
     'connection2': {
-        'host': process.env.HOST2, // localde iseniz bu , local değilse ip adresini yazınız .
-        'user': process.env.USER2, // kullanıcı adı 
-        'password': process.env.PASSWORD2, // şifreniz 
-        'database': process.env.DATABASE2 // database ismi .
+        'host': process.env.HOST2, 
+        'user': process.env.USER2,  
+        'password': process.env.PASSWORD2,  
+        'database': process.env.DATABASE2 
     }
 };
 

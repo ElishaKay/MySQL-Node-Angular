@@ -19,17 +19,6 @@ var app = module.exports = express();
 var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 
-
-
-/**
- * Configuration
- */
-
-// all environments
-//for development
-// app.set('port', process.env.PORT || 8000);
-
-// for heroku
 app.set('port', process.env.PORT || 80);
 
 
@@ -37,15 +26,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-// production only
-if (app.get('env') === 'production') {
-  // TODO
-};
-
-
-/**
- * Routes
- */
 
 // Socket.io Communication
 
@@ -91,9 +71,6 @@ io.sockets.on('connection', function(socket){
         io.sockets.emit('get users', users)
     } 
 
-    function updateMessages(messages){
-        // io.sockets.emit('new message', messages);
-    } 
 });
 
 /**
@@ -109,11 +86,7 @@ var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life and love, the universe, and everything!');
 });
 
-// For deployment time
 var port     = process.env.PORT || 80;
-
-// for development
-// var port     = 8000;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -122,8 +95,6 @@ console.log(process.env.HOST);
 
 require('./config/passport.js')(passport); 
 
-
-// app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     extended: true
@@ -140,6 +111,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
  } )); // session secret
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
@@ -148,10 +120,4 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-// routes ======================================================================
-// require('./app/email-template2.js')(app); // load our routes and pass in our app and fully configured passport
-
-
-// launch ======================================================================
-// app.listen(port);
 console.log('App is running on localhost:' + port);
