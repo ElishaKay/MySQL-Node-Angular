@@ -1,7 +1,3 @@
-// config/database.js
-
-// uncomment before pushing to git
-
 module.exports = {
     'connection': {
         'host': process.env.HOST, // localde iseniz bu , local değilse ip adresini yazınız .

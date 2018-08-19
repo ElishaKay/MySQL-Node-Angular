@@ -27,10 +27,8 @@ var io = require('socket.io').listen(server);
 
 // all environments
 //for development
-// app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 8000);
 
-// for heroku
-app.set('port', process.env.PORT || 80);
 
 
 app.set('views', __dirname + '/views');
@@ -109,11 +107,6 @@ var j = schedule.scheduleJob('42 * * * *', function(){
   console.log('The answer to life and love, the universe, and everything!');
 });
 
-// For deployment time
-var port     = process.env.PORT || 80;
-
-// for development
-// var port     = 8000;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -123,7 +116,6 @@ console.log(process.env.HOST);
 require('./config/passport.js')(passport); 
 
 
-// app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     extended: true
@@ -148,10 +140,3 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
-// routes ======================================================================
-// require('./app/email-template2.js')(app); // load our routes and pass in our app and fully configured passport
-
-
-// launch ======================================================================
-// app.listen(port);
-console.log('App is running on localhost:' + port);
