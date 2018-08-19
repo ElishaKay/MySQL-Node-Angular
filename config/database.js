@@ -5,6 +5,9 @@ module.exports = {
         'password': process.env.PASSWORD, 
         'database': process.env.DATABASE 
     },
+    'keys': {
+        'session_secret': '3256dghd45435'
+    },
 
     // The second connection is for the db that you want to segment your audience from
     // and to pull data from for custom reports
