@@ -6,94 +6,24 @@ var express  = require('express');
 var session  = require('cookie-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var app      = express();
+var app = express();
 var nodemailer = require('nodemailer');
 var schedule = require('node-schedule');
-
-var express = require('express'),
-  http = require('http'),
-  path = require('path');
-
-var app = module.exports = express();
 var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var io = require('socket.io').listen(server);    
 
 
-
-/**
- * Configuration
- */
-
-// all environments
-//for development
 app.set('port', process.env.PORT || 8000);
-
-
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
-
 // production only
 if (app.get('env') === 'production') {
   // TODO
 };
 
 
-/**
- * Routes
- */
-
-// Socket.io Communication
-
-messages = [];
-users = [];
-connections = [];
-
-
-io.sockets.on('connection', function(socket){
-
-
-    connections.push(socket);
-    console.log("connected: % of sockets connected", connections.length);
-    
-    console.log('this is the server talking');
-
-    //Disconnect
-    socket.on('disconnect', function(data){
-        console.log('this is the socket.username.person',socket.username);
-
-        users.splice(users.indexOf(socket.username), 1);
-        updateUsernames();
-        connections.splice(connections.indexOf(socket), 1);
-        console.log('Disconnected % of sockets connected', connections.length);        
-    });
-
-    //Message
-    socket.on('send message', function(data){
-        messages.push(data);
-        io.sockets.emit('new message', messages);
-    });
-    
-    // new user
-    socket.on('new user', function(data){
-        socket.username = data;
-        users.push(socket.username);
-        updateUsernames();
-        updateMessages(messages);
-        console.log('this is the users array',users);
-    });
-
-    function updateUsernames(){
-        io.sockets.emit('get users', users)
-    } 
-
-    function updateMessages(messages){
-        // io.sockets.emit('new message', messages);
-    } 
-});
-
+require('./helpers/socket')(io, app)
 /**
  * Start Server
  */
