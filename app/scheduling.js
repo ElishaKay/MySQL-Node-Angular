@@ -1,3 +1,9 @@
+
+var j = schedule.scheduleJob('42 * * * *', function(){
+  console.log('The answer to life and love, the universe, and everything!');
+});
+
+
 You can also use arrays to specify a list of acceptable values, 
 and the Range object to specify a range of start and end values, 
 with an optional step parameter. For instance, this will print a message on Thursday, 

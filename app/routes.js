@@ -140,7 +140,6 @@ module.exports = function(app,passport) {
     });
 
 
-
       // Get row for the logged in user (i.e. client)
     app.get('/api/user',isLoggedIn,function(req,res){
         var row = [];
@@ -151,46 +150,6 @@ module.exports = function(app,passport) {
       
     });
 
-
-    app.get('/api/todos',function(req,res){
-        var row = [];
-      connection.query('select * from client inner join post on client.client_id = post.client_id', function (err, rows) {
-            if (err) {
-                console.log(err);
-            } else {
-                if (rows.length) {
-                    for (var i = 0, len = rows.length; i < len; i++) {  //query den gelen bütün parametreleri rows sınıfına ekliyoruz .
-                        row[i] = rows[i];
-                    }  
-                }
-             
-                
-            }
-            res.json(rows);
-            
-        });
-    });
-
-    app.get('/api/viewcomments/:postID',function(req,res){
-        var postID = req.params.postID;
-        var row = [];
-        console.log(postID);
-        connection.query('select client.client_email as u ,t1.y as t,t1.idsi as idsi1 from (select comment.comment_id as k,comment.text as y,comment.client_id as x,post.post_id as idsi from comment inner join post on post.post_id = comment.post_id where post.post_id= "'+postID+'" ) as t1 , client where client.client_id = t1.x  order by k desc limit 4 ', function (err, rows) {
-            if (err) {
-                console.log(err);
-            } else {
-                if (rows.length) {
-                    for (var i = 0, len = rows.length; i < len; i++) {  //query den gelen bütün parametreleri rows sınıfına ekliyoruz .
-                        row[i] = rows[i];
-                    }  
-                }
-                console.log(row);
-                
-            }
-            res.json(rows);
-            
-        });
-    });
 
     app.post('/api/updatetheme', function(req,res){
         console.log('this is the theme',req.body.theme);
@@ -231,76 +190,6 @@ module.exports = function(app,passport) {
         console.log('this is the imageURL: ', imageUrl);
         connection.query('INSERT INTO image_library (image_uploaded_date, title, image_url, client_id) VALUES (NOW(),"'+title+'","'+imageUrl+'","'+req.user.client_id+'")');
         res.render('index.ejs'); 
-    });
-
-
-
-    app.post('/api/todos',function(req,res){
-        var row = [];
-        var row2=[];
-        connection.query('select * from client where client_id = ?',[req.user.client_id], function (err, rows) {
-            if (err) {
-                console.log(err);
-            } else {
-                if (rows.length) {
-                    for (var i = 0, len = rows.length; i < len; i++) {  //query den gelen bütün parametreleri rows sınıfına ekliyoruz .
-                        row[i] = rows[i];  
-                    }  
-                }
-                console.log(row);
-            }
-            connection.query('insert into post(text,client_id,likes) values("'+req.body.gonderi_icerik+'","'+req.user.client_id+'",0)');
-            connection.query('select * from client inner join post on client.client_id = post.client_id',function(err,rows2){
-                if(err){
-                    console.log(err);
-                }else{
-                    res.json(rows2);
-                }
-                
-            })
-        });
-  });
-
-
-    app.post('/api/comments/:postID',isLoggedIn,function(req,res){
-        var postID = req.params.postID;
-        var comment = req.body.commenttext;
-        connection.query('insert into comment(text,client_id,post_id) values("'+comment+'","'+req.user.client_id+'","'+postID+'")')
-
-
-    });
-
-
-    app.get('/api/viewlikes/:postID',isLoggedIn,function(req,res){
-        var postID = req.params.postID;
-        var row = [];
-      connection.query('select likes from post where post_id=?',[postID], function (err, rows) {
-            if (err) {
-                console.log(err);
-            } else {
-                if (rows.length) {
-                    for (var i = 0, len = rows.length; i < len; i++) {  //query den gelen bütün parametreleri rows sınıfına ekliyoruz .
-                        row[i] = rows[i];
-                    }  
-                }
-                console.log(row);
-                
-            }
-            res.json(rows);
-            
-        });
-    });
-
-    app.get('/api/like/:postID',isLoggedIn,function(req,res){
-        console.log("like post");
-        var postID = req.params.postID;
-        connection.query("update post set likes=likes+1 where post_id='"+postID+"'")
-      
-    });
-
-
-    app.get('/error',function(req,res){
-        res.render("error.ejs");
     });
 
     app.get('/login', function(req, res) {

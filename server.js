@@ -25,10 +25,6 @@ server.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var j = schedule.scheduleJob('42 * * * *', function(){
-  console.log('The answer to life and love, the universe, and everything!');
-});
-
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({
     extended: true
