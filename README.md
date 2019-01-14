@@ -1,6 +1,6 @@
 <h1>Live Startup Series</h1>
 
-<a href="http://koalacms.herokuapp.com" target="_blank">Live Site Available Here</a>
+<a href="https://koalacms.herokuapp.com" target="_blank">Live Site Available Here</a>
 
 Dear friends,
 
