@@ -7,7 +7,7 @@
     "test": "mocha --reporter spec"
   },
   "dependencies": {
-    "angular-ui-router": "^0.4.3",
+    "angular-ui-router": "^1.0.4",
     "bcrypt-nodejs": "*",
     "body-parser": "*",
     "connect-flash": "*",
